@@ -418,9 +418,12 @@ urgency is an integer 1-5 (5 = act this week).`;
 
   try {
     // Gemini 2.5 Flash — free tier, with Google Search grounding
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
-    const res = await fetch(url, {
+    // Retry up to 3 times with backoff on rate limit
+    let res, attempt = 0;
+    while (attempt < 3) {
+      res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -431,7 +434,14 @@ urgency is an integer 1-5 (5 = act this week).`;
           maxOutputTokens: 4096
         }
       })
-    });
+      });
+      if (res.status !== 429) break;
+      attempt++;
+      if (attempt < 3) {
+        document.getElementById('status-text').textContent = `Rate limit hit — retrying in ${attempt * 15}s... (attempt ${attempt}/3)`;
+        await new Promise(r => setTimeout(r, attempt * 15000));
+      }
+    }
 
     clearInterval(ticker);
 
@@ -440,7 +450,7 @@ urgency is an integer 1-5 (5 = act this week).`;
       const msg = err?.error?.message || `HTTP ${res.status}`;
       if (res.status === 400) throw new Error('Bad request — your key may be invalid or the model name changed. ' + msg);
       if (res.status === 403) throw new Error('API key rejected. Make sure you copied the full key from AI Studio. ' + msg);
-      if (res.status === 429) throw new Error('Rate limit hit — wait a minute and try again. Free tier allows ~15 requests/minute.');
+      if (res.status === 429) throw new Error('Rate limit hit after 3 retries. Please wait 2 minutes and try again. Free tier allows 10 requests/minute.');
       throw new Error(msg);
     }
 
