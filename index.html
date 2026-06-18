@@ -418,7 +418,7 @@ urgency is an integer 1-5 (5 = act this week).`;
 
   try {
     // Gemini 2.5 Flash — free tier, with Google Search grounding
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     const res = await fetch(url, {
       method: 'POST',
@@ -428,8 +428,7 @@ urgency is an integer 1-5 (5 = act this week).`;
         tools: [{ google_search: {} }],
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 4096,
-          responseMimeType: 'application/json'
+          maxOutputTokens: 4096
         }
       })
     });
