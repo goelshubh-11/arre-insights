@@ -13,13 +13,15 @@
     --text: #f0ede8; --text2: #9a9490; --text3: #5a5754;
     --accent: #e8572a; --accent-dim: #3d1a0f; --accent-text: #f4b49c;
     --green: #2dba7e; --green-dim: #0d2e1e; --green-text: #7ee8b8;
-    --amber: #f0a500; --blue: #3d9be8; --blue-dim: #0e2340; --blue-text: #93c8f5;
+    --amber: #f0a500; --amber-dim: #2e2000; --amber-text: #ffd680;
+    --blue: #3d9be8; --blue-dim: #0e2340; --blue-text: #93c8f5;
     --purple: #9b6dff; --purple-dim: #211440; --purple-text: #c9b0ff;
     --radius: 10px; --radius-sm: 6px;
   }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
-  .shell { max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
+  .shell { max-width: 800px; margin: 0 auto; padding: 0 20px 80px; }
 
+  /* Header */
   .header { padding: 36px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
   .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
   .logo-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -28,23 +30,25 @@
   .brand span { color: var(--text2); font-weight: 400; }
   .header-sub { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; padding-left: 46px; }
 
-  /* Key card */
+  /* API Key Card */
   .key-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; }
-  .key-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .key-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
   .key-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 7px; }
-  .free-badge { background: var(--green-dim); color: var(--green-text); border: 1px solid var(--green); font-size: 10px; padding: 2px 8px; border-radius: 20px; font-family: 'DM Mono', monospace; }
+  .badge-row { display: flex; gap: 6px; }
+  .badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-family: 'DM Mono', monospace; }
+  .badge.free { background: var(--green-dim); color: var(--green-text); border: 1px solid var(--green); }
+  .badge.model { background: var(--blue-dim); color: var(--blue-text); border: 1px solid var(--blue); }
   .key-row { display: flex; gap: 8px; margin-bottom: 7px; }
-  .key-input { flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 8px 12px; border-radius: var(--radius-sm); }
+  .key-input { flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 8px 12px; border-radius: var(--radius-sm); min-width: 0; }
   .key-input:focus { outline: none; border-color: var(--accent); }
   .key-input::placeholder { color: var(--text3); font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0; }
   .key-status { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); min-height: 15px; }
   .key-status.ok { color: var(--green); }
   .key-status.err { color: #f08080; }
-  .key-hint { font-size: 12px; color: var(--text3); margin-top: 8px; line-height: 1.5; }
-  .key-hint a { color: var(--accent-text); text-decoration: none; }
-  .key-hint a:hover { text-decoration: underline; }
-  .key-steps { font-size: 12px; color: var(--text3); margin-top: 8px; line-height: 1.8; font-family: 'DM Mono', monospace; }
-  .key-steps span { color: var(--text2); }
+  .key-steps { font-size: 12px; color: var(--text3); margin-top: 8px; line-height: 1.8; }
+  .key-steps a { color: var(--accent-text); text-decoration: none; }
+  .key-steps a:hover { text-decoration: underline; }
+
 
   /* Config */
   .config { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
@@ -79,10 +83,12 @@
   .status-bar { display: none; align-items: center; gap: 10px; padding: 11px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; }
   .status-bar.visible { display: flex; }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; flex-shrink: 0; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
 
   .error-box { background: #1a0a0a; border: 1px solid #5a1a1a; border-radius: var(--radius-sm); padding: 14px 16px; font-size: 13px; color: #f08080; margin-bottom: 16px; display: none; line-height: 1.6; }
   .error-box.visible { display: block; }
+  .retry-hint { margin-top: 8px; font-size: 12px; color: var(--text3); }
+  .retry-hint strong { color: var(--amber-text); }
 
   /* Report */
   .report { display: none; }
@@ -127,7 +133,7 @@
   .gmail-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
   .gmail-body { padding: 14px 20px; display: flex; flex-direction: column; gap: 9px; }
   .gmail-row { display: flex; gap: 9px; }
-  .gmail-input { flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border-radius: var(--radius-sm); }
+  .gmail-input { flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border-radius: var(--radius-sm); min-width: 0; }
   .gmail-input:focus { outline: none; border-color: var(--green); }
   .gmail-input::placeholder { color: var(--text3); }
   .gmail-hint { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
@@ -159,27 +165,32 @@
     <div class="key-top">
       <div class="key-label">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Google Gemini API key
+        Google Gemini API Key
       </div>
-      <span class="free-badge">FREE</span>
+      <div class="badge-row">
+        <span class="badge free">FREE</span>
+        <span class="badge model">gemini-2.5-flash-lite</span>
+      </div>
     </div>
     <div class="key-row">
-      <input class="key-input" type="password" id="api-key-input" placeholder="AIza..." autocomplete="off" spellcheck="false">
+      <input class="key-input" type="password" id="api-key-input" placeholder="AQ... or AIza..." autocomplete="off" spellcheck="false">
       <button class="btn-ghost" onclick="saveKey()">Save</button>
       <button class="btn-ghost" onclick="clearKey()">Clear</button>
     </div>
     <div class="key-status" id="key-status"></div>
     <div class="key-steps">
-      <span>1.</span> Go to <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#f4b49c;text-decoration:none">aistudio.google.com/apikey</a> &nbsp;
-      <span>2.</span> Click "Create API key" &nbsp;
-      <span>3.</span> Copy and paste it above &nbsp;
-      <span>4.</span> Click Save — done. No credit card needed.
+      1. Go to <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &nbsp;·&nbsp;
+      2. Click <strong style="color:var(--text2)">"Create API key"</strong> &nbsp;·&nbsp;
+      3. Click <strong style="color:var(--text2)">"Copy key"</strong> in the popup &nbsp;·&nbsp;
+      4. Paste above and click Save
     </div>
+
   </div>
 
   <!-- Config -->
   <div class="config">
     <div class="config-grid">
+
       <div class="config-field full">
         <div class="field-label">Research focus</div>
         <div class="chip-row" id="focus-chips">
@@ -190,15 +201,29 @@
           <div class="chip" data-val="Competitor reactions">Competitor reactions</div>
         </div>
       </div>
+
       <div class="config-field">
         <div class="field-label">Audience segment</div>
         <select id="segment">
-          <option value="Indian women audio creators and storytellers">Women audio creators, India</option>
-          <option value="Hindi content creators and short-form audio listeners in India">Hindi content creators</option>
-          <option value="Gen Z social media users in India interested in voice and audio">Gen Z audio users, India</option>
-          <option value="Indian women interested in self-expression, culture and community">Women — culture & community</option>
+          <optgroup label="— Women Creators —">
+            <option value="Indian women audio creators and storytellers on short-form social apps">Women audio creators, India (all)</option>
+            <option value="Tamil women audio creators and storytellers in Tamil Nadu and globally — highly active on platforms like YouTube, Instagram Reels, and emerging audio apps">Tamil women creators (Tamil Nadu + global)</option>
+            <option value="Hindi-speaking women content creators and audio storytellers in North India">Hindi women creators, North India</option>
+            <option value="Indian women interested in self-expression, culture and community on social audio apps">Women — culture & community</option>
+          </optgroup>
+          <optgroup label="— Tamil Audience —">
+            <option value="Tamil content creators on YouTube, Instagram and short-form audio apps — both Tamil Nadu and Sri Lankan Tamil diaspora">Tamil creators — YouTube & social</option>
+            <option value="Tamil-speaking Gen Z users interested in voice content, memes, music and cultural storytelling">Tamil Gen Z audio users</option>
+            <option value="Tamil podcast listeners and audio content consumers — urban Tamil Nadu">Tamil podcast & audio listeners</option>
+          </optgroup>
+          <optgroup label="— Broader Segments —">
+            <option value="Gen Z social media users in India interested in voice, audio and short-form content">Gen Z audio users, India (all)</option>
+            <option value="Hindi content creators and short-form audio listeners in India">Hindi content creators</option>
+            <option value="South Indian content creators across Tamil, Telugu, Kannada and Malayalam audio platforms">South Indian creators (all languages)</option>
+          </optgroup>
         </select>
       </div>
+
       <div class="config-field">
         <div class="field-label">Time window</div>
         <select id="timewin">
@@ -208,10 +233,12 @@
           <option value="last week">Last week</option>
         </select>
       </div>
+
       <div class="config-field full">
         <div class="field-label">Custom context (optional)</div>
-        <textarea id="custom-ctx" placeholder="e.g. We just launched voiceclubs. What are creators saying about group audio formats?"></textarea>
+        <textarea id="custom-ctx" placeholder="e.g. We just launched Tamil voiceclubs. What are Tamil creators saying about group audio formats? Any specific competitor moves we should know about?"></textarea>
       </div>
+
     </div>
     <div class="run-row">
       <button class="btn-run" id="run-btn" onclick="runResearch()">
@@ -223,9 +250,13 @@
 
   <div class="status-bar" id="status-bar">
     <div class="status-dot"></div>
-    <span id="status-text">Searching Reddit, Twitter/X, YouTube and app reviews...</span>
+    <span id="status-text">Starting research...</span>
   </div>
-  <div class="error-box" id="error-box"></div>
+
+  <div class="error-box" id="error-box">
+    <span id="error-msg"></span>
+    <div class="retry-hint" id="retry-hint"></div>
+  </div>
 
   <!-- Report -->
   <div class="report" id="report">
@@ -266,13 +297,14 @@
             Open in Gmail
           </button>
         </div>
-        <div class="gmail-hint">Prepares a full formatted Gmail draft. You review and send.</div>
+        <div class="gmail-hint">Prepares a full formatted Gmail draft ready to review and send.</div>
       </div>
     </div>
   </div>
 
 </div>
 <script>
+// ── Theme colours ────────────────────────────────────────────
 const THEME_COLORS = {
   'Creator pain points':  { tag:'#e8572a', bg:'#3d1a0f', text:'#f4b49c' },
   'Audio content trends': { tag:'#2dba7e', bg:'#0d2e1e', text:'#7ee8b8' },
@@ -282,15 +314,16 @@ const THEME_COLORS = {
 };
 const SOURCES = ['Reddit','Twitter/X','YouTube','Play Store','Google Search'];
 const STATUS_MSGS = [
-  'Searching Reddit (r/india, r/TwoXIndia, r/podcasting)...',
-  'Reading Twitter/X conversations in India...',
-  'Scanning YouTube comments on audio creator content...',
-  'Checking Play Store reviews for Kuku FM, Josh, Moj...',
+  'Searching Reddit (r/india, r/TwoXIndia, r/Tamil, r/kollywood)...',
+  'Reading Twitter/X — India & Tamil conversations...',
+  'Scanning YouTube comments on Tamil and audio creator content...',
+  'Checking Play Store reviews for Kuku FM, Josh, Moj, Sun NXT...',
   'Clustering findings into themes...',
   'Building your product insights brief...'
 ];
 let lastReport = null;
 
+// ── Init ─────────────────────────────────────────────────────
 document.getElementById('live-date').textContent =
   new Date().toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
@@ -298,48 +331,45 @@ document.querySelectorAll('#focus-chips .chip').forEach(c =>
   c.addEventListener('click', () => c.classList.toggle('on'))
 );
 
-// Restore saved key
-(function() {
+(function restoreKey() {
   const k = localStorage.getItem('av_gemini_key');
   if (k) setKeyStatus('ok', '✓ Key saved (' + k.slice(0,10) + '••••) — ready to go');
 })();
 
+// ── Key management ───────────────────────────────────────────
 function setKeyStatus(type, msg) {
   const el = document.getElementById('key-status');
   el.textContent = msg;
   el.className = 'key-status' + (type === 'ok' ? ' ok' : type === 'err' ? ' err' : '');
 }
-
 function saveKey() {
   const val = document.getElementById('api-key-input').value.trim();
-  if (!val) { setKeyStatus('err', 'Please paste your Gemini API key first.'); return; }
-  if (!val.startsWith('AIza') && !val.startsWith('AQ.')) { setKeyStatus('err', 'Key format not recognised — make sure you clicked Copy key in the popup.'); return; }
+  if (!val) { setKeyStatus('err', 'Please paste your key first.'); return; }
+  if (!val.startsWith('AIza') && !val.startsWith('AQ.')) {
+    setKeyStatus('err', 'Key should start with AIza or AQ. — copy from the popup in AI Studio.');
+    return;
+  }
   localStorage.setItem('av_gemini_key', val);
   document.getElementById('api-key-input').value = '';
   setKeyStatus('ok', '✓ Key saved (' + val.slice(0,10) + '••••) — ready to go');
 }
-
 function clearKey() {
   localStorage.removeItem('av_gemini_key');
   document.getElementById('api-key-input').value = '';
   setKeyStatus('', 'Key cleared.');
 }
 
+// ── Helpers ──────────────────────────────────────────────────
 function getSelected(id) {
   return [...document.querySelectorAll(`#${id} .chip.on`)].map(c => c.dataset.val);
 }
-
-function showError(msg) {
-  const eb = document.getElementById('error-box');
-  eb.innerHTML = msg;
-  eb.classList.add('visible');
+function showError(msg, hint) {
+  document.getElementById('error-msg').innerHTML = msg;
+  document.getElementById('retry-hint').innerHTML = hint || '';
+  document.getElementById('error-box').classList.add('visible');
   document.getElementById('status-bar').classList.remove('visible');
 }
-
-function hideError() {
-  document.getElementById('error-box').classList.remove('visible');
-}
-
+function hideError() { document.getElementById('error-box').classList.remove('visible'); }
 function setRunBtn(loading) {
   const btn = document.getElementById('run-btn');
   btn.disabled = loading;
@@ -348,19 +378,27 @@ function setRunBtn(loading) {
     : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> Research my audience now';
 }
 
+// ── Sleep helper ─────────────────────────────────────────────
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// ── Main ─────────────────────────────────────────────────────
 async function runResearch() {
   const focuses = getSelected('focus-chips');
   if (!focuses.length) { alert('Select at least one research focus.'); return; }
 
   const apiKey = localStorage.getItem('av_gemini_key');
   if (!apiKey) {
-    showError('No API key found. Paste your free Gemini API key above and click <b>Save</b>.<br>Get one at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#f4b49c">aistudio.google.com/apikey</a> — no credit card needed.');
+    showError(
+      'No API key found. Paste your Gemini key above and click <b>Save</b>.',
+      'Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#f4b49c">aistudio.google.com/apikey</a> — no credit card needed.'
+    );
     return;
   }
 
-  const segment = document.getElementById('segment').value;
-  const timewin = document.getElementById('timewin').value;
-  const custom  = document.getElementById('custom-ctx').value.trim();
+  const segment  = document.getElementById('segment').value;
+  const timewin  = document.getElementById('timewin').value;
+  const custom   = document.getElementById('custom-ctx').value.trim();
+  const isTamil  = segment.toLowerCase().includes('tamil');
 
   setRunBtn(true);
   hideError();
@@ -374,6 +412,15 @@ async function runResearch() {
     document.getElementById('status-text').textContent = STATUS_MSGS[si];
   }, 2800);
 
+  const tamilContext = isTamil ? `
+TAMIL-SPECIFIC SOURCES TO PRIORITISE:
+- Reddit: r/tamil, r/kollywood, r/tamilnadu, r/TamilMuslims
+- Twitter/X: Tamil Twitter (very active — search in Tamil and transliterated Tamil)
+- YouTube: Tamil creator community comments, Sun TV YouTube, Tamil podcast channels
+- Play Store reviews: Sun NXT, Kuku FM Tamil section, Spotify Tamil playlists
+- Platforms: ShareChat Tamil, Moj Tamil section, Josh Tamil
+- Also check: discussions around Tamil music, Kollywood, Tamil memes culture` : '';
+
   const prompt = `You are a senior product researcher at Arré Voice — India's women-first short-form audio social app (30-second voice pods, voiceclubs, voicepools).
 
 Use Google Search to find what people are actually discussing RIGHT NOW and produce a precise, actionable audience research report.
@@ -382,14 +429,15 @@ PARAMETERS:
 - Focus areas: ${focuses.join(', ')}
 - Audience: ${segment}
 - Time window: ${timewin}
-- Search platforms: Reddit (r/india, r/TwoXIndia, r/podcasting, r/IndiaSocial), Twitter/X India, YouTube comments on Indian audio/creator content, Google Play Store reviews for Kuku FM, Spotify India, Josh, Moj${custom ? '\n- Team context: ' + custom : ''}
+- General platforms: Reddit (r/india, r/TwoXIndia, r/podcasting, r/IndiaSocial), Twitter/X India, YouTube comments, Google Play Store reviews for Kuku FM, Spotify India, Josh, Moj
+${tamilContext}
+${custom ? '- Additional context from the product team: ' + custom : ''}
 
 CRITICAL OUTPUT RULES:
 - Return ONLY a raw JSON object
-- No markdown code fences
-- No explanation text before or after
-- Start your entire response with { and end with }
-- Do not use markdown formatting inside any string value
+- No markdown code fences, no backticks, no explanation
+- Start with { and end with }
+- No markdown inside any string value
 
 JSON shape:
 {
@@ -399,9 +447,9 @@ JSON shape:
       "headline": "one sharp sentence — the single most important finding",
       "signal_strength": "high|medium|low",
       "platforms_found": ["Reddit","Twitter/X"],
-      "why_now": "why this is surfacing in ${timewin} — max 2 sentences",
+      "why_now": "why surfacing in ${timewin} — max 2 sentences",
       "emotional_driver": "frustration|excitement|fear|curiosity|pride",
-      "real_example": "one specific real or representative post, comment or review",
+      "real_example": "one specific representative post, comment or review",
       "product_signal": "specific feature or fix Arre Voice should consider",
       "product_action": "immediate|next sprint|backlog",
       "urgency": 4
@@ -412,82 +460,93 @@ JSON shape:
   ]
 }
 
-Generate exactly ${focuses.length} theme(s) in this order: ${focuses.join(' → ')}.
+Generate exactly ${focuses.length} theme(s) in order: ${focuses.join(' → ')}.
 Generate exactly 10 items in top10.
-urgency is an integer 1-5 (5 = act this week).`;
+urgency = integer 1–5 (5 = act this week).
+Be specific — name real subreddits, real tweet patterns, real app review complaints.`;
+
+  // ── API call with retry ──────────────────────────────────
+  const MODEL = 'gemini-2.5-flash-lite';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+  let res, attempt = 0;
 
   try {
-    // Gemini 2.5 Flash — free tier, with Google Search grounding
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-    // Retry up to 3 times with backoff on rate limit
-    let res, attempt = 0;
-    while (attempt < 3) {
+    while (attempt < 4) {
       res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        tools: [{ google_search: {} }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 4096
-        }
-      })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          tools: [{ google_search: {} }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 4096 }
+        })
       });
-      if (res.status !== 429) break;
-      attempt++;
-      if (attempt < 3) {
-        document.getElementById('status-text').textContent = `Rate limit hit — retrying in ${attempt * 15}s... (attempt ${attempt}/3)`;
-        await new Promise(r => setTimeout(r, attempt * 15000));
+
+      if (res.status === 429 || res.status === 503) {
+        attempt++;
+        const wait = attempt * 20;
+        if (attempt < 4) {
+          document.getElementById('status-text').textContent =
+            `Rate limit — auto-retrying in ${wait}s (attempt ${attempt}/3)...`;
+          await sleep(wait * 1000);
+          continue;
+        }
       }
+      break;
     }
 
     clearInterval(ticker);
+    document.getElementById('status-bar').classList.remove('visible');
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       const msg = err?.error?.message || `HTTP ${res.status}`;
-      if (res.status === 400) throw new Error('Bad request — your key may be invalid or the model name changed. ' + msg);
-      if (res.status === 403) throw new Error('API key rejected. Make sure you copied the full key from AI Studio. ' + msg);
-      if (res.status === 429) throw new Error('Rate limit hit after 3 retries. Please wait 2 minutes and try again. Free tier allows 10 requests/minute.');
-      throw new Error(msg);
+      if (res.status === 429 || res.status === 503) {
+        showError(
+          'Rate limit hit after 3 retries.',
+          '<strong>Fix:</strong> Wait 2–3 minutes and try again. Best time to run: early morning IST (7–9 AM). To eliminate this permanently, enable billing at <a href="https://console.cloud.google.com/billing" target="_blank" style="color:#f4b49c">Google Cloud Console</a> — costs ~₹1–2 per report.'
+        );
+      } else if (res.status === 400) {
+        showError('Bad request — ' + msg, 'Try clearing your key and re-pasting it.');
+      } else if (res.status === 403) {
+        showError('API key rejected. Make sure you copied the full key using the "Copy key" button in AI Studio.', '');
+      } else {
+        showError('Error: ' + msg, '');
+      }
+      setRunBtn(false);
+      return;
     }
 
     const data = await res.json();
-
-    // Extract text from Gemini response structure
-    const parts = data?.candidates?.[0]?.content?.parts || [];
+    const parts = (data?.candidates?.[0]?.content?.parts || []);
     const allText = parts.filter(p => p.text).map(p => p.text).join('');
 
     if (!allText) throw new Error('Empty response from Gemini. Please try again.');
 
-    // Robustly find JSON object
     const start = allText.indexOf('{');
     const end   = allText.lastIndexOf('}');
-    if (start === -1 || end === -1 || end <= start) {
-      throw new Error('Could not extract JSON from response. Raw: ' + allText.slice(0, 200));
-    }
+    if (start === -1 || end === -1) throw new Error('No JSON found in response. Please try again.');
 
     const json = JSON.parse(allText.slice(start, end + 1));
-    if (!json.themes || !json.top10) throw new Error('Response missing required fields (themes or top10).');
+    if (!json.themes || !json.top10) throw new Error('Response missing required fields.');
 
     lastReport = { json, segment, timewin };
     renderReport(json, segment, timewin);
 
   } catch (err) {
     clearInterval(ticker);
-    showError('Error: ' + (err.message || 'Unknown error. Please try again.'));
+    showError('Error: ' + (err.message || 'Unknown error.'), 'Please try again.');
   }
 
   setRunBtn(false);
 }
 
+// ── Render ───────────────────────────────────────────────────
 function renderReport(json, segment, timewin) {
   document.getElementById('status-bar').classList.remove('visible');
   const now = new Date();
   document.getElementById('r-time').textContent = now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
-  document.getElementById('r-seg').textContent  = segment.split(' ').slice(0,4).join(' ');
+  document.getElementById('r-seg').textContent  = segment.split(' ').slice(0,5).join(' ');
   document.getElementById('r-win').textContent  = timewin;
   document.getElementById('top10-win').textContent = timewin;
 
@@ -499,9 +558,8 @@ function renderReport(json, segment, timewin) {
   json.themes.forEach(t => {
     const c = THEME_COLORS[t.theme] || THEME_COLORS['Creator pain points'];
     const pips = [1,2,3,4,5].map(i =>
-      `<div class="urgency-pip${i <= (t.urgency||0) ? ' lit' : ''}"></div>`).join('');
-    const actionColor = { immediate:'#e8572a', 'next sprint':'#f0a500', backlog:'#5a5754' }[t.product_action] || '#5a5754';
-
+      `<div class="urgency-pip${i<=(t.urgency||0)?' lit':''}"></div>`).join('');
+    const actionColor = {immediate:'#e8572a','next sprint':'#f0a500',backlog:'#5a5754'}[t.product_action]||'#5a5754';
     tc.innerHTML += `
     <div class="theme-card">
       <div class="theme-card-inner">
@@ -512,37 +570,25 @@ function renderReport(json, segment, timewin) {
         <div class="theme-headline">${t.headline||'—'}</div>
         <div class="theme-why">${t.why_now||'—'}</div>
         <div class="theme-grid">
-          <div class="theme-meta-block">
-            <div class="meta-key">Emotional driver</div>
-            <div class="meta-val">${t.emotional_driver||'—'}</div>
-          </div>
-          <div class="theme-meta-block">
-            <div class="meta-key">Signal strength</div>
-            <div class="meta-val">${t.signal_strength||'—'}</div>
-          </div>
-          <div class="theme-meta-block">
-            <div class="meta-key">Product signal</div>
-            <div class="meta-val">${t.product_signal||'—'}</div>
-          </div>
-          <div class="theme-meta-block">
-            <div class="meta-key">Action timing</div>
-            <div class="meta-val" style="color:${actionColor}">${t.product_action||'—'}</div>
-          </div>
+          <div class="theme-meta-block"><div class="meta-key">Emotional driver</div><div class="meta-val">${t.emotional_driver||'—'}</div></div>
+          <div class="theme-meta-block"><div class="meta-key">Signal strength</div><div class="meta-val">${t.signal_strength||'—'}</div></div>
+          <div class="theme-meta-block"><div class="meta-key">Product signal</div><div class="meta-val">${t.product_signal||'—'}</div></div>
+          <div class="theme-meta-block"><div class="meta-key">Action timing</div><div class="meta-val" style="color:${actionColor}">${t.product_action||'—'}</div></div>
         </div>
-        ${t.real_example ? `<div class="theme-example" style="border-left:2px solid ${c.tag}">"${t.real_example}"</div>` : ''}
+        ${t.real_example?`<div class="theme-example" style="border-left:2px solid ${c.tag}">"${t.real_example}"</div>`:''}
       </div>
       <div class="theme-card-footer">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        Found on: ${(t.platforms_found||[]).join(' · ') || 'multiple platforms'}
+        Found on: ${(t.platforms_found||[]).join(' · ')||'multiple platforms'}
       </div>
     </div>`;
   });
 
   const tl = document.getElementById('top10-list');
   tl.innerHTML = '';
-  const heatColor = { rising:'#2dba7e', steady:'#9a9490', declining:'#5a5754' };
-  (json.top10||[]).forEach((item, i) => {
-    const heat = item.heat || 'steady';
+  const heatColor = {rising:'#2dba7e',steady:'#9a9490',declining:'#5a5754'};
+  (json.top10||[]).forEach((item,i) => {
+    const heat = item.heat||'steady';
     tl.innerHTML += `
     <div class="top10-item">
       <span class="top10-n">${String(i+1).padStart(2,'0')}</span>
@@ -554,28 +600,27 @@ function renderReport(json, segment, timewin) {
   document.getElementById('report').classList.add('visible');
 }
 
+// ── Export ───────────────────────────────────────────────────
 function buildText() {
   if (!lastReport) return '';
   const { json, segment, timewin } = lastReport;
   let t = `ARRE VOICE - DAILY AUDIENCE INSIGHTS\n`;
-  t += `Generated: ${new Date().toLocaleString('en-IN')} | ${segment} | ${timewin}\n${'─'.repeat(58)}\n\n`;
-  json.themes.forEach((th, i) => {
+  t += `Generated: ${new Date().toLocaleString('en-IN')} | ${segment} | ${timewin}\n${'─'.repeat(60)}\n\n`;
+  json.themes.forEach((th,i) => {
     t += `THEME ${i+1}: ${(th.theme||'').toUpperCase()} [Urgency: ${th.urgency}/5]\n`;
-    t += `${th.headline}\n\n`;
-    t += `Why now: ${th.why_now}\n`;
+    t += `${th.headline}\n\nWhy now: ${th.why_now}\n`;
     t += `Emotional driver: ${th.emotional_driver} | Signal: ${th.signal_strength}\n`;
     t += `Found on: ${(th.platforms_found||[]).join(', ')}\n\n`;
     t += `Product signal: ${th.product_signal}\nAction timing: ${th.product_action}\n`;
     if (th.real_example) t += `\nExample: "${th.real_example}"\n`;
-    t += `\n${'─'.repeat(58)}\n\n`;
+    t += `\n${'─'.repeat(60)}\n\n`;
   });
   t += `TOP 10 TOPICS (${timewin})\n\n`;
-  (json.top10||[]).forEach((item, i) => {
+  (json.top10||[]).forEach((item,i) => {
     t += `${String(i+1).padStart(2,'0')}. ${item.topic} [${item.heat||'steady'}]\n`;
   });
   return t;
 }
-
 function copyReport() {
   const text = buildText();
   if (!text) return;
@@ -586,7 +631,6 @@ function copyReport() {
     setTimeout(() => btn.innerHTML = orig, 2000);
   });
 }
-
 function openGmail() {
   if (!lastReport) { alert('Generate a report first.'); return; }
   const to   = document.getElementById('gmail-to').value.trim();
