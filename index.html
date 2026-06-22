@@ -211,8 +211,16 @@
             <option value="Hindi-speaking women content creators and audio storytellers in North India">Hindi women creators, North India</option>
             <option value="Indian women interested in self-expression, culture and community on social audio apps">Women — culture & community</option>
           </optgroup>
-          <optgroup label="— Tamil Audience —">
-            <option value="Tamil content creators on YouTube, Instagram and short-form audio apps — both Tamil Nadu and Sri Lankan Tamil diaspora">Tamil creators — YouTube & social</option>
+          <optgroup label="— Tamil Creators (Specific) —">
+            <option value="Tamil poets and Kavithai creators who share original Tamil poetry on social media, YouTube and short-form audio platforms — urban and diaspora Tamil audience">Tamil Poets — Kavithai creators</option>
+            <option value="Tamil RJs and radio jockeys from Tamil Nadu who are active on social media, podcasts and short-form audio — audience includes fans of Sun FM, Hello FM, Radio Mirchi Tamil">Tamil RJs — radio & audio hosts</option>
+            <option value="Tamil voice over artists who dub for films, ads and YouTube content — active community on Instagram and YouTube discussing craft, opportunities and tools">Tamil Voice Over artists</option>
+            <option value="Tamil stand-up comedians and open mic performers — active on YouTube, Instagram Reels and live events in Chennai, Coimbatore, Bangalore Tamil circuit">Tamil Stand-up Comedians</option>
+            <option value="Tamil singers — independent and playback — who share music, covers and behind-the-scenes content on YouTube, Instagram and emerging audio platforms">Tamil Singers — independent & playback</option>
+            <option value="Tamil mimicry artists and impressionists who perform celebrity impersonations and comedy — viral on YouTube Shorts, Instagram Reels and Kollywood adjacent communities">Tamil Mimicry Artists</option>
+          </optgroup>
+          <optgroup label="— Tamil Audience (Broad) —">
+            <option value="Tamil content creators on YouTube, Instagram and short-form audio apps — both Tamil Nadu and Sri Lankan Tamil diaspora">Tamil creators — YouTube & social (all)</option>
             <option value="Tamil-speaking Gen Z users interested in voice content, memes, music and cultural storytelling">Tamil Gen Z audio users</option>
             <option value="Tamil podcast listeners and audio content consumers — urban Tamil Nadu">Tamil podcast & audio listeners</option>
           </optgroup>
@@ -398,7 +406,7 @@ async function runResearch() {
   const segment  = document.getElementById('segment').value;
   const timewin  = document.getElementById('timewin').value;
   const custom   = document.getElementById('custom-ctx').value.trim();
-  const isTamil  = segment.toLowerCase().includes('tamil');
+  const isTamil  = segmentLower.includes('tamil');
 
   setRunBtn(true);
   hideError();
@@ -412,14 +420,59 @@ async function runResearch() {
     document.getElementById('status-text').textContent = STATUS_MSGS[si];
   }, 2800);
 
-  const tamilContext = isTamil ? `
-TAMIL-SPECIFIC SOURCES TO PRIORITISE:
-- Reddit: r/tamil, r/kollywood, r/tamilnadu, r/TamilMuslims
-- Twitter/X: Tamil Twitter (very active — search in Tamil and transliterated Tamil)
-- YouTube: Tamil creator community comments, Sun TV YouTube, Tamil podcast channels
-- Play Store reviews: Sun NXT, Kuku FM Tamil section, Spotify Tamil playlists
-- Platforms: ShareChat Tamil, Moj Tamil section, Josh Tamil
-- Also check: discussions around Tamil music, Kollywood, Tamil memes culture` : '';
+  const segmentLower = segment.toLowerCase();
+  const isTamilPoet     = segmentLower.includes('poet') || segmentLower.includes('kavithai');
+  const isTamilRJ       = segmentLower.includes('rj') || segmentLower.includes('radio');
+  const isTamilVO       = segmentLower.includes('voice over');
+  const isTamilComedian = segmentLower.includes('stand-up') || segmentLower.includes('comedian');
+  const isTamilSinger   = segmentLower.includes('singer');
+  const isTamilMimicry  = segmentLower.includes('mimicry');
+
+  const tamilContext = isTamil ? [
+    `TAMIL-SPECIFIC SOURCES TO PRIORITISE:`,
+    `- Reddit: r/tamil, r/kollywood, r/tamilnadu`,
+    `- Twitter/X: Tamil Twitter (search in Tamil and transliterated Tamil)`,
+    `- YouTube: Tamil creator community, Sun TV, Tamil podcast channels`,
+    `- Play Store: Sun NXT, Kuku FM Tamil, Spotify Tamil playlists`,
+    `- Platforms: ShareChat Tamil, Moj Tamil, Josh Tamil`,
+    `- Also check: Kollywood discussions, Tamil memes, Tamil music culture`,
+    isTamilPoet ? [
+      `KAVITHAI / POET FOCUS:`,
+      `- Search #kavithai #tamilkavithai on Instagram and YouTube Tamil poetry channels`,
+      `- Communities: original Tamil poetry, Sufi Tamil, modern Kavithai, poetry recitation`,
+      `- Pain points: no dedicated audio platform for Tamil poetry, poor discovery tools`
+    ].join('\n') : '',
+    isTamilRJ ? [
+      `TAMIL RJ FOCUS:`,
+      `- Search: Hello FM, Sun FM, Radio Mirchi Tamil RJs on Instagram and Twitter/X`,
+      `- Communities: RJ fan pages, radio show discussions, podcast crossovers`,
+      `- Pain points: extending reach beyond radio, building personal digital audience`
+    ].join('\n') : '',
+    isTamilVO ? [
+      `VOICE OVER ARTIST FOCUS:`,
+      `- Search: Tamil dubbing artist communities on Facebook groups, YouTube`,
+      `- Reddit: r/VoiceActing for general VO pain points`,
+      `- Pain points: finding work, showcasing demos, no dedicated audio portfolio platform`
+    ].join('\n') : '',
+    isTamilComedian ? [
+      `TAMIL STAND-UP FOCUS:`,
+      `- Search: Tamil stand-up YouTube channels, Instagram Reels, Chennai open mic scene`,
+      `- Communities: fans of Tamil comedy channels, Black Sheep Tamil, open mic circuits`,
+      `- Pain points: discoverability beyond YouTube, monetisation, building audio audience`
+    ].join('\n') : '',
+    isTamilSinger ? [
+      `TAMIL SINGER FOCUS:`,
+      `- Search: independent Tamil singers on Instagram, YouTube covers Tamil, Tamil indie music`,
+      `- Communities: Carnatic crossover, independent Tamil pop, playback aspirants`,
+      `- Pain points: demo sharing, reaching labels, building fan community, short audio fit`
+    ].join('\n') : '',
+    isTamilMimicry ? [
+      `TAMIL MIMICRY FOCUS:`,
+      `- Search: Tamil mimicry on YouTube Shorts, Instagram Reels, Vijay TV fan discussions`,
+      `- Communities: celebrity voice impressions, Kalakka Povathu Yaaru fans`,
+      `- Pain points: platform support for short audio comedy, discoverability, monetisation`
+    ].join('\n') : '',
+  ].filter(Boolean).join('\n') : '';
 
   const prompt = `You are a senior product researcher at Arré Voice — India's women-first short-form audio social app (30-second voice pods, voiceclubs, voicepools).
 
