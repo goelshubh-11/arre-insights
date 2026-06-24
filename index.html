@@ -403,10 +403,17 @@ async function runResearch() {
     return;
   }
 
-  const segment  = document.getElementById('segment').value;
-  const timewin  = document.getElementById('timewin').value;
-  const custom   = document.getElementById('custom-ctx').value.trim();
-  const isTamil  = segmentLower.includes('tamil');
+  const segment     = document.getElementById('segment').value;
+  const timewin     = document.getElementById('timewin').value;
+  const custom      = document.getElementById('custom-ctx').value.trim();
+  const segmentLower    = segment.toLowerCase();
+  const isTamil         = segmentLower.includes('tamil');
+  const isTamilPoet     = segmentLower.includes('poet')     || segmentLower.includes('kavithai');
+  const isTamilRJ       = segmentLower.includes('rj')       || segmentLower.includes('radio');
+  const isTamilVO       = segmentLower.includes('voice over');
+  const isTamilComedian = segmentLower.includes('stand-up') || segmentLower.includes('comedian');
+  const isTamilSinger   = segmentLower.includes('singer');
+  const isTamilMimicry  = segmentLower.includes('mimicry');
 
   setRunBtn(true);
   hideError();
@@ -419,14 +426,6 @@ async function runResearch() {
     si = Math.min(si + 1, STATUS_MSGS.length - 1);
     document.getElementById('status-text').textContent = STATUS_MSGS[si];
   }, 2800);
-
-  const segmentLower = segment.toLowerCase();
-  const isTamilPoet     = segmentLower.includes('poet') || segmentLower.includes('kavithai');
-  const isTamilRJ       = segmentLower.includes('rj') || segmentLower.includes('radio');
-  const isTamilVO       = segmentLower.includes('voice over');
-  const isTamilComedian = segmentLower.includes('stand-up') || segmentLower.includes('comedian');
-  const isTamilSinger   = segmentLower.includes('singer');
-  const isTamilMimicry  = segmentLower.includes('mimicry');
 
   const tamilContext = isTamil ? [
     `TAMIL-SPECIFIC SOURCES TO PRIORITISE:`,
