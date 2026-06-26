@@ -20,8 +20,6 @@
   }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
   .shell { max-width: 800px; margin: 0 auto; padding: 0 20px 80px; }
-
-  /* Header */
   .header { padding: 36px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
   .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
   .logo-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -29,8 +27,6 @@
   .brand { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
   .brand span { color: var(--text2); font-weight: 400; }
   .header-sub { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; padding-left: 46px; }
-
-  /* API Key Card */
   .key-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; }
   .key-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
   .key-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 7px; }
@@ -48,9 +44,6 @@
   .key-steps { font-size: 12px; color: var(--text3); margin-top: 8px; line-height: 1.8; }
   .key-steps a { color: var(--accent-text); text-decoration: none; }
   .key-steps a:hover { text-decoration: underline; }
-
-
-  /* Config */
   .config { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
   .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .config-field { display: flex; flex-direction: column; gap: 7px; }
@@ -65,8 +58,6 @@
   textarea { background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px; border-radius: var(--radius-sm); width: 100%; resize: vertical; min-height: 64px; line-height: 1.5; }
   textarea:focus { outline: none; border-color: var(--accent); }
   textarea::placeholder { color: var(--text3); }
-
-  /* Buttons */
   .run-row { margin-top: 16px; }
   .btn-run { width: 100%; padding: 12px 24px; background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.15s; }
   .btn-run:hover { opacity: 0.88; }
@@ -76,31 +67,24 @@
   .btn-sm { padding: 7px 13px; font-size: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 6px; transition: all 0.15s; white-space: nowrap; }
   .btn-sm:hover { border-color: var(--text3); color: var(--text); }
   .btn-sm.green { border-color: var(--green); color: var(--green-text); background: var(--green-dim); }
-
   .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .status-bar { display: none; align-items: center; gap: 10px; padding: 11px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; }
   .status-bar.visible { display: flex; }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; flex-shrink: 0; }
   @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
-
   .error-box { background: #1a0a0a; border: 1px solid #5a1a1a; border-radius: var(--radius-sm); padding: 14px 16px; font-size: 13px; color: #f08080; margin-bottom: 16px; display: none; line-height: 1.6; }
   .error-box.visible { display: block; }
   .retry-hint { margin-top: 8px; font-size: 12px; color: var(--text3); }
   .retry-hint strong { color: var(--amber-text); }
-
-  /* Report */
   .report { display: none; }
   .report.visible { display: block; }
   .report-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
   .report-meta { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); }
   .report-meta span { color: var(--text2); }
   .report-actions { display: flex; gap: 8px; }
-
   .sources-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
   .source-pill { font-size: 11px; font-family: 'DM Mono', monospace; padding: 3px 9px; border-radius: 20px; border: 1px solid var(--border); color: var(--text3); }
-
   .themes { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
   .theme-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
   .theme-card-inner { padding: 18px 20px; }
@@ -118,7 +102,6 @@
   .meta-val { font-size: 12px; color: var(--text); line-height: 1.5; }
   .theme-example { margin-top: 10px; padding: 9px 12px; background: var(--surface2); border-radius: 0 5px 5px 0; font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; line-height: 1.6; }
   .theme-card-footer { padding: 9px 20px; border-top: 1px solid var(--border); background: var(--surface2); font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 7px; }
-
   .top10 { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
   .top10-header { padding: 13px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
   .top10-title { font-size: 13px; font-weight: 500; }
@@ -126,7 +109,6 @@
   .top10-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 20px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text2); }
   .top10-item:last-child { border-bottom: none; }
   .top10-n { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); min-width: 18px; margin-top: 2px; }
-
   .gmail-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
   .gmail-header { padding: 13px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .gmail-title { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
@@ -138,7 +120,6 @@
   .gmail-input::placeholder { color: var(--text3); }
   .gmail-hint { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
   hr.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-
   @media (max-width: 600px) {
     .config-grid { grid-template-columns: 1fr; }
     .theme-grid { grid-template-columns: 1fr; }
@@ -160,7 +141,6 @@
     <div class="header-sub" id="live-date"></div>
   </header>
 
-  <!-- API Key -->
   <div class="key-card">
     <div class="key-top">
       <div class="key-label">
@@ -169,7 +149,7 @@
       </div>
       <div class="badge-row">
         <span class="badge free">FREE</span>
-        <span class="badge model">gemini-2.5-flash-lite</span>
+        <span class="badge model">gemini-2.5-flash</span>
       </div>
     </div>
     <div class="key-row">
@@ -180,58 +160,53 @@
     <div class="key-status" id="key-status"></div>
     <div class="key-steps">
       1. Go to <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &nbsp;·&nbsp;
-      2. Click <strong style="color:var(--text2)">"Create API key"</strong> &nbsp;·&nbsp;
-      3. Click <strong style="color:var(--text2)">"Copy key"</strong> in the popup &nbsp;·&nbsp;
+      2. Click "Create API key" &nbsp;·&nbsp;
+      3. Click "Copy key" in the popup &nbsp;·&nbsp;
       4. Paste above and click Save
     </div>
-
   </div>
 
-  <!-- Config -->
   <div class="config">
     <div class="config-grid">
-
       <div class="config-field full">
         <div class="field-label">Research focus</div>
         <div class="chip-row" id="focus-chips">
           <div class="chip on" data-val="Creator pain points">Creator pain points</div>
           <div class="chip on" data-val="Audio content trends">Audio content trends</div>
-          <div class="chip" data-val="Community & safety">Community & safety</div>
-          <div class="chip" data-val="Discovery & growth">Discovery & growth</div>
+          <div class="chip" data-val="Community and safety">Community &amp; safety</div>
+          <div class="chip" data-val="Discovery and growth">Discovery &amp; growth</div>
           <div class="chip" data-val="Competitor reactions">Competitor reactions</div>
         </div>
       </div>
-
       <div class="config-field">
         <div class="field-label">Audience segment</div>
         <select id="segment">
-          <optgroup label="— Women Creators —">
-            <option value="Indian women audio creators and storytellers on short-form social apps">Women audio creators, India (all)</option>
-            <option value="Tamil women audio creators and storytellers in Tamil Nadu and globally — highly active on platforms like YouTube, Instagram Reels, and emerging audio apps">Tamil women creators (Tamil Nadu + global)</option>
-            <option value="Hindi-speaking women content creators and audio storytellers in North India">Hindi women creators, North India</option>
-            <option value="Indian women interested in self-expression, culture and community on social audio apps">Women — culture & community</option>
+          <optgroup label="Women Creators">
+            <option value="women-india">Women audio creators, India (all)</option>
+            <option value="tamil-women">Tamil women creators (Tamil Nadu + global)</option>
+            <option value="hindi-women">Hindi women creators, North India</option>
+            <option value="women-culture">Women — culture and community</option>
           </optgroup>
-          <optgroup label="— Tamil Creators (Specific) —">
-            <option value="Tamil poets and Kavithai creators who share original Tamil poetry on social media, YouTube and short-form audio platforms — urban and diaspora Tamil audience">Tamil Poets — Kavithai creators</option>
-            <option value="Tamil RJs and radio jockeys from Tamil Nadu who are active on social media, podcasts and short-form audio — audience includes fans of Sun FM, Hello FM, Radio Mirchi Tamil">Tamil RJs — radio & audio hosts</option>
-            <option value="Tamil voice over artists who dub for films, ads and YouTube content — active community on Instagram and YouTube discussing craft, opportunities and tools">Tamil Voice Over artists</option>
-            <option value="Tamil stand-up comedians and open mic performers — active on YouTube, Instagram Reels and live events in Chennai, Coimbatore, Bangalore Tamil circuit">Tamil Stand-up Comedians</option>
-            <option value="Tamil singers — independent and playback — who share music, covers and behind-the-scenes content on YouTube, Instagram and emerging audio platforms">Tamil Singers — independent & playback</option>
-            <option value="Tamil mimicry artists and impressionists who perform celebrity impersonations and comedy — viral on YouTube Shorts, Instagram Reels and Kollywood adjacent communities">Tamil Mimicry Artists</option>
+          <optgroup label="Tamil Creators (Specific)">
+            <option value="tamil-poets">Tamil Poets — Kavithai creators</option>
+            <option value="tamil-rj">Tamil RJs — radio and audio hosts</option>
+            <option value="tamil-vo">Tamil Voice Over artists</option>
+            <option value="tamil-comedy">Tamil Stand-up Comedians</option>
+            <option value="tamil-singers">Tamil Singers — independent and playback</option>
+            <option value="tamil-mimicry">Tamil Mimicry Artists</option>
           </optgroup>
-          <optgroup label="— Tamil Audience (Broad) —">
-            <option value="Tamil content creators on YouTube, Instagram and short-form audio apps — both Tamil Nadu and Sri Lankan Tamil diaspora">Tamil creators — YouTube & social (all)</option>
-            <option value="Tamil-speaking Gen Z users interested in voice content, memes, music and cultural storytelling">Tamil Gen Z audio users</option>
-            <option value="Tamil podcast listeners and audio content consumers — urban Tamil Nadu">Tamil podcast & audio listeners</option>
+          <optgroup label="Tamil Audience (Broad)">
+            <option value="tamil-broad">Tamil creators — YouTube and social (all)</option>
+            <option value="tamil-genz">Tamil Gen Z audio users</option>
+            <option value="tamil-podcast">Tamil podcast and audio listeners</option>
           </optgroup>
-          <optgroup label="— Broader Segments —">
-            <option value="Gen Z social media users in India interested in voice, audio and short-form content">Gen Z audio users, India (all)</option>
-            <option value="Hindi content creators and short-form audio listeners in India">Hindi content creators</option>
-            <option value="South Indian content creators across Tamil, Telugu, Kannada and Malayalam audio platforms">South Indian creators (all languages)</option>
+          <optgroup label="Broader Segments">
+            <option value="genz-india">Gen Z audio users, India (all)</option>
+            <option value="hindi-creators">Hindi content creators</option>
+            <option value="south-india">South Indian creators (all languages)</option>
           </optgroup>
         </select>
       </div>
-
       <div class="config-field">
         <div class="field-label">Time window</div>
         <select id="timewin">
@@ -241,12 +216,10 @@
           <option value="last week">Last week</option>
         </select>
       </div>
-
       <div class="config-field full">
         <div class="field-label">Custom context (optional)</div>
-        <textarea id="custom-ctx" placeholder="e.g. We just launched Tamil voiceclubs. What are Tamil creators saying about group audio formats? Any specific competitor moves we should know about?"></textarea>
+        <textarea id="custom-ctx" placeholder="e.g. We just launched Tamil voiceclubs. What are Tamil creators saying about group audio formats?"></textarea>
       </div>
-
     </div>
     <div class="run-row">
       <button class="btn-run" id="run-btn" onclick="runResearch()">
@@ -260,13 +233,11 @@
     <div class="status-dot"></div>
     <span id="status-text">Starting research...</span>
   </div>
-
   <div class="error-box" id="error-box">
     <span id="error-msg"></span>
     <div class="retry-hint" id="retry-hint"></div>
   </div>
 
-  <!-- Report -->
   <div class="report" id="report">
     <div class="report-header">
       <div class="report-meta">Generated <span id="r-time"></span> · <span id="r-seg"></span> · <span id="r-win"></span></div>
@@ -312,26 +283,59 @@
 
 </div>
 <script>
-// ── Theme colours ────────────────────────────────────────────
 const THEME_COLORS = {
   'Creator pain points':  { tag:'#e8572a', bg:'#3d1a0f', text:'#f4b49c' },
   'Audio content trends': { tag:'#2dba7e', bg:'#0d2e1e', text:'#7ee8b8' },
-  'Community & safety':   { tag:'#9b6dff', bg:'#211440', text:'#c9b0ff' },
-  'Discovery & growth':   { tag:'#3d9be8', bg:'#0e2340', text:'#93c8f5' },
-  'Competitor reactions': { tag:'#f0a500', bg:'#2e2000', text:'#ffd680' },
+  'Community and safety': { tag:'#9b6dff', bg:'#211440', text:'#c9b0ff' },
+  'Discovery and growth': { tag:'#3d9be8', bg:'#0e2340', text:'#93c8f5' },
+  'Competitor reactions':  { tag:'#f0a500', bg:'#2e2000', text:'#ffd680' },
 };
+
+// Map select values to human-readable labels and full descriptions for the prompt
+const SEGMENT_MAP = {
+  'women-india':    { label: 'Women audio creators, India', desc: 'Indian women audio creators and storytellers on short-form social apps' },
+  'tamil-women':    { label: 'Tamil women creators', desc: 'Tamil women audio creators and storytellers in Tamil Nadu and globally, active on YouTube, Instagram Reels, and audio apps' },
+  'hindi-women':    { label: 'Hindi women creators', desc: 'Hindi-speaking women content creators and audio storytellers in North India' },
+  'women-culture':  { label: 'Women — culture and community', desc: 'Indian women interested in self-expression, culture and community on social audio apps' },
+  'tamil-poets':    { label: 'Tamil Poets — Kavithai creators', desc: 'Tamil poets and Kavithai creators who share original Tamil poetry on social media, YouTube and short-form audio platforms' },
+  'tamil-rj':       { label: 'Tamil RJs', desc: 'Tamil RJs and radio jockeys from Tamil Nadu active on social media, podcasts and short-form audio, including fans of Sun FM, Hello FM, Radio Mirchi Tamil' },
+  'tamil-vo':       { label: 'Tamil Voice Over artists', desc: 'Tamil voice over artists who dub for films, ads and YouTube content, active community on Instagram and YouTube' },
+  'tamil-comedy':   { label: 'Tamil Stand-up Comedians', desc: 'Tamil stand-up comedians and open mic performers active on YouTube, Instagram Reels and live events in Chennai, Coimbatore, Bangalore Tamil circuit' },
+  'tamil-singers':  { label: 'Tamil Singers', desc: 'Tamil singers (independent and playback) who share music, covers and behind-the-scenes content on YouTube, Instagram and audio platforms' },
+  'tamil-mimicry':  { label: 'Tamil Mimicry Artists', desc: 'Tamil mimicry artists and impressionists who perform celebrity impersonations and comedy, viral on YouTube Shorts and Instagram Reels' },
+  'tamil-broad':    { label: 'Tamil creators — all', desc: 'Tamil content creators on YouTube, Instagram and short-form audio apps, both Tamil Nadu and Sri Lankan Tamil diaspora' },
+  'tamil-genz':     { label: 'Tamil Gen Z audio users', desc: 'Tamil-speaking Gen Z users interested in voice content, memes, music and cultural storytelling' },
+  'tamil-podcast':  { label: 'Tamil podcast listeners', desc: 'Tamil podcast listeners and audio content consumers in urban Tamil Nadu' },
+  'genz-india':     { label: 'Gen Z audio users, India', desc: 'Gen Z social media users in India interested in voice, audio and short-form content' },
+  'hindi-creators': { label: 'Hindi content creators', desc: 'Hindi content creators and short-form audio listeners in India' },
+  'south-india':    { label: 'South Indian creators', desc: 'South Indian content creators across Tamil, Telugu, Kannada and Malayalam audio platforms' },
+};
+
+// Tamil-specific extra context per sub-segment
+const TAMIL_EXTRA = {
+  'tamil-poets':   'Search Instagram hashtags kavithai and tamilkavithai, YouTube Tamil poetry channels. Key topics: original Tamil poetry, Sufi Tamil, modern Kavithai, poetry recitation formats. Pain points: no dedicated audio platform for Tamil poetry, poor discovery tools.',
+  'tamil-rj':      'Search Hello FM, Sun FM, Radio Mirchi Tamil RJs on Instagram and Twitter. Key topics: RJ fan discussions, radio show highlights, podcast crossovers. Pain points: extending reach beyond radio, building personal digital audience.',
+  'tamil-vo':      'Search Tamil dubbing artist groups on Facebook and YouTube behind-the-scenes content. Key topics: voice acting craft, dubbing industry news, demo showcase needs. Pain points: finding work opportunities, showcasing demos, lack of audio portfolio platform.',
+  'tamil-comedy':  'Search Tamil stand-up YouTube channels, Chennai and Coimbatore open mic scenes on Instagram. Key topics: Tamil comedy trends, open mic culture, Black Sheep Tamil. Pain points: discoverability beyond YouTube, monetisation, building loyal audio audience.',
+  'tamil-singers': 'Search independent Tamil singers on Instagram, YouTube Tamil covers, Tamil indie music scene. Key topics: Carnatic crossover, independent Tamil pop, playback industry. Pain points: demo sharing platforms, reaching music labels, building fan community.',
+  'tamil-mimicry': 'Search Tamil mimicry on YouTube Shorts and Instagram Reels, Vijay TV Kalakka Povathu Yaaru fan discussions. Key topics: celebrity voice impressions, comedy sketches. Pain points: platform support for short audio comedy, discoverability, monetisation.',
+};
+
 const SOURCES = ['Reddit','Twitter/X','YouTube','Play Store','Google Search'];
 const STATUS_MSGS = [
-  'Searching Reddit (r/india, r/TwoXIndia, r/Tamil, r/kollywood)...',
-  'Reading Twitter/X — India & Tamil conversations...',
-  'Scanning YouTube comments on Tamil and audio creator content...',
-  'Checking Play Store reviews for Kuku FM, Josh, Moj, Sun NXT...',
+  'Searching Reddit and social platforms...',
+  'Reading Twitter/X conversations...',
+  'Scanning YouTube comments...',
+  'Checking Play Store reviews...',
+  'Cross-referencing creator communities...',
   'Clustering findings into themes...',
-  'Building your product insights brief...'
+  'Identifying pain points and signals...',
+  'Ranking topics by discussion heat...',
+  'Building your product insights brief...',
+  'Almost done — compiling final report...'
 ];
 let lastReport = null;
 
-// ── Init ─────────────────────────────────────────────────────
 document.getElementById('live-date').textContent =
   new Date().toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
@@ -341,10 +345,9 @@ document.querySelectorAll('#focus-chips .chip').forEach(c =>
 
 (function restoreKey() {
   const k = localStorage.getItem('av_gemini_key');
-  if (k) setKeyStatus('ok', '✓ Key saved (' + k.slice(0,10) + '••••) — ready to go');
+  if (k) setKeyStatus('ok', 'Key saved (' + k.slice(0,10) + '...) — ready to go');
 })();
 
-// ── Key management ───────────────────────────────────────────
 function setKeyStatus(type, msg) {
   const el = document.getElementById('key-status');
   el.textContent = msg;
@@ -354,22 +357,20 @@ function saveKey() {
   const val = document.getElementById('api-key-input').value.trim();
   if (!val) { setKeyStatus('err', 'Please paste your key first.'); return; }
   if (!val.startsWith('AIza') && !val.startsWith('AQ.')) {
-    setKeyStatus('err', 'Key should start with AIza or AQ. — copy from the popup in AI Studio.');
+    setKeyStatus('err', 'Key should start with AIza or AQ. — use the Copy key button in AI Studio.');
     return;
   }
   localStorage.setItem('av_gemini_key', val);
   document.getElementById('api-key-input').value = '';
-  setKeyStatus('ok', '✓ Key saved (' + val.slice(0,10) + '••••) — ready to go');
+  setKeyStatus('ok', 'Key saved (' + val.slice(0,10) + '...) — ready to go');
 }
 function clearKey() {
   localStorage.removeItem('av_gemini_key');
   document.getElementById('api-key-input').value = '';
   setKeyStatus('', 'Key cleared.');
 }
-
-// ── Helpers ──────────────────────────────────────────────────
 function getSelected(id) {
-  return [...document.querySelectorAll(`#${id} .chip.on`)].map(c => c.dataset.val);
+  return [...document.querySelectorAll('#' + id + ' .chip.on')].map(c => c.dataset.val);
 }
 function showError(msg, hint) {
   document.getElementById('error-msg').innerHTML = msg;
@@ -385,11 +386,59 @@ function setRunBtn(loading) {
     ? '<div class="spinner"></div> Researching...'
     : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> Research my audience now';
 }
-
-// ── Sleep helper ─────────────────────────────────────────────
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-// ── Main ─────────────────────────────────────────────────────
+function buildPrompt(focuses, segKey, timewin, custom) {
+  const seg = SEGMENT_MAP[segKey] || SEGMENT_MAP['women-india'];
+  const isTamil = segKey.startsWith('tamil');
+  const tamilBase = isTamil
+    ? 'TAMIL SOURCES: Reddit r/tamil r/kollywood r/tamilnadu, Tamil Twitter, Tamil YouTube creators, Sun NXT reviews, Kuku FM Tamil section, ShareChat Tamil, Moj Tamil, Josh Tamil.'
+    : '';
+  const tamilSpecific = TAMIL_EXTRA[segKey] || '';
+
+  // Build prompt using string concatenation to avoid template literal apostrophe issues
+  var p = 'You are a senior product researcher at Arre Voice, an Indian women-first short-form audio social app (30-second voice pods, voiceclubs, voicepools).';
+  p += '\n\nUse Google Search to find what people are discussing RIGHT NOW.';
+  p += '\n\nAUDIENCE: ' + seg.desc;
+  p += '\nFOCUS AREAS: ' + focuses.join(', ');
+  p += '\nTIME WINDOW: ' + timewin;
+  p += '\nPLATFORMS: Reddit (r/india, r/TwoXIndia, r/podcasting, r/IndiaSocial), Twitter/X India, YouTube comments, Play Store reviews for Kuku FM, Spotify India, Josh, Moj.';
+  if (tamilBase) p += '\n' + tamilBase;
+  if (tamilSpecific) p += '\n' + tamilSpecific;
+  if (custom) p += '\nTEAM CONTEXT: ' + custom;
+  p += '\n\nOUTPUT RULES:';
+  p += '\n- Return ONLY a raw JSON object, nothing else';
+  p += '\n- Do NOT use markdown code fences or backticks';
+  p += '\n- Start your response with { and end with }';
+  p += '\n- All string values must use only plain ASCII — no smart quotes, no apostrophes in values, no special characters that break JSON';
+  p += '\n- In real_example field: write the example without any quote characters inside the string';
+  p += '\n- urgency must be an integer, not a string';
+  p += '\n\nJSON SCHEMA:';
+  p += '\n{';
+  p += '\n  "themes": [';
+  p += '\n    {';
+  p += '\n      "theme": "one of: ' + focuses.join(' | ') + '",';
+  p += '\n      "headline": "one sharp sentence with the key finding",';
+  p += '\n      "signal_strength": "high or medium or low",';
+  p += '\n      "platforms_found": ["Reddit", "Twitter/X"],';
+  p += '\n      "why_now": "why surfacing in ' + timewin + ' in one or two sentences",';
+  p += '\n      "emotional_driver": "frustration or excitement or fear or curiosity or pride",';
+  p += '\n      "real_example": "a specific representative post or review paraphrased without inner quotes",';
+  p += '\n      "product_signal": "specific feature or fix Arre Voice should consider",';
+  p += '\n      "product_action": "immediate or next sprint or backlog",';
+  p += '\n      "urgency": 4';
+  p += '\n    }';
+  p += '\n  ],';
+  p += '\n  "top10": [';
+  p += '\n    { "topic": "topic text", "heat": "rising or steady or declining" }';
+  p += '\n  ]';
+  p += '\n}';
+  p += '\n\nGenerate exactly ' + focuses.length + ' theme(s) in this order: ' + focuses.join(', ') + '.';
+  p += '\nGenerate exactly 10 items in top10.';
+  p += '\nurgency must be an integer from 1 to 5 where 5 means act this week.';
+  return p;
+}
+
 async function runResearch() {
   const focuses = getSelected('focus-chips');
   if (!focuses.length) { alert('Select at least one research focus.'); return; }
@@ -397,149 +446,55 @@ async function runResearch() {
   const apiKey = localStorage.getItem('av_gemini_key');
   if (!apiKey) {
     showError(
-      'No API key found. Paste your Gemini key above and click <b>Save</b>.',
-      'Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#f4b49c">aistudio.google.com/apikey</a> — no credit card needed.'
+      'No API key found. Paste your Gemini key above and click Save.',
+      'Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#f4b49c">aistudio.google.com/apikey</a>'
     );
     return;
   }
 
-  const segment     = document.getElementById('segment').value;
-  const timewin     = document.getElementById('timewin').value;
-  const custom      = document.getElementById('custom-ctx').value.trim();
-  const segmentLower    = segment.toLowerCase();
-  const isTamil         = segmentLower.includes('tamil');
-  const isTamilPoet     = segmentLower.includes('poet')     || segmentLower.includes('kavithai');
-  const isTamilRJ       = segmentLower.includes('rj')       || segmentLower.includes('radio');
-  const isTamilVO       = segmentLower.includes('voice over');
-  const isTamilComedian = segmentLower.includes('stand-up') || segmentLower.includes('comedian');
-  const isTamilSinger   = segmentLower.includes('singer');
-  const isTamilMimicry  = segmentLower.includes('mimicry');
+  const segKey  = document.getElementById('segment').value;
+  const timewin = document.getElementById('timewin').value;
+  const custom  = document.getElementById('custom-ctx').value.trim();
+  const seg     = SEGMENT_MAP[segKey] || SEGMENT_MAP['women-india'];
 
   setRunBtn(true);
   hideError();
   document.getElementById('report').classList.remove('visible');
   document.getElementById('status-bar').classList.add('visible');
 
-  let si = 0;
+  let si = 0, elapsed = 0;
   document.getElementById('status-text').textContent = STATUS_MSGS[0];
-  const ticker = setInterval(() => {
+  const ticker = setInterval(function() {
+    elapsed += 3;
     si = Math.min(si + 1, STATUS_MSGS.length - 1);
-    document.getElementById('status-text').textContent = STATUS_MSGS[si];
-  }, 2800);
+    document.getElementById('status-text').textContent = STATUS_MSGS[si] + ' (' + elapsed + 's)';
+  }, 3000);
 
-  const tamilContext = isTamil ? [
-    `TAMIL-SPECIFIC SOURCES TO PRIORITISE:`,
-    `- Reddit: r/tamil, r/kollywood, r/tamilnadu`,
-    `- Twitter/X: Tamil Twitter (search in Tamil and transliterated Tamil)`,
-    `- YouTube: Tamil creator community, Sun TV, Tamil podcast channels`,
-    `- Play Store: Sun NXT, Kuku FM Tamil, Spotify Tamil playlists`,
-    `- Platforms: ShareChat Tamil, Moj Tamil, Josh Tamil`,
-    `- Also check: Kollywood discussions, Tamil memes, Tamil music culture`,
-    isTamilPoet ? [
-      `KAVITHAI / POET FOCUS:`,
-      `- Search #kavithai #tamilkavithai on Instagram and YouTube Tamil poetry channels`,
-      `- Communities: original Tamil poetry, Sufi Tamil, modern Kavithai, poetry recitation`,
-      `- Pain points: no dedicated audio platform for Tamil poetry, poor discovery tools`
-    ].join('\n') : '',
-    isTamilRJ ? [
-      `TAMIL RJ FOCUS:`,
-      `- Search: Hello FM, Sun FM, Radio Mirchi Tamil RJs on Instagram and Twitter/X`,
-      `- Communities: RJ fan pages, radio show discussions, podcast crossovers`,
-      `- Pain points: extending reach beyond radio, building personal digital audience`
-    ].join('\n') : '',
-    isTamilVO ? [
-      `VOICE OVER ARTIST FOCUS:`,
-      `- Search: Tamil dubbing artist communities on Facebook groups, YouTube`,
-      `- Reddit: r/VoiceActing for general VO pain points`,
-      `- Pain points: finding work, showcasing demos, no dedicated audio portfolio platform`
-    ].join('\n') : '',
-    isTamilComedian ? [
-      `TAMIL STAND-UP FOCUS:`,
-      `- Search: Tamil stand-up YouTube channels, Instagram Reels, Chennai open mic scene`,
-      `- Communities: fans of Tamil comedy channels, Black Sheep Tamil, open mic circuits`,
-      `- Pain points: discoverability beyond YouTube, monetisation, building audio audience`
-    ].join('\n') : '',
-    isTamilSinger ? [
-      `TAMIL SINGER FOCUS:`,
-      `- Search: independent Tamil singers on Instagram, YouTube covers Tamil, Tamil indie music`,
-      `- Communities: Carnatic crossover, independent Tamil pop, playback aspirants`,
-      `- Pain points: demo sharing, reaching labels, building fan community, short audio fit`
-    ].join('\n') : '',
-    isTamilMimicry ? [
-      `TAMIL MIMICRY FOCUS:`,
-      `- Search: Tamil mimicry on YouTube Shorts, Instagram Reels, Vijay TV fan discussions`,
-      `- Communities: celebrity voice impressions, Kalakka Povathu Yaaru fans`,
-      `- Pain points: platform support for short audio comedy, discoverability, monetisation`
-    ].join('\n') : '',
-  ].filter(Boolean).join('\n') : '';
+  const prompt = buildPrompt(focuses, segKey, timewin, custom);
+  const MODEL  = 'gemini-2.5-flash';
+  const url    = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent?key=' + apiKey;
 
-  const prompt = `You are a senior product researcher at Arré Voice — India's women-first short-form audio social app (30-second voice pods, voiceclubs, voicepools).
-
-Use Google Search to find what people are actually discussing RIGHT NOW and produce a precise, actionable audience research report.
-
-PARAMETERS:
-- Focus areas: ${focuses.join(', ')}
-- Audience: ${segment}
-- Time window: ${timewin}
-- General platforms: Reddit (r/india, r/TwoXIndia, r/podcasting, r/IndiaSocial), Twitter/X India, YouTube comments, Google Play Store reviews for Kuku FM, Spotify India, Josh, Moj
-${tamilContext}
-${custom ? '- Additional context from the product team: ' + custom : ''}
-
-CRITICAL OUTPUT RULES:
-- Return ONLY a raw JSON object
-- No markdown code fences, no backticks, no explanation
-- Start with { and end with }
-- No markdown inside any string value
-
-JSON shape:
-{
-  "themes": [
-    {
-      "theme": "exact focus area name",
-      "headline": "one sharp sentence — the single most important finding",
-      "signal_strength": "high|medium|low",
-      "platforms_found": ["Reddit","Twitter/X"],
-      "why_now": "why surfacing in ${timewin} — max 2 sentences",
-      "emotional_driver": "frustration|excitement|fear|curiosity|pride",
-      "real_example": "one specific representative post, comment or review",
-      "product_signal": "specific feature or fix Arre Voice should consider",
-      "product_action": "immediate|next sprint|backlog",
-      "urgency": 4
-    }
-  ],
-  "top10": [
-    { "topic": "topic text", "heat": "rising|steady|declining" }
-  ]
-}
-
-Generate exactly ${focuses.length} theme(s) in order: ${focuses.join(' → ')}.
-Generate exactly 10 items in top10.
-urgency = integer 1–5 (5 = act this week).
-Be specific — name real subreddits, real tweet patterns, real app review complaints.`;
-
-  // ── API call with retry ──────────────────────────────────
-  const MODEL = 'gemini-2.5-flash';
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
   let res, attempt = 0;
+  const controller = new AbortController();
+  const timeoutId  = setTimeout(function() { controller.abort(); }, 90000);
 
   try {
     while (attempt < 4) {
       res = await fetch(url, {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal:  controller.signal,
         body: JSON.stringify({
           contents: [{ role: 'user', parts: [{ text: prompt }] }],
           tools: [{ google_search: {} }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 4096 }
+          generationConfig: { temperature: 0.4, maxOutputTokens: 8192 }
         })
       });
-
       if (res.status === 429 || res.status === 503) {
         attempt++;
-        const wait = attempt * 20;
         if (attempt < 4) {
-          document.getElementById('status-text').textContent =
-            `Rate limit — auto-retrying in ${wait}s (attempt ${attempt}/3)...`;
+          const wait = attempt * 20;
+          document.getElementById('status-text').textContent = 'Rate limit — retrying in ' + wait + 's (attempt ' + attempt + '/3)...';
           await sleep(wait * 1000);
           continue;
         }
@@ -547,21 +502,19 @@ Be specific — name real subreddits, real tweet patterns, real app review compl
       break;
     }
 
+    clearTimeout(timeoutId);
     clearInterval(ticker);
     document.getElementById('status-bar').classList.remove('visible');
 
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      const msg = err?.error?.message || `HTTP ${res.status}`;
+      const errData = await res.json().catch(function() { return {}; });
+      const msg = (errData && errData.error && errData.error.message) ? errData.error.message : ('HTTP ' + res.status);
       if (res.status === 429 || res.status === 503) {
-        showError(
-          'Rate limit hit after 3 retries.',
-          '<strong>Fix:</strong> Wait 2–3 minutes and try again. Best time to run: early morning IST (7–9 AM). To eliminate this permanently, enable billing at <a href="https://console.cloud.google.com/billing" target="_blank" style="color:#f4b49c">Google Cloud Console</a> — costs ~₹1–2 per report.'
-        );
+        showError('Rate limit hit after 3 retries.', '<strong>Fix:</strong> Wait 2-3 minutes and try again. Best time: early morning IST (7-9 AM). For reliable access, enable billing at <a href="https://console.cloud.google.com/billing" target="_blank" style="color:#f4b49c">Google Cloud Console</a>.');
       } else if (res.status === 400) {
-        showError('Bad request — ' + msg, 'Try clearing your key and re-pasting it.');
+        showError('Bad request: ' + msg, 'Try clearing your key and re-pasting it.');
       } else if (res.status === 403) {
-        showError('API key rejected. Make sure you copied the full key using the "Copy key" button in AI Studio.', '');
+        showError('API key rejected.', 'Make sure you used the Copy key button in the popup at AI Studio.');
       } else {
         showError('Error: ' + msg, '');
       }
@@ -569,135 +522,172 @@ Be specific — name real subreddits, real tweet patterns, real app review compl
       return;
     }
 
-    const data = await res.json();
-    const parts = (data?.candidates?.[0]?.content?.parts || []);
-    const allText = parts.filter(p => p.text).map(p => p.text).join('');
+    const data   = await res.json();
+    const parts  = ((data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || []);
+    const allText = parts.filter(function(p) { return p.text; }).map(function(p) { return p.text; }).join('');
 
     if (!allText) {
-      // Check for finish reason or safety blocks
-      const candidate = data?.candidates?.[0];
-      const finishReason = candidate?.finishReason || 'UNKNOWN';
-      const blocked = data?.promptFeedback?.blockReason;
-      if (blocked) throw new Error('Request blocked by Gemini safety filters: ' + blocked + '. Try rephrasing your custom context.');
-      if (finishReason === 'RECITATION') throw new Error('Gemini flagged response for recitation. Try again.');
-      if (finishReason === 'SAFETY') throw new Error('Response blocked for safety. Try again with different focus areas.');
-      throw new Error('Empty response from Gemini (finish: ' + finishReason + '). Please try again in a moment.');
+      const fr = (data.candidates && data.candidates[0] && data.candidates[0].finishReason) || 'UNKNOWN';
+      const br = (data.promptFeedback && data.promptFeedback.blockReason) || '';
+      if (br) throw new Error('Blocked by safety filters: ' + br);
+      throw new Error('Empty response from Gemini (finish reason: ' + fr + '). Please try again.');
     }
 
+    // Robustly extract JSON — find outermost { }
     const start = allText.indexOf('{');
     const end   = allText.lastIndexOf('}');
-    if (start === -1 || end === -1) throw new Error('No JSON found in response. Please try again.');
+    if (start === -1 || end === -1 || end <= start) {
+      throw new Error('Could not find JSON in response. The model may have returned plain text. Please try again.');
+    }
 
-    const json = JSON.parse(allText.slice(start, end + 1));
-    if (!json.themes || !json.top10) throw new Error('Response missing required fields.');
+    var jsonStr = allText.slice(start, end + 1);
 
-    lastReport = { json, segment, timewin };
-    renderReport(json, segment, timewin);
+    // Sanitise common JSON-breaking patterns before parsing
+    // Replace smart quotes with straight quotes
+    jsonStr = jsonStr.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+
+    var json;
+    try {
+      json = JSON.parse(jsonStr);
+    } catch(parseErr) {
+      // Try to recover: strip any trailing commas before } or ]
+      var cleaned = jsonStr.replace(/,\s*([}\]])/g, '$1');
+      try {
+        json = JSON.parse(cleaned);
+      } catch(e2) {
+        throw new Error('JSON parse failed: ' + parseErr.message + '. Raw start: ' + jsonStr.slice(0, 120));
+      }
+    }
+
+    if (!json.themes || !Array.isArray(json.themes) || json.themes.length === 0) {
+      throw new Error('Response is missing themes. Please try again.');
+    }
+    if (!json.top10 || !Array.isArray(json.top10)) {
+      json.top10 = [];
+    }
+
+    lastReport = { json: json, segment: seg.label, timewin: timewin };
+    renderReport(json, seg.label, timewin);
 
   } catch (err) {
+    clearTimeout(timeoutId);
     clearInterval(ticker);
-    showError('Error: ' + (err.message || 'Unknown error.'), 'Please try again.');
+    document.getElementById('status-bar').classList.remove('visible');
+    if (err.name === 'AbortError') {
+      showError('Request timed out after 90 seconds.', 'Try selecting fewer focus areas to reduce response time, or try again later.');
+    } else {
+      showError('Error: ' + (err.message || 'Unknown error.'), 'Please try again.');
+    }
   }
 
   setRunBtn(false);
 }
 
-// ── Render ───────────────────────────────────────────────────
-function renderReport(json, segment, timewin) {
-  document.getElementById('status-bar').classList.remove('visible');
+function safe(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderReport(json, segLabel, timewin) {
   const now = new Date();
   document.getElementById('r-time').textContent = now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
-  document.getElementById('r-seg').textContent  = segment.split(' ').slice(0,5).join(' ');
+  document.getElementById('r-seg').textContent  = segLabel;
   document.getElementById('r-win').textContent  = timewin;
   document.getElementById('top10-win').textContent = timewin;
 
   document.getElementById('sources-bar').innerHTML =
-    SOURCES.map(s => `<div class="source-pill">${s}</div>`).join('');
+    SOURCES.map(function(s) { return '<div class="source-pill">' + s + '</div>'; }).join('');
 
   const tc = document.getElementById('themes-container');
   tc.innerHTML = '';
-  json.themes.forEach(t => {
+  json.themes.forEach(function(t) {
     const c = THEME_COLORS[t.theme] || THEME_COLORS['Creator pain points'];
-    const pips = [1,2,3,4,5].map(i =>
-      `<div class="urgency-pip${i<=(t.urgency||0)?' lit':''}"></div>`).join('');
-    const actionColor = {immediate:'#e8572a','next sprint':'#f0a500',backlog:'#5a5754'}[t.product_action]||'#5a5754';
-    tc.innerHTML += `
-    <div class="theme-card">
-      <div class="theme-card-inner">
-        <div class="theme-top">
-          <div class="theme-tag" style="background:${c.bg};color:${c.text};border:1px solid ${c.tag}44">${t.theme}</div>
-          <div class="urgency-badge">${pips}<span class="urgency-label">U${t.urgency||'?'}</span></div>
-        </div>
-        <div class="theme-headline">${t.headline||'—'}</div>
-        <div class="theme-why">${t.why_now||'—'}</div>
-        <div class="theme-grid">
-          <div class="theme-meta-block"><div class="meta-key">Emotional driver</div><div class="meta-val">${t.emotional_driver||'—'}</div></div>
-          <div class="theme-meta-block"><div class="meta-key">Signal strength</div><div class="meta-val">${t.signal_strength||'—'}</div></div>
-          <div class="theme-meta-block"><div class="meta-key">Product signal</div><div class="meta-val">${t.product_signal||'—'}</div></div>
-          <div class="theme-meta-block"><div class="meta-key">Action timing</div><div class="meta-val" style="color:${actionColor}">${t.product_action||'—'}</div></div>
-        </div>
-        ${t.real_example?`<div class="theme-example" style="border-left:2px solid ${c.tag}">"${t.real_example}"</div>`:''}
-      </div>
-      <div class="theme-card-footer">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        Found on: ${(t.platforms_found||[]).join(' · ')||'multiple platforms'}
-      </div>
-    </div>`;
+    const pips = [1,2,3,4,5].map(function(i) {
+      return '<div class="urgency-pip' + (i <= (parseInt(t.urgency) || 0) ? ' lit' : '') + '"></div>';
+    }).join('');
+    const aColor = { immediate:'#e8572a', 'next sprint':'#f0a500', backlog:'#5a5754' }[t.product_action] || '#5a5754';
+    const platforms = Array.isArray(t.platforms_found) ? t.platforms_found.join(' · ') : 'multiple platforms';
+    tc.innerHTML +=
+      '<div class="theme-card">' +
+        '<div class="theme-card-inner">' +
+          '<div class="theme-top">' +
+            '<div class="theme-tag" style="background:' + c.bg + ';color:' + c.text + ';border:1px solid ' + c.tag + '44">' + safe(t.theme) + '</div>' +
+            '<div class="urgency-badge">' + pips + '<span class="urgency-label">U' + (t.urgency || '?') + '</span></div>' +
+          '</div>' +
+          '<div class="theme-headline">' + safe(t.headline) + '</div>' +
+          '<div class="theme-why">' + safe(t.why_now) + '</div>' +
+          '<div class="theme-grid">' +
+            '<div class="theme-meta-block"><div class="meta-key">Emotional driver</div><div class="meta-val">' + safe(t.emotional_driver) + '</div></div>' +
+            '<div class="theme-meta-block"><div class="meta-key">Signal strength</div><div class="meta-val">' + safe(t.signal_strength) + '</div></div>' +
+            '<div class="theme-meta-block"><div class="meta-key">Product signal</div><div class="meta-val">' + safe(t.product_signal) + '</div></div>' +
+            '<div class="theme-meta-block"><div class="meta-key">Action timing</div><div class="meta-val" style="color:' + aColor + '">' + safe(t.product_action) + '</div></div>' +
+          '</div>' +
+          (t.real_example ? '<div class="theme-example" style="border-left:2px solid ' + c.tag + '">' + safe(t.real_example) + '</div>' : '') +
+        '</div>' +
+        '<div class="theme-card-footer">' +
+          '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>' +
+          'Found on: ' + safe(platforms) +
+        '</div>' +
+      '</div>';
   });
 
   const tl = document.getElementById('top10-list');
   tl.innerHTML = '';
-  const heatColor = {rising:'#2dba7e',steady:'#9a9490',declining:'#5a5754'};
-  (json.top10||[]).forEach((item,i) => {
-    const heat = item.heat||'steady';
-    tl.innerHTML += `
-    <div class="top10-item">
-      <span class="top10-n">${String(i+1).padStart(2,'0')}</span>
-      <span style="flex:1">${item.topic||'—'}</span>
-      <span style="font-size:10px;font-family:'DM Mono',monospace;color:${heatColor[heat]||'#9a9490'};flex-shrink:0">${heat}</span>
-    </div>`;
+  const heatColor = { rising:'#2dba7e', steady:'#9a9490', declining:'#5a5754' };
+  (json.top10 || []).forEach(function(item, i) {
+    const heat = item.heat || 'steady';
+    tl.innerHTML +=
+      '<div class="top10-item">' +
+        '<span class="top10-n">' + String(i+1).padStart(2,'0') + '</span>' +
+        '<span style="flex:1">' + safe(item.topic) + '</span>' +
+        '<span style="font-size:10px;font-family:\'DM Mono\',monospace;color:' + (heatColor[heat] || '#9a9490') + ';flex-shrink:0">' + heat + '</span>' +
+      '</div>';
   });
 
   document.getElementById('report').classList.add('visible');
 }
 
-// ── Export ───────────────────────────────────────────────────
 function buildText() {
   if (!lastReport) return '';
-  const { json, segment, timewin } = lastReport;
-  let t = `ARRE VOICE - DAILY AUDIENCE INSIGHTS\n`;
-  t += `Generated: ${new Date().toLocaleString('en-IN')} | ${segment} | ${timewin}\n${'─'.repeat(60)}\n\n`;
-  json.themes.forEach((th,i) => {
-    t += `THEME ${i+1}: ${(th.theme||'').toUpperCase()} [Urgency: ${th.urgency}/5]\n`;
-    t += `${th.headline}\n\nWhy now: ${th.why_now}\n`;
-    t += `Emotional driver: ${th.emotional_driver} | Signal: ${th.signal_strength}\n`;
-    t += `Found on: ${(th.platforms_found||[]).join(', ')}\n\n`;
-    t += `Product signal: ${th.product_signal}\nAction timing: ${th.product_action}\n`;
-    if (th.real_example) t += `\nExample: "${th.real_example}"\n`;
-    t += `\n${'─'.repeat(60)}\n\n`;
+  const j = lastReport.json, seg = lastReport.segment, tw = lastReport.timewin;
+  var t = 'ARRE VOICE - DAILY AUDIENCE INSIGHTS\n';
+  t += 'Generated: ' + new Date().toLocaleString('en-IN') + ' | ' + seg + ' | ' + tw + '\n';
+  t += '------------------------------------------------------------\n\n';
+  j.themes.forEach(function(th, i) {
+    t += 'THEME ' + (i+1) + ': ' + (th.theme || '').toUpperCase() + ' [Urgency: ' + th.urgency + '/5]\n';
+    t += (th.headline || '') + '\n\n';
+    t += 'Why now: ' + (th.why_now || '') + '\n';
+    t += 'Emotional driver: ' + (th.emotional_driver || '') + ' | Signal: ' + (th.signal_strength || '') + '\n';
+    t += 'Found on: ' + (Array.isArray(th.platforms_found) ? th.platforms_found.join(', ') : '') + '\n\n';
+    t += 'Product signal: ' + (th.product_signal || '') + '\n';
+    t += 'Action timing: ' + (th.product_action || '') + '\n';
+    if (th.real_example) t += 'Example: ' + th.real_example + '\n';
+    t += '\n------------------------------------------------------------\n\n';
   });
-  t += `TOP 10 TOPICS (${timewin})\n\n`;
-  (json.top10||[]).forEach((item,i) => {
-    t += `${String(i+1).padStart(2,'0')}. ${item.topic} [${item.heat||'steady'}]\n`;
+  t += 'TOP 10 TOPICS (' + tw + ')\n\n';
+  (j.top10 || []).forEach(function(item, i) {
+    t += String(i+1).padStart(2,'0') + '. ' + (item.topic || '') + ' [' + (item.heat || 'steady') + ']\n';
   });
   return t;
 }
+
 function copyReport() {
   const text = buildText();
   if (!text) return;
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(text).then(function() {
     const btn = document.getElementById('copy-btn');
     const orig = btn.innerHTML;
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.innerHTML = orig, 2000);
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.innerHTML = orig; }, 2000);
   });
 }
+
 function openGmail() {
   if (!lastReport) { alert('Generate a report first.'); return; }
-  const to   = document.getElementById('gmail-to').value.trim();
-  const sub  = encodeURIComponent(`Arre Voice Audience Insights — ${new Date().toLocaleDateString('en-IN')}`);
+  const to  = document.getElementById('gmail-to').value.trim();
+  const sub = encodeURIComponent('Arre Voice Audience Insights - ' + new Date().toLocaleDateString('en-IN'));
   const body = encodeURIComponent(buildText());
-  const url  = `https://mail.google.com/mail/?view=cm&fs=1${to?'&to='+encodeURIComponent(to):''}&su=${sub}&body=${body}`;
+  const url  = 'https://mail.google.com/mail/?view=cm&fs=1' + (to ? '&to=' + encodeURIComponent(to) : '') + '&su=' + sub + '&body=' + body;
   window.open(url, '_blank');
 }
 </script>
