@@ -1,170 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arré Voice — Daily Audience Insights</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0d0d0d; --surface: #161616; --surface2: #1f1f1f;
-    --border: #2e2e2e; --border2: #3a3a3a;
-    --text: #f0ede8; --text2: #9a9490; --text3: #5a5754;
-    --accent: #e8572a; --accent-dim: #3d1a0f; --accent-text: #f4b49c;
-    --green: #2dba7e; --green-dim: #0d2e1e; --green-text: #7ee8b8;
-    --amber: #f0a500; --amber-dim: #2e2000; --amber-text: #ffd680;
-    --blue: #3d9be8; --blue-dim: #0e2340; --blue-text: #93c8f5;
-    --purple: #9b6dff; --purple-dim: #211440; --purple-text: #c9b0ff;
-    --radius: 10px; --radius-sm: 6px;
-  }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
-  .shell { max-width: 800px; margin: 0 auto; padding: 0 20px 80px; }
-  .header { padding: 36px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-  .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
-  .logo-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .logo-mark svg { width: 17px; height: 17px; }
-  .brand { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
-  .brand span { color: var(--text2); font-weight: 400; }
-  .header-sub { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; padding-left: 46px; }
-  .key-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; }
-  .key-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-  .key-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 7px; }
-  .badge-row { display: flex; gap: 6px; }
-  .badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-family: 'DM Mono', monospace; }
-  .badge.free { background: var(--green-dim); color: var(--green-text); border: 1px solid var(--green); }
-  .badge.model { background: var(--blue-dim); color: var(--blue-text); border: 1px solid var(--blue); }
-  .key-row { display: flex; gap: 8px; margin-bottom: 7px; }
-  .key-input { flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 8px 12px; border-radius: var(--radius-sm); min-width: 0; }
-  .key-input:focus { outline: none; border-color: var(--accent); }
-  .key-input::placeholder { color: var(--text3); font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0; }
-  .key-status { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); min-height: 15px; }
-  .key-status.ok { color: var(--green); }
-  .key-status.err { color: #f08080; }
-  .key-steps { font-size: 12px; color: var(--text3); margin-top: 8px; line-height: 1.8; }
-  .key-steps a { color: var(--accent-text); text-decoration: none; }
-  .key-steps a:hover { text-decoration: underline; }
-  .config { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
-  .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .config-field { display: flex; flex-direction: column; gap: 7px; }
-  .config-field.full { grid-column: 1 / -1; }
-  .field-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
-  .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border2); cursor: pointer; color: var(--text2); background: transparent; transition: all 0.15s; user-select: none; font-family: 'DM Sans', sans-serif; }
-  .chip:hover { border-color: var(--text3); color: var(--text); }
-  .chip.on { background: var(--accent-dim); border-color: var(--accent); color: var(--accent-text); }
-  select { background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border-radius: var(--radius-sm); width: 100%; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5754' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 30px; }
-  select:focus { outline: none; border-color: var(--accent); }
-  textarea { background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px; border-radius: var(--radius-sm); width: 100%; resize: vertical; min-height: 64px; line-height: 1.5; }
-  textarea:focus { outline: none; border-color: var(--accent); }
-  textarea::placeholder { color: var(--text3); }
-  .run-row { margin-top: 16px; }
-  .btn-run { width: 100%; padding: 12px 24px; background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.15s; }
-  .btn-run:hover { opacity: 0.88; }
-  .btn-run:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-ghost { padding: 8px 13px; background: transparent; color: var(--text2); border: 1px solid var(--border2); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
-  .btn-ghost:hover { border-color: var(--text3); color: var(--text); }
-  .btn-sm { padding: 7px 13px; font-size: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 6px; transition: all 0.15s; white-space: nowrap; }
-  .btn-sm:hover { border-color: var(--text3); color: var(--text); }
-  .btn-sm.green { border-color: var(--green); color: var(--green-text); background: var(--green-dim); }
-  .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .status-bar { display: none; align-items: center; gap: 10px; padding: 11px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; }
-  .status-bar.visible { display: flex; }
-  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; flex-shrink: 0; }
-  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
-  .error-box { background: #1a0a0a; border: 1px solid #5a1a1a; border-radius: var(--radius-sm); padding: 14px 16px; font-size: 13px; color: #f08080; margin-bottom: 16px; display: none; line-height: 1.6; }
-  .error-box.visible { display: block; }
-  .retry-hint { margin-top: 8px; font-size: 12px; color: var(--text3); }
-  .retry-hint strong { color: var(--amber-text); }
-  .report { display: none; }
-  .report.visible { display: block; }
-  .report-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
-  .report-meta { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); }
-  .report-meta span { color: var(--text2); }
-  .report-actions { display: flex; gap: 8px; }
-  .sources-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-  .source-pill { font-size: 11px; font-family: 'DM Mono', monospace; padding: 3px 9px; border-radius: 20px; border: 1px solid var(--border); color: var(--text3); }
-  .themes { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-  .theme-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .theme-card-inner { padding: 18px 20px; }
-  .theme-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-  .theme-tag { font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 20px; flex-shrink: 0; }
-  .urgency-badge { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-  .urgency-pip { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); }
-  .urgency-pip.lit { background: var(--accent); }
-  .urgency-label { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--text3); margin-left: 2px; }
-  .theme-headline { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 7px; line-height: 1.4; letter-spacing: -0.2px; }
-  .theme-why { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
-  .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .theme-meta-block { background: var(--surface2); border-radius: var(--radius-sm); padding: 9px 11px; }
-  .meta-key { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
-  .meta-val { font-size: 12px; color: var(--text); line-height: 1.5; }
-  .theme-example { margin-top: 10px; padding: 9px 12px; background: var(--surface2); border-radius: 0 5px 5px 0; font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; line-height: 1.6; }
-  .theme-card-footer { padding: 9px 20px; border-top: 1px solid var(--border); background: var(--surface2); font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 7px; }
-  .top10 { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
-  .top10-header { padding: 13px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-  .top10-title { font-size: 13px; font-weight: 500; }
-  .top10-sub { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text3); margin-left: auto; }
-  .top10-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 20px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text2); }
-  .top10-item:last-child { border-bottom: none; }
-  .top10-n { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); min-width: 18px; margin-top: 2px; }
-  .gmail-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
-  .gmail-header { padding: 13px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .gmail-title { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
-  .gmail-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
-  .gmail-body { padding: 14px 20px; display: flex; flex-direction: column; gap: 9px; }
-  .gmail-row { display: flex; gap: 9px; }
-  .gmail-input { flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border-radius: var(--radius-sm); min-width: 0; }
-  .gmail-input:focus { outline: none; border-color: var(--green); }
-  .gmail-input::placeholder { color: var(--text3); }
-  .gmail-hint { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
-  hr.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-  @media (max-width: 600px) {
-    .config-grid { grid-template-columns: 1fr; }
-    .theme-grid { grid-template-columns: 1fr; }
-    .key-row { flex-direction: column; }
-    .gmail-row { flex-direction: column; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[data-theme="dark"]{
+  --bg:#0d0d0d;--surface:#161616;--surface2:#1f1f1f;--surface3:#252525;
+  --border:#2e2e2e;--border2:#3a3a3a;
+  --text:#f0ede8;--text2:#9a9490;--text3:#5a5754;
+}
+[data-theme="light"]{
+  --bg:#f5f4f1;--surface:#ffffff;--surface2:#f0eeeb;--surface3:#e8e6e2;
+  --border:#dddbd7;--border2:#c8c6c2;
+  --text:#1a1917;--text2:#6b6966;--text3:#9a9896;
+}
+:root{
+  --accent:#e8572a;--accent-dim:#3d1a0f;--accent-text:#f4b49c;
+  --green:#2dba7e;--green-dim:#0d2e1e;--green-text:#7ee8b8;
+  --amber:#f0a500;--amber-dim:#2e2000;--amber-text:#ffd680;
+  --blue:#3d9be8;--blue-dim:#0e2340;--blue-text:#93c8f5;
+  --purple:#9b6dff;--purple-dim:#211440;--purple-text:#c9b0ff;
+  --radius:10px;--radius-sm:6px;
+}
+[data-theme="light"]{
+  --accent-dim:#fde8e0;--accent-text:#c0341a;
+  --green-dim:#e0f5ec;--green-text:#0f6e4a;
+  --blue-dim:#e0eefa;--blue-text:#1a5a8a;
+  --amber-dim:#fef3d0;--amber-text:#7a5000;
+  --purple-dim:#ede8fe;--purple-text:#5a30b0;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;transition:background 0.2s,color 0.2s}
+.shell{max-width:820px;margin:0 auto;padding:0 20px 80px}
+
+/* NAV TABS */
+.nav{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto}
+.nav-tab{padding:10px 18px;font-size:13px;cursor:pointer;color:var(--text2);border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.15s}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* HEADER */
+.header{padding:28px 0 20px;border-bottom:1px solid var(--border);margin-bottom:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-left{display:flex;align-items:center;gap:12px}
+.logo-mark{width:32px;height:32px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:16px;height:16px}
+.brand{font-size:16px;font-weight:600;letter-spacing:-0.3px}
+.brand span{color:var(--text2);font-weight:400}
+.header-sub{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:3px}
+.theme-toggle{background:var(--surface2);border:1px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--text2);font-family:'DM Sans',sans-serif;transition:all 0.15s;display:flex;align-items:center;gap:6px}
+.theme-toggle:hover{border-color:var(--text3);color:var(--text)}
+
+/* KEY CARD */
+.key-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px}
+.key-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.key-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;display:flex;align-items:center;gap:7px}
+.badge-row{display:flex;gap:6px}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-family:'DM Mono',monospace}
+.badge.free{background:var(--green-dim);color:var(--green-text);border:1px solid var(--green)}
+.badge.model{background:var(--blue-dim);color:var(--blue-text);border:1px solid var(--blue)}
+.key-row{display:flex;gap:8px;margin-bottom:7px}
+.key-input{flex:1;background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:8px 12px;border-radius:var(--radius-sm);min-width:0}
+.key-input:focus{outline:none;border-color:var(--accent)}
+.key-input::placeholder{color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px}
+.key-status{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);min-height:15px}
+.key-status.ok{color:var(--green)}
+.key-status.err{color:#f08080}
+.key-steps{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.8}
+.key-steps a{color:var(--accent-text);text-decoration:none}
+.key-steps a:hover{text-decoration:underline}
+
+/* CONFIG */
+.config{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.config-field{display:flex;flex-direction:column;gap:7px}
+.config-field.full{grid-column:1/-1}
+.field-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);cursor:pointer;color:var(--text2);background:transparent;transition:all 0.15s;user-select:none;font-family:'DM Sans',sans-serif}
+.chip:hover{border-color:var(--text3);color:var(--text)}
+.chip.on{background:var(--accent-dim);border-color:var(--accent);color:var(--accent-text)}
+select{background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;border-radius:var(--radius-sm);width:100%;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5754' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+select:focus{outline:none;border-color:var(--accent)}
+textarea{background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius-sm);width:100%;resize:vertical;min-height:64px;line-height:1.5}
+textarea:focus{outline:none;border-color:var(--accent)}
+textarea::placeholder{color:var(--text3)}
+input[type="text"],input[type="email"]{background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;border-radius:var(--radius-sm);width:100%}
+input[type="text"]:focus,input[type="email"]:focus{outline:none;border-color:var(--accent)}
+input[type="text"]::placeholder,input[type="email"]::placeholder{color:var(--text3)}
+
+/* COMPARE */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.compare-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.compare-col-title{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+.compare-result{margin-top:16px}
+.compare-diff{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px}
+.diff-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.diff-row:last-child{border-bottom:none}
+.diff-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;min-width:80px;margin-top:2px}
+.diff-a{flex:1;color:var(--accent-text)}
+.diff-b{flex:1;color:var(--blue-text)}
+.common-tag{background:var(--green-dim);color:var(--green-text);border:1px solid var(--green);font-size:11px;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;display:inline-block;margin:3px 3px 3px 0}
+
+/* COMPETITOR */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.comp-app{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all 0.15s;text-align:center}
+.comp-app:hover{border-color:var(--text3)}
+.comp-app.selected{border-color:var(--accent);background:var(--accent-dim)}
+.comp-app-name{font-size:13px;font-weight:500;margin-bottom:3px}
+.comp-app-desc{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+
+/* HISTORY */
+.history-empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+.history-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all 0.15s}
+.history-item:hover{border-color:var(--text3)}
+.history-item-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.history-item-title{font-size:13px;font-weight:500}
+.history-item-meta{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3)}
+.history-themes{display:flex;flex-wrap:wrap;gap:5px}
+.history-tag{font-size:10px;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:20px}
+.history-del{font-size:11px;color:var(--text3);background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:4px}
+.history-del:hover{color:#f08080}
+.trend-delta{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-top:16px}
+.delta-title{font-size:12px;font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.delta-item{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.delta-item:last-child{border-bottom:none}
+.delta-icon{font-size:14px;flex-shrink:0}
+.delta-new{color:var(--green-text)}
+.delta-gone{color:#f08080}
+.delta-same{color:var(--text3)}
+
+/* BUTTONS */
+.run-row{margin-top:16px}
+.btn-run{width:100%;padding:12px 24px;background:var(--accent);color:white;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s}
+.btn-run:hover{opacity:0.88}
+.btn-run:disabled{opacity:0.4;cursor:not-allowed}
+.btn-ghost{padding:8px 13px;background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;white-space:nowrap;transition:all 0.15s}
+.btn-ghost:hover{border-color:var(--text3);color:var(--text)}
+.btn-sm{padding:7px 13px;font-size:12px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;transition:all 0.15s;white-space:nowrap}
+.btn-sm:hover{border-color:var(--text3);color:var(--text)}
+.btn-sm.green{border-color:var(--green);color:var(--green-text);background:var(--green-dim)}
+.btn-sm.amber{border-color:var(--amber);color:var(--amber-text);background:var(--amber-dim)}
+.btn-sm.purple{border-color:var(--purple);color:var(--purple-text);background:var(--purple-dim)}
+.btn-full{width:100%}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* SPINNER / STATUS */
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status-bar{display:none;align-items:center;gap:10px;padding:11px 15px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:16px;font-size:12px;color:var(--text2);font-family:'DM Mono',monospace}
+.status-bar.visible{display:flex}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.error-box{background:#1a0a0a;border:1px solid #5a1a1a;border-radius:var(--radius-sm);padding:14px 16px;font-size:13px;color:#f08080;margin-bottom:16px;display:none;line-height:1.6}
+.error-box.visible{display:block}
+.retry-hint{margin-top:8px;font-size:12px;color:var(--text3)}
+.retry-hint strong{color:var(--amber-text)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--text);display:none;z-index:999;animation:fadeIn 0.2s}
+.toast.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* REPORT */
+.report{display:none}
+.report.visible{display:block}
+.report-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.report-meta{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3)}
+.report-meta span{color:var(--text2)}
+.report-actions{display:flex;gap:8px;flex-wrap:wrap}
+.sources-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.source-pill{font-size:11px;font-family:'DM Mono',monospace;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--text3)}
+.themes{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.theme-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.theme-card-inner{padding:18px 20px}
+.theme-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.theme-tag{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;padding:3px 9px;border-radius:20px;flex-shrink:0}
+.urgency-badge{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.urgency-pip{width:6px;height:6px;border-radius:50%;background:var(--border2)}
+.urgency-pip.lit{background:var(--accent)}
+.urgency-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);margin-left:2px}
+.theme-headline{font-size:15px;font-weight:500;color:var(--text);margin-bottom:7px;line-height:1.4;letter-spacing:-0.2px}
+.theme-why{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.theme-meta-block{background:var(--surface2);border-radius:var(--radius-sm);padding:9px 11px}
+.meta-key{font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
+.meta-val{font-size:12px;color:var(--text);line-height:1.5}
+.theme-example{margin-top:10px;padding:9px 12px;background:var(--surface2);border-radius:0 5px 5px 0;font-size:12px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.6}
+.theme-card-footer{padding:9px 20px;border-top:1px solid var(--border);background:var(--surface2);font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;display:flex;align-items:center;gap:7px}
+.top10{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+.top10-header{padding:13px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.top10-title{font-size:13px;font-weight:500}
+.top10-sub{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);margin-left:auto}
+.top10-item{display:flex;align-items:flex-start;gap:14px;padding:10px 20px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2)}
+.top10-item:last-child{border-bottom:none}
+.top10-n{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);min-width:18px;margin-top:2px}
+
+/* HEATMAP */
+.heatmap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+.heatmap-header{padding:13px 20px;border-bottom:1px solid var(--border);font-size:13px;font-weight:500}
+.heatmap-grid{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.heatmap-cell{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 12px}
+.heatmap-theme{font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);text-transform:uppercase;margin-bottom:4px}
+.heatmap-bar-wrap{height:6px;background:var(--border2);border-radius:3px;margin-bottom:4px;overflow:hidden}
+.heatmap-bar{height:100%;border-radius:3px;background:var(--accent)}
+.heatmap-count{font-size:11px;color:var(--text2)}
+
+/* GMAIL / SHARE */
+.share-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+.share-header{padding:13px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.share-title{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.share-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.share-body{padding:14px 20px;display:flex;flex-direction:column;gap:10px}
+.share-row{display:flex;gap:9px}
+.share-hint{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+.share-buttons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+/* NOTIFICATION */
+.notif-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px}
+.notif-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.notif-info{font-size:13px;color:var(--text2)}
+.notif-time-row{display:flex;gap:8px;align-items:center;margin-top:10px}
+
+hr.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+
+@media(max-width:600px){
+  .config-grid,.compare-grid,.comp-grid,.theme-grid,.heatmap-grid,.share-buttons{grid-template-columns:1fr}
+  .key-row,.share-row{flex-direction:column}
+  .report-header{flex-direction:column;align-items:flex-start}
+}
 </style>
 </head>
 <body>
 <div class="shell">
 
-  <header class="header">
-    <div class="header-top">
+<header class="header">
+  <div class="header-top">
+    <div class="header-left">
       <div class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="2.5" ry="4.5"/><line x1="12" y1="3" x2="12" y2="7.5"/><line x1="12" y1="16.5" x2="12" y2="21"/></svg>
       </div>
-      <div class="brand">Arré Voice <span>/ Audience Insights</span></div>
-    </div>
-    <div class="header-sub" id="live-date"></div>
-  </header>
-
-  <div class="key-card">
-    <div class="key-top">
-      <div class="key-label">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Google Gemini API Key
-      </div>
-      <div class="badge-row">
-        <span class="badge free">FREE</span>
-        <span class="badge model">gemini-2.5-flash</span>
+      <div>
+        <div class="brand">Arré Voice <span>/ Audience Insights</span></div>
+        <div class="header-sub" id="live-date"></div>
       </div>
     </div>
-    <div class="key-row">
-      <input class="key-input" type="password" id="api-key-input" placeholder="AQ... or AIza..." autocomplete="off" spellcheck="false">
-      <button class="btn-ghost" onclick="saveKey()">Save</button>
-      <button class="btn-ghost" onclick="clearKey()">Clear</button>
-    </div>
-    <div class="key-status" id="key-status"></div>
-    <div class="key-steps">
-      1. Go to <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &nbsp;·&nbsp;
-      2. Click "Create API key" &nbsp;·&nbsp;
-      3. Click "Copy key" in the popup &nbsp;·&nbsp;
-      4. Paste above and click Save
-    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="theme-icon">☀️</span> <span id="theme-label">Light</span>
+    </button>
   </div>
+</header>
+
+<nav class="nav">
+  <button class="nav-tab active" onclick="showTab('research',this)">Research</button>
+  <button class="nav-tab" onclick="showTab('compare',this)">Compare Segments</button>
+  <button class="nav-tab" onclick="showTab('competitor',this)">Competitor Monitor</button>
+  <button class="nav-tab" onclick="showTab('history',this)">History</button>
+  <button class="nav-tab" onclick="showTab('settings',this)">Settings</button>
+</nav>
+
+<!-- ══ RESEARCH TAB ══ -->
+<div class="tab-panel active" id="tab-research">
 
   <div class="config">
     <div class="config-grid">
@@ -176,6 +274,14 @@
           <div class="chip" data-val="Community and safety">Community &amp; safety</div>
           <div class="chip" data-val="Discovery and growth">Discovery &amp; growth</div>
           <div class="chip" data-val="Competitor reactions">Competitor reactions</div>
+          <div class="chip" data-val="Monetisation and income">Monetisation &amp; income</div>
+          <div class="chip" data-val="Platform features and UX">Platform features &amp; UX</div>
+          <div class="chip" data-val="Content formats and styles">Content formats &amp; styles</div>
+          <div class="chip" data-val="Audience engagement">Audience engagement</div>
+          <div class="chip" data-val="Creator burnout and wellbeing">Creator burnout &amp; wellbeing</div>
+          <div class="chip" data-val="Collaboration and networking">Collaboration &amp; networking</div>
+          <div class="chip" data-val="Language and regional identity">Language &amp; regional identity</div>
+          <div class="chip" data-val="Virality and algorithm">Virality &amp; algorithm</div>
         </div>
       </div>
       <div class="config-field">
@@ -217,6 +323,16 @@
         </select>
       </div>
       <div class="config-field full">
+        <div class="field-label">Platforms to search</div>
+        <div class="chip-row" id="platform-chips">
+          <div class="chip on" data-val="Reddit">Reddit</div>
+          <div class="chip on" data-val="Twitter/X">Twitter/X</div>
+          <div class="chip on" data-val="YouTube">YouTube</div>
+          <div class="chip on" data-val="Play Store">Play Store</div>
+          <div class="chip on" data-val="Substack">Substack</div>
+        </div>
+      </div>
+      <div class="config-field full">
         <div class="field-label">Custom context (optional)</div>
         <textarea id="custom-ctx" placeholder="e.g. We just launched Tamil voiceclubs. What are Tamil creators saying about group audio formats?"></textarea>
       </div>
@@ -229,26 +345,21 @@
     </div>
   </div>
 
-  <div class="status-bar" id="status-bar">
-    <div class="status-dot"></div>
-    <span id="status-text">Starting research...</span>
-  </div>
-  <div class="error-box" id="error-box">
-    <span id="error-msg"></span>
-    <div class="retry-hint" id="retry-hint"></div>
-  </div>
+  <div class="status-bar" id="status-bar"><div class="status-dot"></div><span id="status-text">Starting research...</span></div>
+  <div class="error-box" id="error-box"><span id="error-msg"></span><div class="retry-hint" id="retry-hint"></div></div>
 
   <div class="report" id="report">
     <div class="report-header">
       <div class="report-meta">Generated <span id="r-time"></span> · <span id="r-seg"></span> · <span id="r-win"></span></div>
       <div class="report-actions">
         <button class="btn-sm" id="copy-btn" onclick="copyReport()">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy report
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy
+        </button>
+        <button class="btn-sm amber" onclick="copySlack()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.63 19.79 19.79 0 01.22 4a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>WhatsApp
         </button>
         <button class="btn-sm" onclick="runResearch()">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-          Regenerate
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Regenerate
         </button>
       </div>
     </div>
@@ -262,67 +373,234 @@
       </div>
       <div id="top10-list"></div>
     </div>
+    <div id="heatmap-section"></div>
     <hr class="divider">
-    <div class="gmail-panel">
-      <div class="gmail-header">
-        <div class="gmail-title"><div class="gmail-dot"></div>Email this report</div>
-        <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--text3)">Opens Gmail draft</span>
+    <div class="share-panel">
+      <div class="share-header">
+        <div class="share-title"><div class="share-dot"></div>Share this report</div>
       </div>
-      <div class="gmail-body">
-        <div class="gmail-row">
-          <input class="gmail-input" type="email" id="gmail-to" placeholder="your@email.com">
+      <div class="share-body">
+        <div class="share-row">
+          <input type="email" id="gmail-to" placeholder="your@email.com">
           <button class="btn-sm green" onclick="openGmail()">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Open in Gmail
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Open in Gmail
           </button>
         </div>
-        <div class="gmail-hint">Prepares a full formatted Gmail draft ready to review and send.</div>
+        <div class="share-hint">Opens a pre-filled Gmail draft with the full report.</div>
       </div>
     </div>
   </div>
-
 </div>
+
+<!-- ══ COMPARE TAB ══ -->
+<div class="tab-panel" id="tab-compare">
+  <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Run research on two segments simultaneously and see what differs.</div>
+  <div class="compare-grid">
+    <div class="compare-col">
+      <div class="compare-col-title">Segment A</div>
+      <select id="seg-a">
+        <option value="women-india">Women audio creators, India</option>
+        <option value="tamil-women">Tamil women creators</option>
+        <option value="tamil-poets">Tamil Poets — Kavithai</option>
+        <option value="tamil-rj">Tamil RJs</option>
+        <option value="tamil-vo">Tamil Voice Over artists</option>
+        <option value="tamil-comedy">Tamil Stand-up Comedians</option>
+        <option value="tamil-singers">Tamil Singers</option>
+        <option value="tamil-mimicry">Tamil Mimicry Artists</option>
+        <option value="tamil-broad">Tamil creators — all</option>
+        <option value="tamil-genz">Tamil Gen Z users</option>
+        <option value="hindi-women">Hindi women creators</option>
+        <option value="genz-india">Gen Z users, India</option>
+        <option value="south-india">South Indian creators</option>
+      </select>
+    </div>
+    <div class="compare-col">
+      <div class="compare-col-title">Segment B</div>
+      <select id="seg-b">
+        <option value="tamil-poets">Tamil Poets — Kavithai</option>
+        <option value="women-india">Women audio creators, India</option>
+        <option value="tamil-women">Tamil women creators</option>
+        <option value="tamil-rj">Tamil RJs</option>
+        <option value="tamil-vo">Tamil Voice Over artists</option>
+        <option value="tamil-comedy">Tamil Stand-up Comedians</option>
+        <option value="tamil-singers">Tamil Singers</option>
+        <option value="tamil-mimicry">Tamil Mimicry Artists</option>
+        <option value="tamil-broad">Tamil creators — all</option>
+        <option value="tamil-genz">Tamil Gen Z users</option>
+        <option value="hindi-women">Hindi women creators</option>
+        <option value="genz-india">Gen Z users, India</option>
+        <option value="south-india">South Indian creators</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn-run" id="compare-btn" onclick="runCompare()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    Compare segments
+  </button>
+  <div class="status-bar" id="compare-status"><div class="status-dot"></div><span id="compare-status-text">Researching both segments...</span></div>
+  <div class="error-box" id="compare-error"><span id="compare-error-msg"></span><div class="retry-hint" id="compare-error-hint"></div></div>
+  <div class="compare-result" id="compare-result"></div>
+</div>
+
+<!-- ══ COMPETITOR TAB ══ -->
+<div class="tab-panel" id="tab-competitor">
+  <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Track what users are saying about competing apps — complaints, feature requests, switching signals.</div>
+  <div class="comp-grid" id="comp-apps">
+    <div class="comp-app selected" data-app="Kuku FM" onclick="toggleComp(this)">
+      <div class="comp-app-name">Kuku FM</div>
+      <div class="comp-app-desc">Audio stories</div>
+    </div>
+    <div class="comp-app" data-app="Josh" onclick="toggleComp(this)">
+      <div class="comp-app-name">Josh</div>
+      <div class="comp-app-desc">Short video + audio</div>
+    </div>
+    <div class="comp-app" data-app="Moj" onclick="toggleComp(this)">
+      <div class="comp-app-name">Moj</div>
+      <div class="comp-app-desc">Short form social</div>
+    </div>
+    <div class="comp-app" data-app="ShareChat" onclick="toggleComp(this)">
+      <div class="comp-app-name">ShareChat</div>
+      <div class="comp-app-desc">Regional social</div>
+    </div>
+    <div class="comp-app" data-app="Spotify India" onclick="toggleComp(this)">
+      <div class="comp-app-name">Spotify India</div>
+      <div class="comp-app-desc">Music + podcasts</div>
+    </div>
+    <div class="comp-app" data-app="Sun NXT" onclick="toggleComp(this)">
+      <div class="comp-app-name">Sun NXT</div>
+      <div class="comp-app-desc">Tamil entertainment</div>
+    </div>
+  </div>
+  <button class="btn-run" id="comp-btn" onclick="runCompetitor()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    Monitor selected competitors
+  </button>
+  <div class="status-bar" id="comp-status"><div class="status-dot"></div><span id="comp-status-text">Scanning Play Store reviews and social media...</span></div>
+  <div class="error-box" id="comp-error"><span id="comp-error-msg"></span><div class="retry-hint" id="comp-error-hint"></div></div>
+  <div id="comp-result"></div>
+</div>
+
+<!-- ══ HISTORY TAB ══ -->
+<div class="tab-panel" id="tab-history">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div style="font-size:13px;color:var(--text2)">Last 7 reports saved automatically. Click any to reload.</div>
+    <button class="btn-ghost" onclick="clearHistory()">Clear all</button>
+  </div>
+  <div id="history-list"></div>
+  <div id="trend-delta-section"></div>
+</div>
+
+<!-- ══ SETTINGS TAB ══ -->
+<div class="tab-panel" id="tab-settings">
+  <div class="key-card">
+    <div class="key-top">
+      <div class="key-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Google Gemini API Key
+      </div>
+      <div class="badge-row">
+        <span class="badge free">FREE</span>
+        <span class="badge model">gemini-2.5-flash</span>
+      </div>
+    </div>
+    <div class="key-row">
+      <input class="key-input" type="password" id="api-key-input" placeholder="AQ... or AIza..." autocomplete="off" spellcheck="false">
+      <button class="btn-ghost" onclick="saveKey()">Save</button>
+      <button class="btn-ghost" onclick="clearKey()">Clear</button>
+    </div>
+    <div class="key-status" id="key-status"></div>
+    <div class="key-steps">
+      1. Go to <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &nbsp;·&nbsp;
+      2. Click "Create API key" &nbsp;·&nbsp;
+      3. Click "Copy key" in the popup &nbsp;·&nbsp;
+      4. Paste above and click Save
+    </div>
+  </div>
+
+  <div class="notif-card">
+    <div class="key-label" style="margin-bottom:10px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+      Daily reminder
+    </div>
+    <div class="notif-info">Get a browser notification each morning reminding you to run the report.</div>
+    <div class="notif-time-row">
+      <input type="text" id="notif-time" value="09:00" style="width:100px" placeholder="09:00">
+      <button class="btn-ghost" onclick="scheduleNotif()">Enable reminder</button>
+      <button class="btn-ghost" onclick="cancelNotif()">Cancel</button>
+    </div>
+    <div class="key-status" id="notif-status" style="margin-top:8px"></div>
+  </div>
+
+  <div class="config">
+    <div class="field-label" style="margin-bottom:10px">Default research focus</div>
+    <div class="chip-row" id="default-focus-chips">
+      <div class="chip on" data-val="Creator pain points">Creator pain points</div>
+      <div class="chip on" data-val="Audio content trends">Audio content trends</div>
+      <div class="chip" data-val="Community and safety">Community &amp; safety</div>
+      <div class="chip" data-val="Discovery and growth">Discovery &amp; growth</div>
+      <div class="chip" data-val="Competitor reactions">Competitor reactions</div>
+      <div class="chip" data-val="Monetisation and income">Monetisation &amp; income</div>
+      <div class="chip" data-val="Platform features and UX">Platform features &amp; UX</div>
+      <div class="chip" data-val="Content formats and styles">Content formats &amp; styles</div>
+      <div class="chip" data-val="Audience engagement">Audience engagement</div>
+      <div class="chip" data-val="Creator burnout and wellbeing">Creator burnout &amp; wellbeing</div>
+      <div class="chip" data-val="Collaboration and networking">Collaboration &amp; networking</div>
+      <div class="chip" data-val="Language and regional identity">Language &amp; regional identity</div>
+      <div class="chip" data-val="Virality and algorithm">Virality &amp; algorithm</div>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn-ghost" onclick="saveDefaults()">Save as defaults</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /shell -->
+<div class="toast" id="toast"></div>
+
 <script>
-const THEME_COLORS = {
-  'Creator pain points':  { tag:'#e8572a', bg:'#3d1a0f', text:'#f4b49c' },
-  'Audio content trends': { tag:'#2dba7e', bg:'#0d2e1e', text:'#7ee8b8' },
-  'Community and safety': { tag:'#9b6dff', bg:'#211440', text:'#c9b0ff' },
-  'Discovery and growth': { tag:'#3d9be8', bg:'#0e2340', text:'#93c8f5' },
-  'Competitor reactions':  { tag:'#f0a500', bg:'#2e2000', text:'#ffd680' },
+// ══ DATA ══
+var THEME_COLORS = {
+  'Creator pain points':        {tag:'#e8572a',bg:'#3d1a0f',text:'#f4b49c'},
+  'Audio content trends':       {tag:'#2dba7e',bg:'#0d2e1e',text:'#7ee8b8'},
+  'Community and safety':       {tag:'#9b6dff',bg:'#211440',text:'#c9b0ff'},
+  'Discovery and growth':       {tag:'#3d9be8',bg:'#0e2340',text:'#93c8f5'},
+  'Competitor reactions':       {tag:'#f0a500',bg:'#2e2000',text:'#ffd680'},
+  'Monetisation and income':    {tag:'#2dba7e',bg:'#0d2e1e',text:'#7ee8b8'},
+  'Platform features and UX':   {tag:'#3d9be8',bg:'#0e2340',text:'#93c8f5'},
+  'Content formats and styles': {tag:'#9b6dff',bg:'#211440',text:'#c9b0ff'},
+  'Audience engagement':        {tag:'#e8572a',bg:'#3d1a0f',text:'#f4b49c'},
+  'Creator burnout and wellbeing':{tag:'#f0a500',bg:'#2e2000',text:'#ffd680'},
+  'Collaboration and networking':{tag:'#2dba7e',bg:'#0d2e1e',text:'#7ee8b8'},
+  'Language and regional identity':{tag:'#9b6dff',bg:'#211440',text:'#c9b0ff'},
+  'Virality and algorithm':     {tag:'#3d9be8',bg:'#0e2340',text:'#93c8f5'}
 };
-
-// Map select values to human-readable labels and full descriptions for the prompt
-const SEGMENT_MAP = {
-  'women-india':    { label: 'Women audio creators, India', desc: 'Indian women audio creators and storytellers on short-form social apps' },
-  'tamil-women':    { label: 'Tamil women creators', desc: 'Tamil women audio creators and storytellers in Tamil Nadu and globally, active on YouTube, Instagram Reels, and audio apps' },
-  'hindi-women':    { label: 'Hindi women creators', desc: 'Hindi-speaking women content creators and audio storytellers in North India' },
-  'women-culture':  { label: 'Women — culture and community', desc: 'Indian women interested in self-expression, culture and community on social audio apps' },
-  'tamil-poets':    { label: 'Tamil Poets — Kavithai creators', desc: 'Tamil poets and Kavithai creators who share original Tamil poetry on social media, YouTube and short-form audio platforms' },
-  'tamil-rj':       { label: 'Tamil RJs', desc: 'Tamil RJs and radio jockeys from Tamil Nadu active on social media, podcasts and short-form audio, including fans of Sun FM, Hello FM, Radio Mirchi Tamil' },
-  'tamil-vo':       { label: 'Tamil Voice Over artists', desc: 'Tamil voice over artists who dub for films, ads and YouTube content, active community on Instagram and YouTube' },
-  'tamil-comedy':   { label: 'Tamil Stand-up Comedians', desc: 'Tamil stand-up comedians and open mic performers active on YouTube, Instagram Reels and live events in Chennai, Coimbatore, Bangalore Tamil circuit' },
-  'tamil-singers':  { label: 'Tamil Singers', desc: 'Tamil singers (independent and playback) who share music, covers and behind-the-scenes content on YouTube, Instagram and audio platforms' },
-  'tamil-mimicry':  { label: 'Tamil Mimicry Artists', desc: 'Tamil mimicry artists and impressionists who perform celebrity impersonations and comedy, viral on YouTube Shorts and Instagram Reels' },
-  'tamil-broad':    { label: 'Tamil creators — all', desc: 'Tamil content creators on YouTube, Instagram and short-form audio apps, both Tamil Nadu and Sri Lankan Tamil diaspora' },
-  'tamil-genz':     { label: 'Tamil Gen Z audio users', desc: 'Tamil-speaking Gen Z users interested in voice content, memes, music and cultural storytelling' },
-  'tamil-podcast':  { label: 'Tamil podcast listeners', desc: 'Tamil podcast listeners and audio content consumers in urban Tamil Nadu' },
-  'genz-india':     { label: 'Gen Z audio users, India', desc: 'Gen Z social media users in India interested in voice, audio and short-form content' },
-  'hindi-creators': { label: 'Hindi content creators', desc: 'Hindi content creators and short-form audio listeners in India' },
-  'south-india':    { label: 'South Indian creators', desc: 'South Indian content creators across Tamil, Telugu, Kannada and Malayalam audio platforms' },
+var SEGMENT_MAP = {
+  'women-india':    {label:'Women audio creators, India',       desc:'Indian women audio creators and storytellers on short-form social apps'},
+  'tamil-women':    {label:'Tamil women creators',              desc:'Tamil women audio creators and storytellers in Tamil Nadu and globally, active on YouTube, Instagram Reels, and audio apps'},
+  'hindi-women':    {label:'Hindi women creators',              desc:'Hindi-speaking women content creators and audio storytellers in North India'},
+  'women-culture':  {label:'Women — culture and community',     desc:'Indian women interested in self-expression, culture and community on social audio apps'},
+  'tamil-poets':    {label:'Tamil Poets — Kavithai',            desc:'Tamil poets and Kavithai creators who share original Tamil poetry on social media, YouTube and short-form audio platforms'},
+  'tamil-rj':       {label:'Tamil RJs',                         desc:'Tamil RJs and radio jockeys from Tamil Nadu active on social media, podcasts and short-form audio, including fans of Sun FM, Hello FM, Radio Mirchi Tamil'},
+  'tamil-vo':       {label:'Tamil Voice Over artists',          desc:'Tamil voice over artists who dub for films, ads and YouTube content, with an active community on Instagram and YouTube'},
+  'tamil-comedy':   {label:'Tamil Stand-up Comedians',          desc:'Tamil stand-up comedians and open mic performers active on YouTube, Instagram Reels and live events in Chennai, Coimbatore, Bangalore Tamil circuit'},
+  'tamil-singers':  {label:'Tamil Singers',                     desc:'Tamil singers (independent and playback) who share music, covers and behind-the-scenes content on YouTube, Instagram and audio platforms'},
+  'tamil-mimicry':  {label:'Tamil Mimicry Artists',             desc:'Tamil mimicry artists and impressionists who perform celebrity impersonations and comedy, viral on YouTube Shorts and Instagram Reels'},
+  'tamil-broad':    {label:'Tamil creators — all',              desc:'Tamil content creators on YouTube, Instagram and short-form audio apps, both Tamil Nadu and Sri Lankan Tamil diaspora'},
+  'tamil-genz':     {label:'Tamil Gen Z audio users',           desc:'Tamil-speaking Gen Z users interested in voice content, memes, music and cultural storytelling'},
+  'tamil-podcast':  {label:'Tamil podcast listeners',           desc:'Tamil podcast listeners and audio content consumers in urban Tamil Nadu'},
+  'genz-india':     {label:'Gen Z audio users, India',          desc:'Gen Z social media users in India interested in voice, audio and short-form content'},
+  'hindi-creators': {label:'Hindi content creators',            desc:'Hindi content creators and short-form audio listeners in India'},
+  'south-india':    {label:'South Indian creators',             desc:'South Indian content creators across Tamil, Telugu, Kannada and Malayalam audio platforms'}
 };
-
-// Tamil-specific extra context per sub-segment
-const TAMIL_EXTRA = {
-  'tamil-poets':   'Search Instagram hashtags kavithai and tamilkavithai, YouTube Tamil poetry channels. Key topics: original Tamil poetry, Sufi Tamil, modern Kavithai, poetry recitation formats. Pain points: no dedicated audio platform for Tamil poetry, poor discovery tools.',
-  'tamil-rj':      'Search Hello FM, Sun FM, Radio Mirchi Tamil RJs on Instagram and Twitter. Key topics: RJ fan discussions, radio show highlights, podcast crossovers. Pain points: extending reach beyond radio, building personal digital audience.',
-  'tamil-vo':      'Search Tamil dubbing artist groups on Facebook and YouTube behind-the-scenes content. Key topics: voice acting craft, dubbing industry news, demo showcase needs. Pain points: finding work opportunities, showcasing demos, lack of audio portfolio platform.',
-  'tamil-comedy':  'Search Tamil stand-up YouTube channels, Chennai and Coimbatore open mic scenes on Instagram. Key topics: Tamil comedy trends, open mic culture, Black Sheep Tamil. Pain points: discoverability beyond YouTube, monetisation, building loyal audio audience.',
-  'tamil-singers': 'Search independent Tamil singers on Instagram, YouTube Tamil covers, Tamil indie music scene. Key topics: Carnatic crossover, independent Tamil pop, playback industry. Pain points: demo sharing platforms, reaching music labels, building fan community.',
-  'tamil-mimicry': 'Search Tamil mimicry on YouTube Shorts and Instagram Reels, Vijay TV Kalakka Povathu Yaaru fan discussions. Key topics: celebrity voice impressions, comedy sketches. Pain points: platform support for short audio comedy, discoverability, monetisation.',
+var TAMIL_EXTRA = {
+  'tamil-poets':   'Search Instagram tags kavithai and tamilkavithai, YouTube Tamil poetry channels. Topics: original Tamil poetry, Sufi Tamil, modern Kavithai, poetry recitation. Pain points: no dedicated audio platform for Tamil poetry, poor discovery tools.',
+  'tamil-rj':      'Search Hello FM, Sun FM, Radio Mirchi Tamil RJs on Instagram and Twitter. Topics: RJ fan discussions, radio show highlights, podcast crossovers. Pain points: extending reach beyond radio, building personal digital audience.',
+  'tamil-vo':      'Search Tamil dubbing artist groups on Facebook and YouTube. Topics: voice acting craft, dubbing industry news, demo needs. Pain points: finding work, showcasing demos, lack of audio portfolio platform.',
+  'tamil-comedy':  'Search Tamil stand-up YouTube channels, Chennai and Coimbatore open mic scenes on Instagram. Topics: Tamil comedy trends, open mic culture. Pain points: discoverability beyond YouTube, monetisation, building loyal audio audience.',
+  'tamil-singers': 'Search independent Tamil singers on Instagram, YouTube Tamil covers, Tamil indie music. Topics: Carnatic crossover, independent Tamil pop, playback industry. Pain points: demo sharing, reaching music labels, building fan community.',
+  'tamil-mimicry': 'Search Tamil mimicry on YouTube Shorts and Instagram Reels, Vijay TV fan discussions. Topics: celebrity impressions, comedy sketches. Pain points: platform support for short audio comedy, discoverability, monetisation.'
 };
-
-const SOURCES = ['Reddit','Twitter/X','YouTube','Play Store','Google Search'];
-const STATUS_MSGS = [
+var STATUS_MSGS = [
   'Searching Reddit and social platforms...',
   'Reading Twitter/X conversations...',
   'Scanning YouTube comments...',
@@ -331,364 +609,633 @@ const STATUS_MSGS = [
   'Clustering findings into themes...',
   'Identifying pain points and signals...',
   'Ranking topics by discussion heat...',
-  'Building your product insights brief...',
+  'Building product insights brief...',
   'Almost done — compiling final report...'
 ];
-let lastReport = null;
+var lastReport = null;
 
+// ══ INIT ══
 document.getElementById('live-date').textContent =
-  new Date().toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-document.querySelectorAll('#focus-chips .chip').forEach(c =>
-  c.addEventListener('click', () => c.classList.toggle('on'))
-);
+document.querySelectorAll('#focus-chips .chip').forEach(function(c){
+  c.addEventListener('click',function(){c.classList.toggle('on')});
+});
+document.querySelectorAll('#platform-chips .chip').forEach(function(c){
+  c.addEventListener('click',function(){c.classList.toggle('on')});
+});
+document.querySelectorAll('#default-focus-chips .chip').forEach(function(c){
+  c.addEventListener('click',function(){c.classList.toggle('on')});
+});
 
-(function restoreKey() {
-  const k = localStorage.getItem('av_gemini_key');
-  if (k) setKeyStatus('ok', 'Key saved (' + k.slice(0,10) + '...) — ready to go');
+// restore key
+(function(){
+  var k=localStorage.getItem('av_gemini_key');
+  if(k) setKeyStatus('ok','Key saved ('+k.slice(0,10)+'...) — ready to go');
+  // restore theme
+  var t=localStorage.getItem('av_theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('theme-icon').textContent=t==='dark'?'☀️':'🌙';
+  document.getElementById('theme-label').textContent=t==='dark'?'Light':'Dark';
+  // restore defaults
+  var defs=localStorage.getItem('av_default_focuses');
+  if(defs){
+    try{
+      var arr=JSON.parse(defs);
+      document.querySelectorAll('#focus-chips .chip').forEach(function(c){
+        c.classList.toggle('on',arr.indexOf(c.dataset.val)>-1);
+      });
+      document.querySelectorAll('#default-focus-chips .chip').forEach(function(c){
+        c.classList.toggle('on',arr.indexOf(c.dataset.val)>-1);
+      });
+    }catch(e){}
+  }
+  renderHistory();
 })();
 
-function setKeyStatus(type, msg) {
-  const el = document.getElementById('key-status');
-  el.textContent = msg;
-  el.className = 'key-status' + (type === 'ok' ? ' ok' : type === 'err' ? ' err' : '');
+// ══ THEME ══
+function toggleTheme(){
+  var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('av_theme',t);
+  document.getElementById('theme-icon').textContent=t==='dark'?'☀️':'🌙';
+  document.getElementById('theme-label').textContent=t==='dark'?'Light':'Dark';
 }
-function saveKey() {
-  const val = document.getElementById('api-key-input').value.trim();
-  if (!val) { setKeyStatus('err', 'Please paste your key first.'); return; }
-  if (!val.startsWith('AIza') && !val.startsWith('AQ.')) {
-    setKeyStatus('err', 'Key should start with AIza or AQ. — use the Copy key button in AI Studio.');
-    return;
+
+// ══ TABS ══
+function showTab(id,el){
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='history') renderHistory();
+}
+
+// ══ KEY ══
+function setKeyStatus(type,msg){
+  var el=document.getElementById('key-status');
+  el.textContent=msg;
+  el.className='key-status'+(type==='ok'?' ok':type==='err'?' err':'');
+}
+function saveKey(){
+  var val=document.getElementById('api-key-input').value.trim();
+  if(!val){setKeyStatus('err','Please paste your key first.');return}
+  if(!val.startsWith('AIza')&&!val.startsWith('AQ.')){
+    setKeyStatus('err','Key should start with AIza or AQ. — use the Copy key button in AI Studio.');return;
   }
-  localStorage.setItem('av_gemini_key', val);
-  document.getElementById('api-key-input').value = '';
-  setKeyStatus('ok', 'Key saved (' + val.slice(0,10) + '...) — ready to go');
+  localStorage.setItem('av_gemini_key',val);
+  document.getElementById('api-key-input').value='';
+  setKeyStatus('ok','Key saved ('+val.slice(0,10)+'...) — ready to go');
 }
-function clearKey() {
+function clearKey(){
   localStorage.removeItem('av_gemini_key');
-  document.getElementById('api-key-input').value = '';
-  setKeyStatus('', 'Key cleared.');
+  document.getElementById('api-key-input').value='';
+  setKeyStatus('','Key cleared.');
 }
-function getSelected(id) {
-  return [...document.querySelectorAll('#' + id + ' .chip.on')].map(c => c.dataset.val);
-}
-function showError(msg, hint) {
-  document.getElementById('error-msg').innerHTML = msg;
-  document.getElementById('retry-hint').innerHTML = hint || '';
-  document.getElementById('error-box').classList.add('visible');
-  document.getElementById('status-bar').classList.remove('visible');
-}
-function hideError() { document.getElementById('error-box').classList.remove('visible'); }
-function setRunBtn(loading) {
-  const btn = document.getElementById('run-btn');
-  btn.disabled = loading;
-  btn.innerHTML = loading
-    ? '<div class="spinner"></div> Researching...'
-    : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> Research my audience now';
-}
-const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function buildPrompt(focuses, segKey, timewin, custom) {
-  const seg = SEGMENT_MAP[segKey] || SEGMENT_MAP['women-india'];
-  const isTamil = segKey.startsWith('tamil');
-  const tamilBase = isTamil
-    ? 'TAMIL SOURCES: Reddit r/tamil r/kollywood r/tamilnadu, Tamil Twitter, Tamil YouTube creators, Sun NXT reviews, Kuku FM Tamil section, ShareChat Tamil, Moj Tamil, Josh Tamil.'
-    : '';
-  const tamilSpecific = TAMIL_EXTRA[segKey] || '';
+// ══ HELPERS ══
+function getSelected(id){
+  return Array.prototype.map.call(document.querySelectorAll('#'+id+' .chip.on'),function(c){return c.dataset.val});
+}
+function safe(str){
+  if(!str)return'';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('visible');
+  setTimeout(function(){t.classList.remove('visible')},2500);
+}
+function setStatus(id,msg){var el=document.getElementById(id);if(el)el.textContent=msg;}
+function showStatusBar(id){var el=document.getElementById(id);if(el)el.classList.add('visible');}
+function hideStatusBar(id){var el=document.getElementById(id);if(el)el.classList.remove('visible');}
+function showErr(id,msg,hint){
+  var msgEl=document.getElementById(id+'-msg');
+  if(msgEl)msgEl.innerHTML=msg;
+  var h=document.getElementById(id+'-hint');
+  if(h)h.innerHTML=hint||'';
+  var box=document.getElementById(id);
+  if(box){box.classList.add('visible');if(!msgEl)box.innerHTML='<span>'+msg+'</span>';}
+}
+function hideErr(id){var el=document.getElementById(id);if(el)el.classList.remove('visible');}
+var sleep=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
 
-  // Build prompt using string concatenation to avoid template literal apostrophe issues
-  var p = 'You are a senior product researcher at Arre Voice, an Indian women-first short-form audio social app (30-second voice pods, voiceclubs, voicepools).';
-  p += '\n\nUse Google Search to find what people are discussing RIGHT NOW.';
-  p += '\n\nAUDIENCE: ' + seg.desc;
-  p += '\nFOCUS AREAS: ' + focuses.join(', ');
-  p += '\nTIME WINDOW: ' + timewin;
-  p += '\nPLATFORMS: Reddit (r/india, r/TwoXIndia, r/podcasting, r/IndiaSocial), Twitter/X India, YouTube comments, Play Store reviews for Kuku FM, Spotify India, Josh, Moj.';
-  if (tamilBase) p += '\n' + tamilBase;
-  if (tamilSpecific) p += '\n' + tamilSpecific;
-  if (custom) p += '\nTEAM CONTEXT: ' + custom;
-  p += '\n\nOUTPUT RULES:';
-  p += '\n- Return ONLY a raw JSON object, nothing else';
-  p += '\n- Do NOT use markdown code fences or backticks';
-  p += '\n- Start your response with { and end with }';
-  p += '\n- All string values must use only plain ASCII — no smart quotes, no apostrophes in values, no special characters that break JSON';
-  p += '\n- In real_example field: write the example without any quote characters inside the string';
-  p += '\n- urgency must be an integer, not a string';
-  p += '\n\nJSON SCHEMA:';
-  p += '\n{';
-  p += '\n  "themes": [';
-  p += '\n    {';
-  p += '\n      "theme": "one of: ' + focuses.join(' | ') + '",';
-  p += '\n      "headline": "one sharp sentence with the key finding",';
-  p += '\n      "signal_strength": "high or medium or low",';
-  p += '\n      "platforms_found": ["Reddit", "Twitter/X"],';
-  p += '\n      "why_now": "why surfacing in ' + timewin + ' in one or two sentences",';
-  p += '\n      "emotional_driver": "frustration or excitement or fear or curiosity or pride",';
-  p += '\n      "real_example": "a specific representative post or review paraphrased without inner quotes",';
-  p += '\n      "product_signal": "specific feature or fix Arre Voice should consider",';
-  p += '\n      "product_action": "immediate or next sprint or backlog",';
-  p += '\n      "urgency": 4';
-  p += '\n    }';
-  p += '\n  ],';
-  p += '\n  "top10": [';
-  p += '\n    { "topic": "topic text", "heat": "rising or steady or declining" }';
-  p += '\n  ]';
-  p += '\n}';
-  p += '\n\nGenerate exactly ' + focuses.length + ' theme(s) in this order: ' + focuses.join(', ') + '.';
-  p += '\nGenerate exactly 10 items in top10.';
-  p += '\nurgency must be an integer from 1 to 5 where 5 means act this week.';
+function saveDefaults(){
+  var arr=getSelected('default-focus-chips');
+  localStorage.setItem('av_default_focuses',JSON.stringify(arr));
+  showToast('Default focus areas saved');
+}
+
+// ══ PROMPT BUILDER ══
+function buildPrompt(focuses,segKey,timewin,platforms,custom){
+  var seg=SEGMENT_MAP[segKey]||SEGMENT_MAP['women-india'];
+  var isTamil=segKey.indexOf('tamil')>-1;
+  var tamilBase=isTamil?'TAMIL SOURCES: Reddit r/tamil r/kollywood r/tamilnadu, Tamil Twitter, Tamil YouTube creators, Sun NXT reviews, Kuku FM Tamil section, ShareChat Tamil, Moj Tamil, Josh Tamil.':'';
+  var tamilSpecific=TAMIL_EXTRA[segKey]||'';
+  var platformStr=platforms.length?platforms.join(', '):'Reddit, Twitter/X, YouTube, Play Store';
+
+  var p='You are a senior product researcher at Arre Voice, an Indian women-first short-form audio social app with 30-second voice pods, voiceclubs, and voicepools.';
+  p+='\n\nUse Google Search to find what people are discussing RIGHT NOW.';
+  p+='\n\nAUDIENCE: '+seg.desc;
+  p+='\nFOCUS AREAS: '+focuses.join(', ');
+  p+='\nTIME WINDOW: '+timewin;
+  p+='\nPLATFORMS: '+platformStr+', Play Store reviews for Kuku FM, Spotify India, Josh, Moj.';
+  if(tamilBase)p+='\n'+tamilBase;
+  if(tamilSpecific)p+='\n'+tamilSpecific;
+  if(custom)p+='\nTEAM CONTEXT: '+custom;
+  p+='\n\nOUTPUT RULES:';
+  p+='\n- Return ONLY a raw JSON object, nothing else';
+  p+='\n- Do NOT use markdown code fences or backticks';
+  p+='\n- Start your entire response with { and end with }';
+  p+='\n- All string values must use only plain text — no smart quotes, no apostrophes inside string values, no special characters that break JSON parsing';
+  p+='\n- In real_example: paraphrase the example without any quote characters inside the string value';
+  p+='\n- urgency must be a plain integer, not a string';
+  p+='\n\nJSON SCHEMA:';
+  p+='\n{"themes":[{"theme":"one of: '+focuses.join(' | ')+'","headline":"one sharp sentence with the key finding","signal_strength":"high or medium or low","platforms_found":["Reddit","Twitter/X"],"why_now":"why surfacing in '+timewin+' in one to two sentences","emotional_driver":"frustration or excitement or fear or curiosity or pride","real_example":"a representative post or review paraphrased without inner quotes","product_signal":"specific feature or fix Arre Voice should consider","product_action":"immediate or next sprint or backlog","urgency":4}],"top10":[{"topic":"topic text","heat":"rising or steady or declining"}]}';
+  p+='\n\nGenerate exactly '+focuses.length+' theme(s) in this order: '+focuses.join(', ')+'.';
+  p+='\nGenerate exactly 10 items in top10.';
+  p+='\nurgency must be an integer from 1 to 5 where 5 means act this week.';
   return p;
 }
 
-async function runResearch() {
-  const focuses = getSelected('focus-chips');
-  if (!focuses.length) { alert('Select at least one research focus.'); return; }
-
-  const apiKey = localStorage.getItem('av_gemini_key');
-  if (!apiKey) {
-    showError(
-      'No API key found. Paste your Gemini key above and click Save.',
-      'Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#f4b49c">aistudio.google.com/apikey</a>'
-    );
-    return;
-  }
-
-  const segKey  = document.getElementById('segment').value;
-  const timewin = document.getElementById('timewin').value;
-  const custom  = document.getElementById('custom-ctx').value.trim();
-  const seg     = SEGMENT_MAP[segKey] || SEGMENT_MAP['women-india'];
-
-  setRunBtn(true);
-  hideError();
-  document.getElementById('report').classList.remove('visible');
-  document.getElementById('status-bar').classList.add('visible');
-
-  let si = 0, elapsed = 0;
-  document.getElementById('status-text').textContent = STATUS_MSGS[0];
-  const ticker = setInterval(function() {
-    elapsed += 3;
-    si = Math.min(si + 1, STATUS_MSGS.length - 1);
-    document.getElementById('status-text').textContent = STATUS_MSGS[si] + ' (' + elapsed + 's)';
-  }, 3000);
-
-  const prompt = buildPrompt(focuses, segKey, timewin, custom);
-  const MODEL  = 'gemini-2.5-flash';
-  const url    = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent?key=' + apiKey;
-
-  let res, attempt = 0;
-  const controller = new AbortController();
-  const timeoutId  = setTimeout(function() { controller.abort(); }, 90000);
-
-  try {
-    while (attempt < 4) {
-      res = await fetch(url, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        signal:  controller.signal,
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
-          tools: [{ google_search: {} }],
-          generationConfig: { temperature: 0.4, maxOutputTokens: 8192 }
+// ══ API CALL ══
+async function callGemini(prompt,statusId,statusTextId){
+  var apiKey=localStorage.getItem('av_gemini_key');
+  if(!apiKey)throw new Error('NO_KEY');
+  var MODEL='gemini-2.5-flash';
+  var url='https://generativelanguage.googleapis.com/v1beta/models/'+MODEL+':generateContent?key='+apiKey;
+  var controller=new AbortController();
+  var timeoutId=setTimeout(function(){controller.abort()},90000);
+  var res,attempt=0,elapsed=0;
+  var ticker=setInterval(function(){
+    elapsed+=3;
+    var si=Math.min(Math.floor(elapsed/3),STATUS_MSGS.length-1);
+    setStatus(statusTextId,STATUS_MSGS[si]+' ('+elapsed+'s)');
+  },3000);
+  try{
+    while(attempt<4){
+      res=await fetch(url,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        signal:controller.signal,
+        body:JSON.stringify({
+          contents:[{role:'user',parts:[{text:prompt}]}],
+          tools:[{google_search:{}}],
+          generationConfig:{temperature:0.4,maxOutputTokens:8192}
         })
       });
-      if (res.status === 429 || res.status === 503) {
+      if(res.status===429||res.status===503){
         attempt++;
-        if (attempt < 4) {
-          const wait = attempt * 20;
-          document.getElementById('status-text').textContent = 'Rate limit — retrying in ' + wait + 's (attempt ' + attempt + '/3)...';
-          await sleep(wait * 1000);
+        if(attempt<4){
+          var wait=attempt*20;
+          setStatus(statusTextId,'Rate limit — retrying in '+wait+'s (attempt '+attempt+'/3)...');
+          await sleep(wait*1000);
           continue;
         }
       }
       break;
     }
-
+  }finally{
     clearTimeout(timeoutId);
     clearInterval(ticker);
-    document.getElementById('status-bar').classList.remove('visible');
+  }
+  if(!res.ok){
+    var errData=await res.json().catch(function(){return{}});
+    var msg=(errData&&errData.error&&errData.error.message)?errData.error.message:('HTTP '+res.status);
+    if(res.status===429||res.status===503)throw new Error('RATE_LIMIT');
+    if(res.status===400)throw new Error('BAD_REQUEST: '+msg);
+    if(res.status===403)throw new Error('KEY_REJECTED');
+    throw new Error(msg);
+  }
+  var data=await res.json();
+  var parts=((data.candidates&&data.candidates[0]&&data.candidates[0].content&&data.candidates[0].content.parts)||[]);
+  var allText=parts.filter(function(p){return p.text}).map(function(p){return p.text}).join('');
+  if(!allText){
+    var fr=(data.candidates&&data.candidates[0]&&data.candidates[0].finishReason)||'UNKNOWN';
+    var br=(data.promptFeedback&&data.promptFeedback.blockReason)||'';
+    if(br)throw new Error('BLOCKED: '+br);
+    throw new Error('EMPTY: '+fr);
+  }
+  var start=allText.indexOf('{');
+  var end=allText.lastIndexOf('}');
+  if(start===-1||end===-1||end<=start)throw new Error('NO_JSON');
+  var jsonStr=allText.slice(start,end+1);
+  // sanitise smart quotes
+  jsonStr=jsonStr.replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"');
+  // fix trailing commas
+  jsonStr=jsonStr.replace(/,(\s*[}\]])/g,'$1');
+  var json;
+  try{json=JSON.parse(jsonStr)}
+  catch(e){
+    var c2=jsonStr.replace(/,(\s*[}\]])/g,'$1');
+    try{json=JSON.parse(c2)}
+    catch(e2){throw new Error('JSON_PARSE: '+e.message)}
+  }
+  if(!json.themes||!Array.isArray(json.themes)||json.themes.length===0)throw new Error('NO_THEMES');
+  if(!json.top10||!Array.isArray(json.top10))json.top10=[];
+  return json;
+}
 
-    if (!res.ok) {
-      const errData = await res.json().catch(function() { return {}; });
-      const msg = (errData && errData.error && errData.error.message) ? errData.error.message : ('HTTP ' + res.status);
-      if (res.status === 429 || res.status === 503) {
-        showError('Rate limit hit after 3 retries.', '<strong>Fix:</strong> Wait 2-3 minutes and try again. Best time: early morning IST (7-9 AM). For reliable access, enable billing at <a href="https://console.cloud.google.com/billing" target="_blank" style="color:#f4b49c">Google Cloud Console</a>.');
-      } else if (res.status === 400) {
-        showError('Bad request: ' + msg, 'Try clearing your key and re-pasting it.');
-      } else if (res.status === 403) {
-        showError('API key rejected.', 'Make sure you used the Copy key button in the popup at AI Studio.');
-      } else {
-        showError('Error: ' + msg, '');
-      }
-      setRunBtn(false);
-      return;
-    }
+function handleApiError(err,errId){
+  var msg=err.message||'Unknown error';
+  var hint='';
+  if(msg==='NO_KEY'){msg='No API key found. Go to Settings to add your Gemini key.';}
+  else if(msg==='RATE_LIMIT'){msg='Rate limit hit after 3 retries.';hint='<strong>Fix:</strong> Wait 2-3 minutes and try again. Best time: early morning IST (7-9 AM).';}
+  else if(msg==='KEY_REJECTED'){msg='API key rejected.';hint='Make sure you used the Copy key button in the AI Studio popup.';}
+  else if(msg.indexOf('BLOCKED')===0){msg='Request blocked by Gemini safety filters.';hint='Try rephrasing your custom context.';}
+  else if(msg.indexOf('EMPTY')===0){msg='Gemini returned an empty response.';hint='Please try again in a moment.';}
+  else if(msg==='NO_JSON'){msg='Could not find JSON in the response.';hint='The model returned plain text. Please try again.';}
+  else if(msg.indexOf('JSON_PARSE')===0){msg='JSON parsing failed.';hint='Please try again — this usually resolves itself.';}
+  else if(msg==='NO_THEMES'){msg='Response missing theme data.';hint='Please try again.';}
+  else if(err.name==='AbortError'){msg='Request timed out after 90 seconds.';hint='Try selecting fewer focus areas, or try again later.';}
+  showErr(errId,msg,hint);
+}
 
-    const data   = await res.json();
-    const parts  = ((data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || []);
-    const allText = parts.filter(function(p) { return p.text; }).map(function(p) { return p.text; }).join('');
+// ══ MAIN RESEARCH ══
+async function runResearch(){
+  var focuses=getSelected('focus-chips');
+  if(!focuses.length){alert('Select at least one research focus.');return}
+  var platforms=getSelected('platform-chips');
+  var segKey=document.getElementById('segment').value;
+  var timewin=document.getElementById('timewin').value;
+  var custom=document.getElementById('custom-ctx').value.trim();
+  var seg=SEGMENT_MAP[segKey]||SEGMENT_MAP['women-india'];
 
-    if (!allText) {
-      const fr = (data.candidates && data.candidates[0] && data.candidates[0].finishReason) || 'UNKNOWN';
-      const br = (data.promptFeedback && data.promptFeedback.blockReason) || '';
-      if (br) throw new Error('Blocked by safety filters: ' + br);
-      throw new Error('Empty response from Gemini (finish reason: ' + fr + '). Please try again.');
-    }
+  setRunBtn('run-btn',true);
+  hideErr('error-box');
+  document.getElementById('report').classList.remove('visible');
+  showStatusBar('status-bar');
+  setStatus('status-text',STATUS_MSGS[0]);
 
-    // Robustly extract JSON — find outermost { }
-    const start = allText.indexOf('{');
-    const end   = allText.lastIndexOf('}');
-    if (start === -1 || end === -1 || end <= start) {
-      throw new Error('Could not find JSON in response. The model may have returned plain text. Please try again.');
-    }
+  try{
+    var json=await callGemini(buildPrompt(focuses,segKey,timewin,platforms,custom),'status-bar','status-text');
+    lastReport={json:json,segment:seg.label,timewin:timewin,focuses:focuses,segKey:segKey,timestamp:Date.now()};
+    saveToHistory(lastReport);
+    renderReport(json,seg.label,timewin);
+    renderHeatmap();
+    hideStatusBar('status-bar');
+  }catch(err){
+    hideStatusBar('status-bar');
+    handleApiError(err,'error-box');
+  }
+  setRunBtn('run-btn',false);
+}
 
-    var jsonStr = allText.slice(start, end + 1);
+// ══ COMPARE ══
+async function runCompare(){
+  var segA=document.getElementById('seg-a').value;
+  var segB=document.getElementById('seg-b').value;
+  if(segA===segB){alert('Please select two different segments.');return}
+  var focuses=['Creator pain points','Audio content trends','Competitor reactions'];
+  var apiKey=localStorage.getItem('av_gemini_key');
+  if(!apiKey){showErr('compare-error','No API key. Go to Settings.');return}
 
-    // Sanitise common JSON-breaking patterns before parsing
-    // Replace smart quotes with straight quotes
-    jsonStr = jsonStr.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+  setRunBtn('compare-btn',true);
+  hideErr('compare-error');
+  document.getElementById('compare-result').innerHTML='';
+  showStatusBar('compare-status');
+  setStatus('compare-status-text','Researching segment A...');
 
-    var json;
-    try {
-      json = JSON.parse(jsonStr);
-    } catch(parseErr) {
-      // Try to recover: strip any trailing commas before } or ]
-      var cleaned = jsonStr.replace(/,\s*([}\]])/g, '$1');
-      try {
-        json = JSON.parse(cleaned);
-      } catch(e2) {
-        throw new Error('JSON parse failed: ' + parseErr.message + '. Raw start: ' + jsonStr.slice(0, 120));
-      }
-    }
+  try{
+    var jsonA=await callGemini(buildPrompt(focuses,segA,'last 30 hours',[],''),'compare-status','compare-status-text');
+    setStatus('compare-status-text','Researching segment B...');
+    var jsonB=await callGemini(buildPrompt(focuses,segB,'last 30 hours',[],''),'compare-status','compare-status-text');
+    hideStatusBar('compare-status');
+    renderCompare(jsonA,jsonB,segA,segB);
+  }catch(err){
+    hideStatusBar('compare-status');
+    handleApiError(err,'compare-error');
+  }
+  setRunBtn('compare-btn',false);
+}
 
-    if (!json.themes || !Array.isArray(json.themes) || json.themes.length === 0) {
-      throw new Error('Response is missing themes. Please try again.');
-    }
-    if (!json.top10 || !Array.isArray(json.top10)) {
-      json.top10 = [];
-    }
+function renderCompare(jsonA,jsonB,segA,segB){
+  var labA=(SEGMENT_MAP[segA]||{label:segA}).label;
+  var labB=(SEGMENT_MAP[segB]||{label:segB}).label;
+  var topicsA=(jsonA.top10||[]).map(function(i){return i.topic});
+  var topicsB=(jsonB.top10||[]).map(function(i){return i.topic});
+  var common=topicsA.filter(function(t){return topicsB.some(function(b){return b.toLowerCase().indexOf(t.toLowerCase().slice(0,10))>-1||t.toLowerCase().indexOf(b.toLowerCase().slice(0,10))>-1})});
+  var onlyA=topicsA.filter(function(t){return common.indexOf(t)===-1}).slice(0,5);
+  var onlyB=topicsB.filter(function(t){return common.indexOf(t)===-1}).slice(0,5);
 
-    lastReport = { json: json, segment: seg.label, timewin: timewin };
-    renderReport(json, seg.label, timewin);
+  var html='<div class="compare-diff">';
+  html+='<div style="font-size:13px;font-weight:500;margin-bottom:12px">Segment comparison — top topic overlap</div>';
 
-  } catch (err) {
-    clearTimeout(timeoutId);
-    clearInterval(ticker);
-    document.getElementById('status-bar').classList.remove('visible');
-    if (err.name === 'AbortError') {
-      showError('Request timed out after 90 seconds.', 'Try selecting fewer focus areas to reduce response time, or try again later.');
-    } else {
-      showError('Error: ' + (err.message || 'Unknown error.'), 'Please try again.');
-    }
+  if(common.length){
+    html+='<div style="margin-bottom:12px"><div class="field-label" style="margin-bottom:6px">Topics both segments are discussing</div>';
+    common.forEach(function(t){html+='<span class="common-tag">'+safe(t)+'</span>'});
+    html+='</div>';
   }
 
-  setRunBtn(false);
+  html+='<div class="compare-grid">';
+  html+='<div><div class="field-label" style="margin-bottom:8px;color:var(--accent-text)">Only '+safe(labA)+'</div>';
+  onlyA.forEach(function(t){html+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2)">'+safe(t)+'</div>'});
+  html+='</div>';
+  html+='<div><div class="field-label" style="margin-bottom:8px;color:var(--blue-text)">Only '+safe(labB)+'</div>';
+  onlyB.forEach(function(t){html+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2)">'+safe(t)+'</div>'});
+  html+='</div></div>';
+
+  html+='<div style="margin-top:16px"><div class="field-label" style="margin-bottom:8px">Product signals — side by side</div>';
+  var maxLen=Math.max(jsonA.themes.length,jsonB.themes.length);
+  for(var i=0;i<maxLen;i++){
+    var tA=jsonA.themes[i];var tB=jsonB.themes[i];
+    if(!tA&&!tB)continue;
+    html+='<div class="diff-row">';
+    html+='<div class="diff-label">'+(tA?safe(tA.theme):(tB?safe(tB.theme):''))+'</div>';
+    html+='<div class="diff-a">'+(tA?safe(tA.product_signal):'—')+'</div>';
+    html+='<div class="diff-b">'+(tB?safe(tB.product_signal):'—')+'</div>';
+    html+='</div>';
+  }
+  html+='</div></div>';
+  document.getElementById('compare-result').innerHTML=html;
 }
 
-function safe(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// ══ COMPETITOR ══
+function toggleComp(el){el.classList.toggle('selected')}
+
+async function runCompetitor(){
+  var selected=Array.prototype.map.call(document.querySelectorAll('#comp-apps .comp-app.selected'),function(el){return el.dataset.app});
+  if(!selected.length){alert('Select at least one competitor.');return}
+  var apiKey=localStorage.getItem('av_gemini_key');
+  if(!apiKey){showErr('comp-error','No API key. Go to Settings.');return}
+
+  setRunBtn('comp-btn',true);
+  hideErr('comp-error');
+  document.getElementById('comp-result').innerHTML='';
+  showStatusBar('comp-status');
+
+  var p='You are a competitive intelligence analyst for Arre Voice, an Indian women-first short-form audio app.';
+  p+='\n\nUse Google Search to find the most recent user complaints, feature requests, and switching signals for these competitor apps: '+selected.join(', ')+'.';
+  p+='\nSearch Play Store reviews (1 and 2 star), Twitter/X complaints, Reddit discussions from the last 7 days.';
+  p+='\nFocus on: what users hate, what features they want, what is causing them to look for alternatives.';
+  p+='\n\nReturn ONLY a raw JSON object starting with { and ending with }.';
+  p+='\nNo markdown, no backticks, no smart quotes, no apostrophes in string values.';
+  p+='\n{"competitors":[{"app":"app name","top_complaints":["complaint 1","complaint 2","complaint 3"],"wanted_features":["feature 1","feature 2"],"switching_signal":"one sentence describing the main reason users might switch","opportunity_for_arre":"one specific thing Arre Voice can do to attract these users","urgency":3}]}';
+  p+='\nGenerate one entry per competitor: '+selected.join(', ')+'. urgency is integer 1-5.';
+
+  try{
+    var json=await callGemini(p,'comp-status','comp-status-text');
+    hideStatusBar('comp-status');
+    renderCompetitor(json);
+  }catch(err){
+    hideStatusBar('comp-status');
+    handleApiError(err,'comp-error');
+  }
+  setRunBtn('comp-btn',false);
 }
 
-function renderReport(json, segLabel, timewin) {
-  const now = new Date();
-  document.getElementById('r-time').textContent = now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
-  document.getElementById('r-seg').textContent  = segLabel;
-  document.getElementById('r-win').textContent  = timewin;
-  document.getElementById('top10-win').textContent = timewin;
+function renderCompetitor(json){
+  var comps=(json.competitors||[]);
+  if(!comps.length){document.getElementById('comp-result').innerHTML='<div style="color:var(--text3);font-size:13px;padding:20px 0">No data returned. Please try again.</div>';return}
+  var html='';
+  comps.forEach(function(c){
+    var ac={immediate:'#e8572a','next sprint':'#f0a500',backlog:'#5a5754'};
+    var pips=[1,2,3,4,5].map(function(i){return'<div class="urgency-pip'+(i<=(parseInt(c.urgency)||0)?' lit':'')+'"></div>'}).join('');
+    html+='<div class="theme-card" style="margin-bottom:12px"><div class="theme-card-inner">';
+    html+='<div class="theme-top"><div class="theme-tag" style="background:var(--accent-dim);color:var(--accent-text);border:1px solid #e8572a44">'+safe(c.app)+'</div>';
+    html+='<div class="urgency-badge">'+pips+'<span class="urgency-label">U'+(c.urgency||'?')+'</span></div></div>';
+    html+='<div class="theme-headline">'+safe(c.switching_signal)+'</div>';
+    html+='<div class="theme-grid" style="margin-bottom:10px">';
+    html+='<div class="theme-meta-block"><div class="meta-key">Top complaints</div><div class="meta-val">'+(c.top_complaints||[]).map(function(x){return safe(x)}).join('<br>')+'</div></div>';
+    html+='<div class="theme-meta-block"><div class="meta-key">Wanted features</div><div class="meta-val">'+(c.wanted_features||[]).map(function(x){return safe(x)}).join('<br>')+'</div></div>';
+    html+='</div>';
+    html+='<div class="theme-example" style="border-left:2px solid #e8572a">Opportunity for Arre: '+safe(c.opportunity_for_arre)+'</div>';
+    html+='</div></div>';
+  });
+  document.getElementById('comp-result').innerHTML=html;
+}
 
-  document.getElementById('sources-bar').innerHTML =
-    SOURCES.map(function(s) { return '<div class="source-pill">' + s + '</div>'; }).join('');
+// ══ HISTORY ══
+function saveToHistory(report){
+  try{
+    var hist=JSON.parse(localStorage.getItem('av_history')||'[]');
+    hist.unshift({segment:report.segment,segKey:report.segKey,timewin:report.timewin,focuses:report.focuses,timestamp:report.timestamp,json:report.json});
+    hist=hist.slice(0,7);
+    localStorage.setItem('av_history',JSON.stringify(hist));
+  }catch(e){}
+}
 
-  const tc = document.getElementById('themes-container');
-  tc.innerHTML = '';
-  json.themes.forEach(function(t) {
-    const c = THEME_COLORS[t.theme] || THEME_COLORS['Creator pain points'];
-    const pips = [1,2,3,4,5].map(function(i) {
-      return '<div class="urgency-pip' + (i <= (parseInt(t.urgency) || 0) ? ' lit' : '') + '"></div>';
-    }).join('');
-    const aColor = { immediate:'#e8572a', 'next sprint':'#f0a500', backlog:'#5a5754' }[t.product_action] || '#5a5754';
-    const platforms = Array.isArray(t.platforms_found) ? t.platforms_found.join(' · ') : 'multiple platforms';
-    tc.innerHTML +=
-      '<div class="theme-card">' +
-        '<div class="theme-card-inner">' +
-          '<div class="theme-top">' +
-            '<div class="theme-tag" style="background:' + c.bg + ';color:' + c.text + ';border:1px solid ' + c.tag + '44">' + safe(t.theme) + '</div>' +
-            '<div class="urgency-badge">' + pips + '<span class="urgency-label">U' + (t.urgency || '?') + '</span></div>' +
-          '</div>' +
-          '<div class="theme-headline">' + safe(t.headline) + '</div>' +
-          '<div class="theme-why">' + safe(t.why_now) + '</div>' +
-          '<div class="theme-grid">' +
-            '<div class="theme-meta-block"><div class="meta-key">Emotional driver</div><div class="meta-val">' + safe(t.emotional_driver) + '</div></div>' +
-            '<div class="theme-meta-block"><div class="meta-key">Signal strength</div><div class="meta-val">' + safe(t.signal_strength) + '</div></div>' +
-            '<div class="theme-meta-block"><div class="meta-key">Product signal</div><div class="meta-val">' + safe(t.product_signal) + '</div></div>' +
-            '<div class="theme-meta-block"><div class="meta-key">Action timing</div><div class="meta-val" style="color:' + aColor + '">' + safe(t.product_action) + '</div></div>' +
-          '</div>' +
-          (t.real_example ? '<div class="theme-example" style="border-left:2px solid ' + c.tag + '">' + safe(t.real_example) + '</div>' : '') +
-        '</div>' +
-        '<div class="theme-card-footer">' +
-          '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>' +
-          'Found on: ' + safe(platforms) +
-        '</div>' +
-      '</div>';
+function renderHistory(){
+  var hist=[];
+  try{hist=JSON.parse(localStorage.getItem('av_history')||'[]')}catch(e){}
+  var el=document.getElementById('history-list');
+  if(!hist.length){el.innerHTML='<div class="history-empty">No reports saved yet. Run a research report to see history here.</div>';document.getElementById('trend-delta-section').innerHTML='';return}
+  var html='';
+  hist.forEach(function(r,i){
+    var d=new Date(r.timestamp);
+    var ds=d.toLocaleDateString('en-IN',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    html+='<div class="history-item" onclick="loadHistory('+i+')">';
+    html+='<div class="history-item-top"><div class="history-item-title">'+safe(r.segment)+'</div>';
+    html+='<div style="display:flex;align-items:center;gap:8px"><div class="history-item-meta">'+ds+'</div>';
+    html+='<button class="history-del" onclick="event.stopPropagation();deleteHistory('+i+')" title="Delete">✕</button></div></div>';
+    html+='<div class="history-themes">';
+    ((r&&r.focuses)||[]).forEach(function(f){
+      var c=THEME_COLORS[f]||THEME_COLORS['Creator pain points'];
+      html+='<span class="history-tag" style="background:'+c.bg+';color:'+c.text+';border:1px solid '+c.tag+'44">'+safe(f)+'</span>';
+    });
+    html+='</div></div>';
+  });
+  el.innerHTML=html;
+
+  // trend delta between latest two reports
+  if(hist.length>=2){
+    var r0=hist[0],r1=hist[1];
+    var top0=(r0.json&&r0.json.top10||[]).map(function(i){return i.topic||''}).filter(Boolean);
+    var top1=(r1.json&&r1.json.top10||[]).map(function(i){return i.topic||''}).filter(Boolean);
+    var newTopics=top0.filter(function(t){return!top1.some(function(b){return b.toLowerCase().indexOf(t.toLowerCase().slice(0,8))>-1})});
+    var goneTopics=top1.filter(function(t){return!top0.some(function(a){return a.toLowerCase().indexOf(t.toLowerCase().slice(0,8))>-1})});
+    var same=top0.filter(function(t){return top1.some(function(b){return b.toLowerCase().indexOf(t.toLowerCase().slice(0,8))>-1})}).slice(0,3);
+    if(newTopics.length||goneTopics.length){
+      var dh='<div class="trend-delta"><div class="delta-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Trend delta: latest vs previous report</div>';
+      newTopics.slice(0,5).forEach(function(t){dh+='<div class="delta-item delta-new"><span class="delta-icon">↑</span><span>'+safe(t)+' <span style="font-size:10px;font-family:DM Mono,monospace">NEW</span></span></div>'});
+      goneTopics.slice(0,5).forEach(function(t){dh+='<div class="delta-item delta-gone"><span class="delta-icon">↓</span><span>'+safe(t)+' <span style="font-size:10px;font-family:DM Mono,monospace">DROPPED</span></span></div>'});
+      same.forEach(function(t){dh+='<div class="delta-item delta-same"><span class="delta-icon">→</span><span>'+safe(t)+'</span></div>'});
+      dh+='</div>';
+      document.getElementById('trend-delta-section').innerHTML=dh;
+    }
+  }
+}
+
+function loadHistory(i){
+  try{
+    var hist=JSON.parse(localStorage.getItem('av_history')||'[]');
+    var r=hist[i];
+    if(!r)return;
+    lastReport={json:r.json,segment:r.segment,timewin:r.timewin,focuses:r.focuses,segKey:r.segKey,timestamp:r.timestamp};
+    renderReport(r.json,r.segment,r.timewin);
+    renderHeatmap();
+    // switch to research tab
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
+    document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+    document.getElementById('tab-research').classList.add('active');
+    document.querySelector('.nav-tab').classList.add('active');
+    showToast('Report loaded from history');
+  }catch(e){}
+}
+
+function deleteHistory(i){
+  try{
+    var hist=JSON.parse(localStorage.getItem('av_history')||'[]');
+    hist.splice(i,1);
+    localStorage.setItem('av_history',JSON.stringify(hist));
+    renderHistory();
+  }catch(e){}
+}
+
+function clearHistory(){
+  if(!confirm('Clear all saved reports?'))return;
+  localStorage.removeItem('av_history');
+  renderHistory();
+}
+
+// ══ RENDER REPORT ══
+function renderReport(json,segLabel,timewin){
+  var now=new Date();
+  document.getElementById('r-time').textContent=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('r-seg').textContent=segLabel;
+  document.getElementById('r-win').textContent=timewin;
+  document.getElementById('top10-win').textContent=timewin;
+  document.getElementById('sources-bar').innerHTML=['Reddit','Twitter/X','YouTube','Play Store','Google Search'].map(function(s){return'<div class="source-pill">'+s+'</div>'}).join('');
+
+  var tc=document.getElementById('themes-container');
+  tc.innerHTML='';
+  json.themes.forEach(function(t){
+    var c=THEME_COLORS[t.theme]||THEME_COLORS['Creator pain points'];
+    var pips=[1,2,3,4,5].map(function(i){return'<div class="urgency-pip'+(i<=(parseInt(t.urgency)||0)?' lit':'')+'"></div>'}).join('');
+    var aColor={immediate:'#e8572a','next sprint':'#f0a500',backlog:'#5a5754'}[t.product_action]||'#5a5754';
+    var platforms=Array.isArray(t.platforms_found)?t.platforms_found.join(' · '):'multiple platforms';
+    tc.innerHTML+='<div class="theme-card"><div class="theme-card-inner"><div class="theme-top"><div class="theme-tag" style="background:'+c.bg+';color:'+c.text+';border:1px solid '+c.tag+'44">'+safe(t.theme)+'</div><div class="urgency-badge">'+pips+'<span class="urgency-label">U'+(t.urgency||'?')+'</span></div></div><div class="theme-headline">'+safe(t.headline)+'</div><div class="theme-why">'+safe(t.why_now)+'</div><div class="theme-grid"><div class="theme-meta-block"><div class="meta-key">Emotional driver</div><div class="meta-val">'+safe(t.emotional_driver)+'</div></div><div class="theme-meta-block"><div class="meta-key">Signal strength</div><div class="meta-val">'+safe(t.signal_strength)+'</div></div><div class="theme-meta-block"><div class="meta-key">Product signal</div><div class="meta-val">'+safe(t.product_signal)+'</div></div><div class="theme-meta-block"><div class="meta-key">Action timing</div><div class="meta-val" style="color:'+aColor+'">'+safe(t.product_action)+'</div></div></div>'+(t.real_example?'<div class="theme-example" style="border-left:2px solid '+c.tag+'">'+safe(t.real_example)+'</div>':'')+'</div><div class="theme-card-footer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Found on: '+safe(platforms)+'</div></div>';
   });
 
-  const tl = document.getElementById('top10-list');
-  tl.innerHTML = '';
-  const heatColor = { rising:'#2dba7e', steady:'#9a9490', declining:'#5a5754' };
-  (json.top10 || []).forEach(function(item, i) {
-    const heat = item.heat || 'steady';
-    tl.innerHTML +=
-      '<div class="top10-item">' +
-        '<span class="top10-n">' + String(i+1).padStart(2,'0') + '</span>' +
-        '<span style="flex:1">' + safe(item.topic) + '</span>' +
-        '<span style="font-size:10px;font-family:\'DM Mono\',monospace;color:' + (heatColor[heat] || '#9a9490') + ';flex-shrink:0">' + heat + '</span>' +
-      '</div>';
+  var tl=document.getElementById('top10-list');
+  tl.innerHTML='';
+  var heatColor={rising:'#2dba7e',steady:'#9a9490',declining:'#5a5754'};
+  (json.top10||[]).forEach(function(item,i){
+    var heat=item.heat||'steady';
+    tl.innerHTML+='<div class="top10-item"><span class="top10-n">'+String(i+1).padStart(2,'0')+'</span><span style="flex:1">'+safe(item.topic)+'</span><span style="font-size:10px;font-family:\'DM Mono\',monospace;color:'+(heatColor[heat]||'#9a9490')+';flex-shrink:0">'+heat+'</span></div>';
   });
 
   document.getElementById('report').classList.add('visible');
 }
 
-function buildText() {
-  if (!lastReport) return '';
-  const j = lastReport.json, seg = lastReport.segment, tw = lastReport.timewin;
-  var t = 'ARRE VOICE - DAILY AUDIENCE INSIGHTS\n';
-  t += 'Generated: ' + new Date().toLocaleString('en-IN') + ' | ' + seg + ' | ' + tw + '\n';
-  t += '------------------------------------------------------------\n\n';
-  j.themes.forEach(function(th, i) {
-    t += 'THEME ' + (i+1) + ': ' + (th.theme || '').toUpperCase() + ' [Urgency: ' + th.urgency + '/5]\n';
-    t += (th.headline || '') + '\n\n';
-    t += 'Why now: ' + (th.why_now || '') + '\n';
-    t += 'Emotional driver: ' + (th.emotional_driver || '') + ' | Signal: ' + (th.signal_strength || '') + '\n';
-    t += 'Found on: ' + (Array.isArray(th.platforms_found) ? th.platforms_found.join(', ') : '') + '\n\n';
-    t += 'Product signal: ' + (th.product_signal || '') + '\n';
-    t += 'Action timing: ' + (th.product_action || '') + '\n';
-    if (th.real_example) t += 'Example: ' + th.real_example + '\n';
-    t += '\n------------------------------------------------------------\n\n';
+// ══ HEATMAP ══
+function renderHeatmap(){
+  try{
+    var hist=JSON.parse(localStorage.getItem('av_history')||'[]');
+    if(hist.length<2){document.getElementById('heatmap-section').innerHTML='';return}
+    var counts={};
+    hist.forEach(function(r){
+      (r.json&&r.json.themes||[]).forEach(function(t){
+        var k=t.theme||'unknown';
+        if(!counts[k])counts[k]={total:0,high:0};
+        counts[k].total++;
+        if((parseInt(t.urgency)||0)>=4)counts[k].high++;
+      });
+    });
+    var maxTotal=Math.max.apply(null,Object.values(counts).map(function(v){return v.total}));
+    var html='<div class="heatmap"><div class="heatmap-header">Urgency heatmap — across last '+hist.length+' reports</div><div class="heatmap-grid">';
+    Object.keys(counts).forEach(function(k){
+      var v=counts[k];
+      var pct=maxTotal>0?Math.round(v.total/maxTotal*100):0;
+      html+='<div class="heatmap-cell"><div class="heatmap-theme">'+safe(k)+'</div><div class="heatmap-bar-wrap"><div class="heatmap-bar" style="width:'+pct+'%"></div></div><div class="heatmap-count">'+v.total+' reports · '+v.high+' high urgency</div></div>';
+    });
+    html+='</div></div>';
+    document.getElementById('heatmap-section').innerHTML=html;
+  }catch(e){document.getElementById('heatmap-section').innerHTML=''}
+}
+
+// ══ EXPORT ══
+function buildText(){
+  if(!lastReport)return'';
+  var j=lastReport.json,seg=lastReport.segment,tw=lastReport.timewin;
+  var t='ARRE VOICE - DAILY AUDIENCE INSIGHTS\n';
+  t+='Generated: '+new Date().toLocaleString('en-IN')+' | '+seg+' | '+tw+'\n';
+  t+='------------------------------------------------------------\n\n';
+  j.themes.forEach(function(th,i){
+    t+='THEME '+(i+1)+': '+(th.theme||'').toUpperCase()+' [Urgency: '+th.urgency+'/5]\n';
+    t+=(th.headline||'')+'\n\nWhy now: '+(th.why_now||'')+'\n';
+    t+='Emotional driver: '+(th.emotional_driver||'')+' | Signal: '+(th.signal_strength||'')+'\n';
+    t+='Found on: '+(Array.isArray(th.platforms_found)?th.platforms_found.join(', '):'')+'\n\n';
+    t+='Product signal: '+(th.product_signal||'')+'\nAction timing: '+(th.product_action||'')+'\n';
+    if(th.real_example)t+='Example: '+th.real_example+'\n';
+    t+='\n------------------------------------------------------------\n\n';
   });
-  t += 'TOP 10 TOPICS (' + tw + ')\n\n';
-  (j.top10 || []).forEach(function(item, i) {
-    t += String(i+1).padStart(2,'0') + '. ' + (item.topic || '') + ' [' + (item.heat || 'steady') + ']\n';
+  t+='TOP 10 TOPICS ('+tw+')\n\n';
+  (j.top10||[]).forEach(function(item,i){
+    t+=String(i+1).padStart(2,'0')+'. '+(item.topic||'')+' ['+(item.heat||'steady')+']\n';
   });
   return t;
 }
 
-function copyReport() {
-  const text = buildText();
-  if (!text) return;
-  navigator.clipboard.writeText(text).then(function() {
-    const btn = document.getElementById('copy-btn');
-    const orig = btn.innerHTML;
-    btn.textContent = 'Copied!';
-    setTimeout(function() { btn.innerHTML = orig; }, 2000);
-  });
+function copyReport(){
+  var text=buildText();
+  if(!text)return;
+  navigator.clipboard.writeText(text).then(function(){showToast('Report copied to clipboard')});
 }
 
-function openGmail() {
-  if (!lastReport) { alert('Generate a report first.'); return; }
-  const to  = document.getElementById('gmail-to').value.trim();
-  const sub = encodeURIComponent('Arre Voice Audience Insights - ' + new Date().toLocaleDateString('en-IN'));
-  const body = encodeURIComponent(buildText());
-  const url  = 'https://mail.google.com/mail/?view=cm&fs=1' + (to ? '&to=' + encodeURIComponent(to) : '') + '&su=' + sub + '&body=' + body;
-  window.open(url, '_blank');
+function copySlack(){
+  if(!lastReport){alert('Generate a report first.');return}
+  var j=lastReport.json,seg=lastReport.segment,tw=lastReport.timewin;
+  var t='*Arre Voice Audience Insights* — '+seg+' ('+tw+')\n\n';
+  j.themes.forEach(function(th){
+    t+='*'+( th.theme||'')+' [U'+(th.urgency||'?')+'/5]*\n';
+    t+=(th.headline||'')+'\n';
+    t+='Signal: '+(th.product_signal||'')+' | Action: '+(th.product_action||'')+'\n\n';
+  });
+  t+='*Top topics:* '+(j.top10||[]).slice(0,5).map(function(i){return i.topic||''}).filter(Boolean).join(', ');
+  navigator.clipboard.writeText(t).then(function(){showToast('WhatsApp/Slack format copied')});
+}
+
+function openGmail(){
+  if(!lastReport){alert('Generate a report first.');return}
+  var to=document.getElementById('gmail-to').value.trim();
+  var sub=encodeURIComponent('Arre Voice Audience Insights - '+new Date().toLocaleDateString('en-IN'));
+  var body=encodeURIComponent(buildText());
+  var url='https://mail.google.com/mail/?view=cm&fs=1'+(to?'&to='+encodeURIComponent(to):'')+'&su='+sub+'&body='+body;
+  window.open(url,'_blank');
+}
+
+// ══ NOTIFICATIONS ══
+function scheduleNotif(){
+  if(!('Notification' in window)){document.getElementById('notif-status').textContent='Notifications not supported in this browser.';return}
+  Notification.requestPermission().then(function(perm){
+    if(perm!=='granted'){document.getElementById('notif-status').textContent='Notification permission denied.';return}
+    var time=document.getElementById('notif-time').value||'09:00';
+    localStorage.setItem('av_notif_time',time);
+    document.getElementById('notif-status').textContent='Reminder set for '+time+' daily. Keep this tab open.';
+    scheduleNextNotif(time);
+  });
+}
+function scheduleNextNotif(time){
+  var parts=time.split(':');
+  var now=new Date();
+  var next=new Date();
+  next.setHours(parseInt(parts[0])||9,parseInt(parts[1])||0,0,0);
+  if(next<=now)next.setDate(next.getDate()+1);
+  var ms=next-now;
+  setTimeout(function(){
+    new Notification('Arre Voice Insights',{body:'Time to run your daily audience research!',icon:''});
+    scheduleNextNotif(time);
+  },ms);
+}
+function cancelNotif(){
+  localStorage.removeItem('av_notif_time');
+  document.getElementById('notif-status').textContent='Daily reminder cancelled.';
+}
+// auto-restore notification
+(function(){
+  var t=localStorage.getItem('av_notif_time');
+  if(t&&'Notification' in window&&Notification.permission==='granted'){
+    document.getElementById('notif-status').textContent='Reminder active at '+t+' daily.';
+    scheduleNextNotif(t);
+  }
+})();
+
+// ══ BTN HELPERS ══
+function setRunBtn(id,loading){
+  var btn=document.getElementById(id);
+  btn.disabled=loading;
+  btn.innerHTML=loading?'<div class="spinner"></div> Researching...':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> '+(id==='run-btn'?'Research my audience now':id==='compare-btn'?'Compare segments':'Monitor selected competitors');
 }
 </script>
 </body>
