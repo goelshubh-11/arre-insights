@@ -759,7 +759,7 @@ function buildPrompt(focuses,segKey,timewin,platforms,custom){
 }
 
 // ══ API CALL ══
-async function callGemini(prompt,statusId,statusTextId){
+async function callGemini(prompt,statusId,statusTextId,skipThemeCheck){
   var apiKey=localStorage.getItem('av_gemini_key');
   if(!apiKey)throw new Error('NO_KEY');
   var MODEL='gemini-2.5-flash';
@@ -831,7 +831,7 @@ async function callGemini(prompt,statusId,statusTextId){
     try{json=JSON.parse(c2)}
     catch(e2){throw new Error('JSON_PARSE: '+e.message)}
   }
-  if(!json.themes||!Array.isArray(json.themes)||json.themes.length===0)throw new Error('NO_THEMES');
+  if(!skipThemeCheck&&(!json.themes||!Array.isArray(json.themes)||json.themes.length===0))throw new Error('NO_THEMES');
   if(!json.top10||!Array.isArray(json.top10))json.top10=[];
   return json;
 }
@@ -974,7 +974,7 @@ async function runCompetitor(){
   p+='\nGenerate one entry per competitor: '+selected.join(', ')+'. urgency is integer 1-5.';
 
   try{
-    var json=await callGemini(p,'comp-status','comp-status-text');
+    var json=await callGemini(p,'comp-status','comp-status-text',true);
     hideStatusBar('comp-status');
     renderCompetitor(json);
   }catch(err){
