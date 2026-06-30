@@ -92,6 +92,12 @@ input[type="text"]::placeholder,input[type="email"]::placeholder,input[type="pas
 .comp-app.selected{border-color:var(--accent);background:var(--accent-dim)}
 .comp-app-name{font-size:13px;font-weight:500;margin-bottom:3px}
 .comp-app-desc{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+.comp-custom-row{display:flex;gap:8px;margin-bottom:16px}
+.comp-custom-input{flex:1}
+.comp-custom-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.comp-custom-tag{font-size:12px;padding:5px 10px 5px 12px;border-radius:20px;background:var(--accent-dim);border:1px solid var(--accent);color:var(--accent-text);display:flex;align-items:center;gap:6px}
+.comp-custom-tag button{background:none;border:none;color:var(--accent-text);cursor:pointer;font-size:13px;line-height:1;padding:0;display:flex}
+.comp-custom-tag button:hover{opacity:0.7}
 .history-empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
 .history-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all 0.15s}
 .history-item:hover{border-color:var(--text3)}
@@ -114,6 +120,11 @@ input[type="text"]::placeholder,input[type="email"]::placeholder,input[type="pas
 .btn-run{width:100%;padding:12px 24px;background:var(--accent);color:white;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s}
 .btn-run:hover{opacity:0.88}
 .btn-run:disabled{opacity:0.4;cursor:not-allowed}
+.run-row-flex{display:flex;gap:8px;margin-top:16px}
+.run-row-flex .btn-run{margin-top:0}
+.btn-stop{padding:12px 18px;background:transparent;color:#f08080;border:1px solid #5a1a1a;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;display:none;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;white-space:nowrap}
+.btn-stop:hover{background:#1a0a0a;border-color:#f08080}
+.btn-stop.visible{display:flex}
 .btn-ghost{padding:8px 13px;background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;white-space:nowrap;transition:all 0.15s}
 .btn-ghost:hover{border-color:var(--text3);color:var(--text)}
 .btn-sm{padding:7px 13px;font-size:12px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;transition:all 0.15s;white-space:nowrap}
@@ -181,6 +192,32 @@ input[type="text"]::placeholder,input[type="email"]::placeholder,input[type="pas
 .heatmap-bar-wrap{height:6px;background:var(--border2);border-radius:3px;margin-bottom:4px;overflow:hidden}
 .heatmap-bar{height:100%;border-radius:3px;background:var(--accent)}
 .heatmap-count{font-size:11px;color:var(--text2)}
+.exec-summary{background:linear-gradient(135deg,var(--accent-dim),var(--surface));border:1px solid var(--accent);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px}
+.exec-summary-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--accent-text);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.exec-summary-text{font-size:14px;color:var(--text);line-height:1.6}
+.theme-volume{font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);display:flex;align-items:center;gap:4px}
+.theme-affected{margin-top:10px;padding:8px 11px;background:var(--surface2);border-radius:var(--radius-sm);font-size:12px;color:var(--text2)}
+.theme-affected b{color:var(--text)}
+.examples-list{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.example-item{padding:9px 12px;background:var(--surface2);border-radius:0 5px 5px 0;font-size:12px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.6}
+.competitor-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.competitor-pill{font-size:10px;font-family:'DM Mono',monospace;padding:2px 9px;border-radius:20px;background:var(--amber-dim);color:var(--amber-text);border:1px solid var(--amber)}
+.next-step-block{margin-top:10px;padding:10px 12px;background:var(--green-dim);border-radius:var(--radius-sm);border-left:2px solid var(--green)}
+.next-step-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--green-text);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
+.next-step-text{font-size:12px;color:var(--text)}
+.comp-section{margin-top:10px;padding:10px 12px;border-radius:var(--radius-sm)}
+.comp-section-label{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.comp-section-text{font-size:12px;color:var(--text2);line-height:1.6}
+.comp-profile{background:var(--surface2)}
+.comp-profile .comp-section-label{color:var(--blue-text)}
+.comp-working{background:var(--green-dim);border-left:2px solid var(--green)}
+.comp-working .comp-section-label{color:var(--green-text)}
+.comp-working-list{margin-top:4px}
+.comp-working-item{font-size:12px;color:var(--text);padding:3px 0;display:flex;gap:6px}
+.comp-working-item::before{content:'✓';color:var(--green);flex-shrink:0}
+.comp-learnings{background:var(--purple-dim);border-left:2px solid var(--purple);margin-top:8px}
+.comp-learnings .comp-section-label{color:var(--purple-text)}
+.comp-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .share-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
 .share-header{padding:13px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .share-title{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
@@ -298,10 +335,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
         <textarea id="custom-ctx" placeholder="e.g. We just launched Tamil voiceclubs. What are Tamil creators saying about group audio formats?"></textarea>
       </div>
     </div>
-    <div class="run-row">
+    <div class="run-row-flex">
       <button class="btn-run" id="run-btn" onclick="runResearch()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         Research my audience now
+      </button>
+      <button class="btn-stop" id="stop-btn" onclick="stopResearch('error-box')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+        Stop
       </button>
     </div>
   </div>
@@ -329,6 +370,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
         </button>
       </div>
     </div>
+    <div id="exec-summary-section"></div>
     <div class="sources-bar" id="sources-bar"></div>
     <div class="themes" id="themes-container"></div>
     <div class="top10">
@@ -395,9 +437,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
       </select>
     </div>
   </div>
-  <button class="btn-run" id="compare-btn" onclick="runCompare()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Compare segments
-  </button>
+  <div class="run-row-flex">
+    <button class="btn-run" id="compare-btn" onclick="runCompare()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Compare segments
+    </button>
+    <button class="btn-stop" id="compare-stop-btn" onclick="stopResearch('compare-error')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>Stop
+    </button>
+  </div>
   <div class="status-bar" id="compare-status"><div class="status-dot"></div><span id="compare-status-text">Researching...</span></div>
   <div class="error-box" id="compare-error"><span id="compare-error-msg"></span><div class="retry-hint" id="compare-error-hint"></div></div>
   <div class="compare-result" id="compare-result"></div>
@@ -405,7 +452,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
 
 <!-- COMPETITOR -->
 <div class="tab-panel" id="tab-competitor">
-  <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Track what users are saying about competing apps — complaints, feature requests, switching signals.</div>
+  <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Track what users are saying about competing apps — content, creators, what's working, complaints, and feature requests.</div>
+
+  <div class="comp-custom-row">
+    <input type="text" id="comp-custom-input" class="comp-custom-input" placeholder="Add any other app, e.g. Pocket FM, Audible India...">
+    <button class="btn-ghost" onclick="addCustomComp()">+ Add</button>
+  </div>
+  <div class="comp-custom-list" id="comp-custom-list"></div>
+
   <div class="comp-grid" id="comp-apps">
     <div class="comp-app selected" data-app="Kuku FM" onclick="toggleComp(this)"><div class="comp-app-name">Kuku FM</div><div class="comp-app-desc">Audio stories</div></div>
     <div class="comp-app" data-app="Josh" onclick="toggleComp(this)"><div class="comp-app-name">Josh</div><div class="comp-app-desc">Short video + audio</div></div>
@@ -413,10 +467,21 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
     <div class="comp-app" data-app="ShareChat" onclick="toggleComp(this)"><div class="comp-app-name">ShareChat</div><div class="comp-app-desc">Regional social</div></div>
     <div class="comp-app" data-app="Spotify India" onclick="toggleComp(this)"><div class="comp-app-name">Spotify India</div><div class="comp-app-desc">Music + podcasts</div></div>
     <div class="comp-app" data-app="Sun NXT" onclick="toggleComp(this)"><div class="comp-app-name">Sun NXT</div><div class="comp-app-desc">Tamil entertainment</div></div>
+    <div class="comp-app" data-app="Pratilipi FM" onclick="toggleComp(this)"><div class="comp-app-name">Pratilipi FM</div><div class="comp-app-desc">Audio fiction</div></div>
+    <div class="comp-app" data-app="Storytel India" onclick="toggleComp(this)"><div class="comp-app-name">Storytel India</div><div class="comp-app-desc">Audiobooks</div></div>
+    <div class="comp-app" data-app="Clubhouse" onclick="toggleComp(this)"><div class="comp-app-name">Clubhouse</div><div class="comp-app-desc">Live audio rooms</div></div>
+    <div class="comp-app" data-app="Koo" onclick="toggleComp(this)"><div class="comp-app-name">Koo</div><div class="comp-app-desc">Indian microblogging</div></div>
+    <div class="comp-app" data-app="Instagram Reels" onclick="toggleComp(this)"><div class="comp-app-name">Instagram Reels</div><div class="comp-app-desc">Short video, India</div></div>
+    <div class="comp-app" data-app="YouTube Shorts" onclick="toggleComp(this)"><div class="comp-app-name">YouTube Shorts</div><div class="comp-app-desc">Short video, India</div></div>
   </div>
-  <button class="btn-run" id="comp-btn" onclick="runCompetitor()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Monitor selected competitors
-  </button>
+  <div class="run-row-flex">
+    <button class="btn-run" id="comp-btn" onclick="runCompetitor()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Monitor selected competitors
+    </button>
+    <button class="btn-stop" id="comp-stop-btn" onclick="stopResearch('comp-error')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>Stop
+    </button>
+  </div>
   <div class="status-bar" id="comp-status"><div class="status-dot"></div><span id="comp-status-text">Scanning reviews and social media...</span></div>
   <div class="error-box" id="comp-error"><span id="comp-error-msg"></span><div class="retry-hint" id="comp-error-hint"></div></div>
   <div id="comp-result"></div>
@@ -585,6 +650,8 @@ var STATUS_MSGS = [
 
 var lastReport = null;
 var currentMode = 'gemini'; // 'gemini' | 'openai' | 'dual'
+var activeController = null; // tracks the in-flight request's AbortController for Stop button
+var activeRunId = 0; // increments each run; lets us ignore stale responses after a stop
 
 // ══════════════════════════════════════════════
 // INIT
@@ -812,7 +879,7 @@ function buildPrompt(focuses, segKey, timewin, platforms, custom) {
   var platformStr = platforms.length ? platforms.join(', ') : 'Reddit, Twitter/X, YouTube, Play Store';
 
   var p = 'You are a senior product researcher at Arre Voice, an Indian women-first short-form audio social app with 30-second voice pods, voiceclubs, and voicepools.';
-  p += '\n\nUse Google Search to find what people are discussing RIGHT NOW.';
+  p += '\n\nUse Google Search extensively to find what people are discussing RIGHT NOW. Do multiple searches across different angles of each focus area before writing the report — do not rely on a single search.';
   p += '\n\nAUDIENCE: ' + seg.desc;
   p += '\nFOCUS AREAS: ' + focuses.join(', ');
   p += '\nTIME WINDOW: ' + timewin;
@@ -820,15 +887,45 @@ function buildPrompt(focuses, segKey, timewin, platforms, custom) {
   if (tamilBase) p += '\n' + tamilBase;
   if (tamilSpecific) p += '\n' + tamilSpecific;
   if (custom) p += '\nTEAM CONTEXT: ' + custom;
+
+  p += '\n\nDEPTH REQUIREMENTS:';
+  p += '\n- For each theme, find at least 2-3 distinct supporting examples, not just one';
+  p += '\n- Identify the specific user segment within the audience most affected (e.g. new creators vs established ones)';
+  p += '\n- Note any named competitor apps or alternatives mentioned in the same discussions';
+  p += '\n- Estimate rough discussion volume (how many posts/threads/comments roughly touched this)';
+  p += '\n- Give a concrete next step, not just a vague direction';
+  p += '\n- Write an executive summary synthesising the 2-3 biggest takeaways across all themes combined';
+
   p += '\n\nOUTPUT RULES:';
   p += '\n- Return ONLY a raw JSON object, nothing else';
   p += '\n- No markdown fences, no backticks, no preamble';
   p += '\n- Start with { and end with }';
   p += '\n- No smart quotes, no apostrophes inside string values, no special chars that break JSON';
-  p += '\n- In real_example: paraphrase without inner quote characters';
+  p += '\n- In examples: paraphrase without inner quote characters';
   p += '\n- urgency must be a plain integer 1-5';
-  p += '\n\n{"themes":[{"theme":"one of: ' + focuses.join(' | ') + '","headline":"key finding in one sentence","signal_strength":"high or medium or low","platforms_found":["Reddit"],"why_now":"why surfacing now in 1-2 sentences","emotional_driver":"frustration or excitement or fear or curiosity or pride","real_example":"paraphrased representative post without inner quotes","product_signal":"specific feature or fix for Arre Voice","product_action":"immediate or next sprint or backlog","urgency":4}],"top10":[{"topic":"topic text","heat":"rising or steady or declining"}]}';
+  p += '\n- volume_estimate must be a plain integer (rough count of posts/threads/comments seen)';
+
+  p += '\n\n{"executive_summary":"2-3 sentence synthesis of the single most important thing the team should know across all findings",';
+  p += '"themes":[{';
+  p += '"theme":"one of: ' + focuses.join(' | ') + '",';
+  p += '"headline":"key finding in one sharp sentence",';
+  p += '"signal_strength":"high or medium or low",';
+  p += '"platforms_found":["Reddit"],';
+  p += '"why_now":"why surfacing now in 1-2 sentences",';
+  p += '"emotional_driver":"frustration or excitement or fear or curiosity or pride",';
+  p += '"affected_segment":"specific subset of the audience most affected by this, e.g. new creators with under 100 followers",';
+  p += '"volume_estimate":15,';
+  p += '"examples":["first paraphrased representative post or review without inner quotes","second distinct paraphrased example without inner quotes"],';
+  p += '"competitor_mentions":["any competitor app names mentioned in this context, empty array if none"],';
+  p += '"product_signal":"specific feature or fix for Arre Voice",';
+  p += '"next_step":"one concrete, specific action the product team can take this week",';
+  p += '"product_action":"immediate or next sprint or backlog",';
+  p += '"urgency":4';
+  p += '}],';
+  p += '"top10":[{"topic":"topic text","heat":"rising or steady or declining"}]}';
+
   p += '\n\nGenerate exactly ' + focuses.length + ' theme(s) in order: ' + focuses.join(', ') + '.';
+  p += '\nGenerate exactly 2 examples per theme, minimum 1 if data is genuinely sparse.';
   p += '\nGenerate exactly 10 items in top10. urgency integer 1-5.';
   return p;
 }
@@ -836,16 +933,36 @@ function buildPrompt(focuses, segKey, timewin, platforms, custom) {
 function buildSynthesisPrompt(rawFindings, focuses, segLabel, timewin) {
   var p = 'You are a sharp product strategist at Arre Voice, an Indian women-first short-form audio app.';
   p += '\n\nBelow are raw audience research findings collected from the web about ' + segLabel + ' in ' + timewin + '.';
-  p += '\n\nYour job: synthesise these into a clean, actionable product research report.';
+  p += '\n\nYour job: synthesise these into a clean, deep, actionable product research report. Sharpen vague findings into specific, decisive ones. Do not just reformat — add strategic judgement.';
   p += '\n\nRAW FINDINGS:\n' + rawFindings;
   p += '\n\nOUTPUT RULES:';
   p += '\n- Return ONLY a raw JSON object';
   p += '\n- No markdown fences, no backticks, no preamble';
   p += '\n- Start with { and end with }';
   p += '\n- No smart quotes, no apostrophes inside string values';
-  p += '\n- urgency must be a plain integer 1-5';
-  p += '\n- Write sharper, more specific headlines and product signals than the raw input';
-  p += '\n\n{"themes":[{"theme":"one of: ' + focuses.join(' | ') + '","headline":"sharp one-sentence finding","signal_strength":"high or medium or low","platforms_found":["Reddit"],"why_now":"why this matters now in 1-2 sentences","emotional_driver":"frustration or excitement or fear or curiosity or pride","real_example":"paraphrased example without inner quotes","product_signal":"very specific feature or fix Arre Voice should consider","product_action":"immediate or next sprint or backlog","urgency":4}],"top10":[{"topic":"topic","heat":"rising or steady or declining"}]}';
+  p += '\n- urgency and volume_estimate must be plain integers';
+  p += '\n- Write sharper, more specific headlines, examples and product signals than the raw input';
+  p += '\n- If raw findings already have examples/affected_segment/next_step, refine and sharpen them rather than dropping them';
+
+  p += '\n\n{"executive_summary":"2-3 sentence synthesis of the single most important takeaway across all themes",';
+  p += '"themes":[{';
+  p += '"theme":"one of: ' + focuses.join(' | ') + '",';
+  p += '"headline":"sharp one-sentence finding",';
+  p += '"signal_strength":"high or medium or low",';
+  p += '"platforms_found":["Reddit"],';
+  p += '"why_now":"why this matters now in 1-2 sentences",';
+  p += '"emotional_driver":"frustration or excitement or fear or curiosity or pride",';
+  p += '"affected_segment":"specific subset of audience most affected",';
+  p += '"volume_estimate":15,';
+  p += '"examples":["sharpened paraphrased example one","sharpened paraphrased example two"],';
+  p += '"competitor_mentions":["competitor names if any, empty array if none"],';
+  p += '"product_signal":"very specific feature or fix Arre Voice should consider",';
+  p += '"next_step":"one concrete action for this week",';
+  p += '"product_action":"immediate or next sprint or backlog",';
+  p += '"urgency":4';
+  p += '}],';
+  p += '"top10":[{"topic":"topic","heat":"rising or steady or declining"}]}';
+
   p += '\n\nGenerate exactly ' + focuses.length + ' theme(s). Generate exactly 10 top10 items. urgency integer 1-5.';
   return p;
 }
@@ -860,6 +977,7 @@ async function callGemini(prompt, statusId, statusTextId, skipThemeCheck) {
   var MODEL = 'gemini-2.5-flash';
   var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent?key=' + apiKey;
   var controller = new AbortController();
+  activeController = controller;
   var timeoutId = setTimeout(function() { controller.abort(); }, 90000);
   var res, attempt = 0, elapsed = 0;
 
@@ -878,7 +996,7 @@ async function callGemini(prompt, statusId, statusTextId, skipThemeCheck) {
         body: JSON.stringify({
           contents: [{role: 'user', parts: [{text: prompt}]}],
           tools: [{google_search: {}}],
-          generationConfig: {temperature: 0.4, maxOutputTokens: 8192}
+          generationConfig: {temperature: 0.4, maxOutputTokens: 16384}
         })
       });
       if (res.status === 429 || res.status === 503) {
@@ -917,6 +1035,7 @@ async function callGemini(prompt, statusId, statusTextId, skipThemeCheck) {
     throw new Error('EMPTY: ' + fr);
   }
 
+  activeController = null;
   return skipThemeCheck ? parseRawJSON(allText, true) : parseAndValidateJSON(allText);
 }
 
@@ -924,13 +1043,13 @@ async function callOpenAI(prompt, statusId, statusTextId) {
   var apiKey = localStorage.getItem('av_openai_key');
   if (!apiKey) throw new Error('NO_OPENAI_KEY');
 
-  // Note: chat/completions does not support the web_search_preview tool.
-  // OpenAI-only mode relies on GPT-4o's own knowledge plus the prompt context,
-  // not live web search. For live web search, use Gemini or Dual mode.
-  var url = 'https://api.openai.com/v1/chat/completions';
+  // Uses the Responses API with the web_search_preview tool for live web search.
+  // This requires an OpenAI account with Responses API + web search access (enterprise/paid tiers).
+  var url = 'https://api.openai.com/v1/responses';
   var controller = new AbortController();
+  activeController = controller;
   var timeoutId = setTimeout(function() { controller.abort(); }, 90000);
-  var augmentedPrompt = prompt + '\n\nNOTE: You do not have live web search in this mode. Base your analysis on your general knowledge of Indian social media, creator economy trends, and the platforms mentioned. Be clear this is knowledge-based analysis, not live data, by keeping claims general rather than citing specific recent posts.';
+  var jsonInstruction = prompt + '\n\nReturn ONLY the raw JSON object described above. No markdown fences, no commentary before or after the JSON.';
 
   try {
     var res = await fetch(url, {
@@ -939,10 +1058,8 @@ async function callOpenAI(prompt, statusId, statusTextId) {
       signal: controller.signal,
       body: JSON.stringify({
         model: 'gpt-4o',
-        temperature: 0.3,
-        max_tokens: 4096,
-        response_format: {type: 'json_object'},
-        messages: [{role: 'user', content: augmentedPrompt}]
+        tools: [{type: 'web_search_preview'}],
+        input: jsonInstruction
       })
     });
 
@@ -954,12 +1071,26 @@ async function callOpenAI(prompt, statusId, statusTextId) {
       if (res.status === 401) throw new Error('OPENAI_KEY_REJECTED');
       if (res.status === 429) throw new Error('OPENAI_RATE_LIMIT');
       if (res.status === 402) throw new Error('OPENAI_BILLING');
+      if (res.status === 400 && msg.toLowerCase().indexOf('web_search') > -1) throw new Error('OPENAI_NO_SEARCH_ACCESS');
       throw new Error('OPENAI_ERR: ' + msg);
     }
 
     var data = await res.json();
-    var content = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '';
+    // Responses API returns output as an array of items; find the text output
+    var content = '';
+    if (data.output_text) {
+      content = data.output_text;
+    } else if (Array.isArray(data.output)) {
+      data.output.forEach(function(item) {
+        if (item.type === 'message' && Array.isArray(item.content)) {
+          item.content.forEach(function(c) {
+            if (c.type === 'output_text' && c.text) content += c.text;
+          });
+        }
+      });
+    }
     if (!content) throw new Error('EMPTY_OPENAI');
+    activeController = null;
     return parseAndValidateJSON(content);
 
   } finally {
@@ -976,6 +1107,7 @@ async function callOpenAISynthesize(rawText, focuses, segLabel, timewin, statusT
 
   var url = 'https://api.openai.com/v1/chat/completions';
   var controller = new AbortController();
+  activeController = controller;
   var timeoutId = setTimeout(function() { controller.abort(); }, 60000);
 
   try {
@@ -986,7 +1118,7 @@ async function callOpenAISynthesize(rawText, focuses, segLabel, timewin, statusT
       body: JSON.stringify({
         model: 'gpt-4o',
         temperature: 0.3,
-        max_tokens: 4096,
+        max_tokens: 6000,
         response_format: {type: 'json_object'},
         messages: [{role: 'user', content: buildSynthesisPrompt(rawText, focuses, segLabel, timewin)}]
       })
@@ -1006,6 +1138,7 @@ async function callOpenAISynthesize(rawText, focuses, segLabel, timewin, statusT
     var data = await res.json();
     var content = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '';
     if (!content) throw new Error('EMPTY_OPENAI_SYNTHESIS');
+    activeController = null;
     return parseAndValidateJSON(content);
 
   } finally {
@@ -1054,6 +1187,8 @@ function handleApiError(err, errId) {
   else if (msg === 'OPENAI_BILLING')  { msg = 'OpenAI billing issue — add credits at platform.openai.com.'; }
   else if (msg === 'KEY_REJECTED')    { msg = 'Gemini key rejected.'; hint = 'Use the Copy key button in the AI Studio popup.'; }
   else if (msg === 'OPENAI_KEY_REJECTED') { msg = 'OpenAI key rejected.'; hint = 'Check your key at platform.openai.com/api-keys.'; }
+  else if (msg === 'OPENAI_NO_SEARCH_ACCESS') { msg = 'Your OpenAI account does not have web_search_preview access.'; hint = 'Use Gemini or Dual mode for live web search, or contact OpenAI to enable this on your account.'; }
+  else if (msg === 'STOPPED') { msg = 'Research stopped.'; hint = ''; }
   else if (msg.indexOf('BLOCKED') === 0)  { msg = 'Request blocked by Gemini safety filters.'; hint = 'Try rephrasing your custom context.'; }
   else if (msg.indexOf('EMPTY') === 0)    { msg = 'Empty response from API.'; hint = 'Please try again in a moment.'; }
   else if (msg === 'NO_JSON')         { msg = 'Could not find JSON in response.'; hint = 'The model returned plain text. Please try again.'; }
@@ -1070,6 +1205,7 @@ async function runResearch() {
   var focuses = getSelected('focus-chips');
   if (!focuses.length) { alert('Select at least one research focus.'); return; }
 
+  var myRunId = ++activeRunId;
   var segKey  = document.getElementById('segment').value;
   var timewin = document.getElementById('timewin').value;
   var platforms = getSelected('platform-chips');
@@ -1130,6 +1266,7 @@ async function runResearch() {
       setPipelineStep(3);
     }
 
+    if (myRunId !== activeRunId) return; // stopped before completion; ignore late result
     hideStatusBar('status-bar');
     lastReport = {json: json, segment: seg.label, segKey: segKey, timewin: timewin, focuses: focuses, timestamp: Date.now(), mode: currentMode};
     saveToHistory(lastReport);
@@ -1137,12 +1274,16 @@ async function runResearch() {
     renderHeatmap();
 
   } catch(err) {
+    if (myRunId !== activeRunId) {
+      // This run was stopped by the user — stopResearch() already updated the UI.
+      return;
+    }
     hideStatusBar('status-bar');
     if (pipe) pipe.style.display = 'none';
     handleApiError(err, 'error-box');
   }
 
-  setRunBtn('run-btn', false);
+  if (myRunId === activeRunId) setRunBtn('run-btn', false);
 }
 
 // ══════════════════════════════════════════════
@@ -1156,6 +1297,7 @@ async function runCompare() {
   var gKey = localStorage.getItem('av_gemini_key');
   if (!gKey) { showErr('compare-error', 'No Gemini API key. Go to Settings.', ''); return; }
 
+  var myRunId = ++activeRunId;
   var focuses = ['Creator pain points', 'Audio content trends', 'Competitor reactions'];
   setRunBtn('compare-btn', true);
   hideErr('compare-error');
@@ -1165,15 +1307,18 @@ async function runCompare() {
   try {
     setStatus('compare-status-text', 'Researching segment A...');
     var jsonA = await callGemini(buildPrompt(focuses, segA, 'last 30 hours', [], ''), 'compare-status', 'compare-status-text', false);
+    if (myRunId !== activeRunId) return;
     setStatus('compare-status-text', 'Researching segment B...');
     var jsonB = await callGemini(buildPrompt(focuses, segB, 'last 30 hours', [], ''), 'compare-status', 'compare-status-text', false);
+    if (myRunId !== activeRunId) return;
     hideStatusBar('compare-status');
     renderCompare(jsonA, jsonB, segA, segB);
   } catch(err) {
+    if (myRunId !== activeRunId) return;
     hideStatusBar('compare-status');
     handleApiError(err, 'compare-error');
   }
-  setRunBtn('compare-btn', false);
+  if (myRunId === activeRunId) setRunBtn('compare-btn', false);
 }
 
 function renderCompare(jsonA, jsonB, segA, segB) {
@@ -1220,16 +1365,55 @@ function renderCompare(jsonA, jsonB, segA, segB) {
 // ══════════════════════════════════════════════
 function toggleComp(el) { el.classList.toggle('selected'); }
 
+var customComps = [];
+
+function addCustomComp() {
+  var input = document.getElementById('comp-custom-input');
+  var val = input.value.trim();
+  if (!val) return;
+  if (customComps.indexOf(val) > -1) { input.value = ''; return; }
+  customComps.push(val);
+  input.value = '';
+  renderCustomComps();
+}
+
+function removeCustomComp(name) {
+  customComps = customComps.filter(function(c) { return c !== name; });
+  renderCustomComps();
+}
+
+function renderCustomComps() {
+  var el = document.getElementById('comp-custom-list');
+  if (!el) return;
+  el.innerHTML = customComps.map(function(name) {
+    return '<span class="comp-custom-tag">' + safe(name) + '<button onclick="removeCustomComp(' + JSON.stringify(name) + ')" title="Remove">✕</button></span>';
+  }).join('');
+}
+
+// Allow pressing Enter to add a custom competitor
+// Note: script runs after DOM is already parsed (script tag is at end of body),
+// so we attach directly rather than waiting for DOMContentLoaded (which would never fire here).
+(function attachCustomCompEnterKey() {
+  var input = document.getElementById('comp-custom-input');
+  if (input) {
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); addCustomComp(); }
+    });
+  }
+})();
+
 async function runCompetitor() {
-  var selected = Array.prototype.map.call(
+  var presetSelected = Array.prototype.map.call(
     document.querySelectorAll('#comp-apps .comp-app.selected'),
     function(el) { return el.dataset.app; }
   );
-  if (!selected.length) { alert('Select at least one competitor.'); return; }
+  var selected = presetSelected.concat(customComps);
+  if (!selected.length) { alert('Select or add at least one competitor.'); return; }
 
   var gKey = localStorage.getItem('av_gemini_key');
   if (!gKey) { showErr('comp-error', 'No Gemini API key. Go to Settings.', ''); return; }
 
+  var myRunId = ++activeRunId;
   setRunBtn('comp-btn', true);
   hideErr('comp-error');
   document.getElementById('comp-result').innerHTML = '';
@@ -1237,22 +1421,47 @@ async function runCompetitor() {
   setStatus('comp-status-text', 'Scanning reviews and social media for ' + selected.join(', ') + '...');
 
   var p = 'You are a competitive intelligence analyst for Arre Voice, an Indian women-first short-form audio app.';
-  p += '\n\nUse Google Search to find the most recent user complaints, feature requests, and switching signals for these competitor apps: ' + selected.join(', ') + '.';
-  p += '\nSearch Play Store reviews (1 and 2 star), Twitter/X complaints, Reddit discussions from the last 7 days.';
-  p += '\nFocus on what users hate, what features they want, and what is causing them to look for alternatives.';
+  p += '\n\nUse Google Search extensively to research these competitor apps from a full PRODUCT perspective, not just complaints: ' + selected.join(', ') + '.';
+  p += '\nSearch Play Store reviews (both 1-2 star AND 4-5 star), Twitter/X, Reddit, app store descriptions, and any creator interviews or case studies from the last 7-14 days.';
+
+  p += '\n\nRESEARCH ACROSS THESE ANGLES FOR EACH APP:';
+  p += '\n1. CONTENT: what kind of content is actually being created and consumed on this app right now (genres, formats, themes, regional/language mix)';
+  p += '\n2. CREATORS/USERS: who is using it (creator profile, audience demographic, what draws them specifically)';
+  p += '\n3. WHAT IS WORKING: specific features, formats or experiences users genuinely praise (from 4-5 star reviews and positive social posts) — this is as important as complaints';
+  p += '\n4. WHAT IS NOT WORKING: top complaints and pain points (from 1-2 star reviews and negative social posts)';
+  p += '\n5. FEATURE GAPS: what users are explicitly asking for that does not exist yet';
+  p += '\n6. SWITCHING SIGNALS: any sign of users looking for or moving to alternatives';
+
   p += '\n\nReturn ONLY a raw JSON object starting with { and ending with }. No markdown, no backticks, no smart quotes, no apostrophes in string values.';
-  p += '\n{"competitors":[{"app":"app name","top_complaints":["complaint 1","complaint 2","complaint 3"],"wanted_features":["feature 1","feature 2"],"switching_signal":"main reason users might switch","opportunity_for_arre":"specific thing Arre Voice can do to attract these users","urgency":3}]}';
-  p += '\nGenerate one entry per app: ' + selected.join(', ') + '. urgency integer 1-5.';
+
+  p += '\n\n{"competitors":[{';
+  p += '"app":"app name",';
+  p += '"content_profile":"what kind of content is created and consumed here right now, be specific about genres/formats/themes",';
+  p += '"creator_profile":"who creates and consumes here, their demographic and what draws them",';
+  p += '"working_well":["specific thing 1 that users genuinely praise","specific thing 2 that users genuinely praise"],';
+  p += '"learnings_for_arre":"what Arre Voice should learn from and consider adopting based on what is working well for this competitor",';
+  p += '"top_complaints":["complaint 1","complaint 2","complaint 3"],';
+  p += '"wanted_features":["feature 1","feature 2"],';
+  p += '"switching_signal":"main reason users might switch away from this app, or empty string if no signal found",';
+  p += '"opportunity_for_arre":"specific thing Arre Voice can do to attract dissatisfied users from this app",';
+  p += '"urgency":3';
+  p += '}]}';
+
+  p += '\n\nGenerate one entry per app: ' + selected.join(', ') + '.';
+  p += '\nGenerate at least 1-2 items in working_well per app — finding genuine positives is mandatory, not optional, even for apps with many complaints.';
+  p += '\nurgency integer 1-5.';
 
   try {
     var json = await callGemini(p, 'comp-status', 'comp-status-text', true);
+    if (myRunId !== activeRunId) return;
     hideStatusBar('comp-status');
     renderCompetitor(json);
   } catch(err) {
+    if (myRunId !== activeRunId) return;
     hideStatusBar('comp-status');
     handleApiError(err, 'comp-error');
   }
-  setRunBtn('comp-btn', false);
+  if (myRunId === activeRunId) setRunBtn('comp-btn', false);
 }
 
 function renderCompetitor(json) {
@@ -1264,14 +1473,40 @@ function renderCompetitor(json) {
   var html = '';
   comps.forEach(function(c) {
     var pips = [1,2,3,4,5].map(function(i) { return '<div class="urgency-pip' + (i <= (parseInt(c.urgency) || 0) ? ' lit' : '') + '"></div>'; }).join('');
+
+    var contentHtml = c.content_profile
+      ? '<div class="comp-section comp-profile"><div class="comp-section-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Content on this app</div><div class="comp-section-text">' + safe(c.content_profile) + '</div></div>'
+      : '';
+
+    var creatorHtml = c.creator_profile
+      ? '<div class="comp-section comp-profile"><div class="comp-section-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>Who uses it</div><div class="comp-section-text">' + safe(c.creator_profile) + '</div></div>'
+      : '';
+
+    var workingItems = Array.isArray(c.working_well) ? c.working_well.filter(Boolean) : [];
+    var workingHtml = workingItems.length
+      ? '<div class="comp-section comp-working"><div class="comp-section-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3z"/></svg>What is working well</div><div class="comp-working-list">' +
+        workingItems.map(function(w) { return '<div class="comp-working-item">' + safe(w) + '</div>'; }).join('') +
+        '</div></div>'
+      : '';
+
+    var learningsHtml = c.learnings_for_arre
+      ? '<div class="comp-section comp-learnings"><div class="comp-section-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>What Arre can learn from this</div><div class="comp-section-text">' + safe(c.learnings_for_arre) + '</div></div>'
+      : '';
+
+    var switchingHtml = c.switching_signal
+      ? '<div class="theme-headline" style="margin-top:10px;font-size:14px">' + safe(c.switching_signal) + '</div>'
+      : '';
+
     html += '<div class="theme-card" style="margin-bottom:12px"><div class="theme-card-inner">';
     html += '<div class="theme-top"><div class="theme-tag" style="background:var(--accent-dim);color:var(--accent-text);border:1px solid #e8572a44">' + safe(c.app) + '</div>';
     html += '<div class="urgency-badge">' + pips + '<span class="urgency-label">U' + (c.urgency || '?') + '</span></div></div>';
-    html += '<div class="theme-headline">' + safe(c.switching_signal) + '</div>';
-    html += '<div class="theme-grid" style="margin-bottom:10px">';
+    html += contentHtml + creatorHtml + workingHtml + learningsHtml;
+    html += '<div class="comp-grid-2">';
     html += '<div class="theme-meta-block"><div class="meta-key">Top complaints</div><div class="meta-val">' + (c.top_complaints || []).map(safe).join('<br>') + '</div></div>';
     html += '<div class="theme-meta-block"><div class="meta-key">Wanted features</div><div class="meta-val">' + (c.wanted_features || []).map(safe).join('<br>') + '</div></div>';
-    html += '</div><div class="theme-example" style="border-left:2px solid #e8572a">Opportunity for Arre: ' + safe(c.opportunity_for_arre) + '</div>';
+    html += '</div>';
+    html += switchingHtml;
+    html += '<div class="theme-example" style="border-left:2px solid #e8572a;margin-top:10px">Opportunity for Arre: ' + safe(c.opportunity_for_arre) + '</div>';
     html += '</div></div>';
   });
   document.getElementById('comp-result').innerHTML = html;
@@ -1382,6 +1617,18 @@ function renderReport(json, segLabel, timewin, mode) {
   document.getElementById('r-mode').textContent = mode || 'gemini';
   document.getElementById('top10-win').textContent = timewin;
 
+  // Executive summary
+  var execEl = document.getElementById('exec-summary-section');
+  if (execEl) {
+    if (json.executive_summary) {
+      execEl.innerHTML = '<div class="exec-summary"><div class="exec-summary-label">' +
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>' +
+        'Executive summary</div><div class="exec-summary-text">' + safe(json.executive_summary) + '</div></div>';
+    } else {
+      execEl.innerHTML = '';
+    }
+  }
+
   document.getElementById('sources-bar').innerHTML = ['Reddit','Twitter/X','YouTube','Play Store','Google Search'].map(function(s) { return '<div class="source-pill">' + s + '</div>'; }).join('');
 
   var tc = document.getElementById('themes-container');
@@ -1391,19 +1638,53 @@ function renderReport(json, segLabel, timewin, mode) {
     var pips = [1,2,3,4,5].map(function(i) { return '<div class="urgency-pip' + (i <= (parseInt(t.urgency) || 0) ? ' lit' : '') + '"></div>'; }).join('');
     var aColor = {immediate:'#e8572a','next sprint':'#f0a500',backlog:'#5a5754'}[t.product_action] || '#5a5754';
     var platforms = Array.isArray(t.platforms_found) ? t.platforms_found.join(' · ') : 'multiple platforms';
+    var volume = parseInt(t.volume_estimate) || 0;
+
+    // Backward compatibility: older history items only have real_example (singular)
+    var examples = Array.isArray(t.examples) && t.examples.length ? t.examples : (t.real_example ? [t.real_example] : []);
+
+    var examplesHtml = '';
+    if (examples.length) {
+      examplesHtml = '<div class="examples-list">' + examples.map(function(ex) {
+        return '<div class="example-item" style="border-left:2px solid ' + c.tag + '">' + safe(ex) + '</div>';
+      }).join('') + '</div>';
+    }
+
+    var affectedHtml = t.affected_segment
+      ? '<div class="theme-affected"><b>Most affected:</b> ' + safe(t.affected_segment) + '</div>'
+      : '';
+
+    var competitors = Array.isArray(t.competitor_mentions) ? t.competitor_mentions.filter(Boolean) : [];
+    var competitorsHtml = competitors.length
+      ? '<div class="competitor-pills">' + competitors.map(function(comp) {
+          return '<span class="competitor-pill">' + safe(comp) + '</span>';
+        }).join('') + '</div>'
+      : '';
+
+    var nextStepHtml = t.next_step
+      ? '<div class="next-step-block"><div class="next-step-label">Next step</div><div class="next-step-text">' + safe(t.next_step) + '</div></div>'
+      : '';
+
+    var volumeHtml = volume > 0
+      ? '<span class="theme-volume"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>~' + volume + ' mentions</span>'
+      : '';
+
     tc.innerHTML +=
       '<div class="theme-card"><div class="theme-card-inner">' +
       '<div class="theme-top"><div class="theme-tag" style="background:' + c.bg + ';color:' + c.text + ';border:1px solid ' + c.tag + '44">' + safe(t.theme) + '</div>' +
-      '<div class="urgency-badge">' + pips + '<span class="urgency-label">U' + (t.urgency || '?') + '</span></div></div>' +
+      '<div style="display:flex;align-items:center;gap:10px">' + volumeHtml + '<div class="urgency-badge">' + pips + '<span class="urgency-label">U' + (t.urgency || '?') + '</span></div></div></div>' +
       '<div class="theme-headline">' + safe(t.headline) + '</div>' +
       '<div class="theme-why">' + safe(t.why_now) + '</div>' +
-      '<div class="theme-grid">' +
+      affectedHtml +
+      '<div class="theme-grid" style="margin-top:10px">' +
       '<div class="theme-meta-block"><div class="meta-key">Emotional driver</div><div class="meta-val">' + safe(t.emotional_driver) + '</div></div>' +
       '<div class="theme-meta-block"><div class="meta-key">Signal strength</div><div class="meta-val">' + safe(t.signal_strength) + '</div></div>' +
       '<div class="theme-meta-block"><div class="meta-key">Product signal</div><div class="meta-val">' + safe(t.product_signal) + '</div></div>' +
       '<div class="theme-meta-block"><div class="meta-key">Action timing</div><div class="meta-val" style="color:' + aColor + '">' + safe(t.product_action) + '</div></div>' +
       '</div>' +
-      (t.real_example ? '<div class="theme-example" style="border-left:2px solid ' + c.tag + '">' + safe(t.real_example) + '</div>' : '') +
+      examplesHtml +
+      competitorsHtml +
+      nextStepHtml +
       '</div><div class="theme-card-footer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Found on: ' + safe(platforms) + '</div></div>';
   });
 
@@ -1461,13 +1742,26 @@ function buildText() {
   var t = 'ARRE VOICE - DAILY AUDIENCE INSIGHTS\n';
   t += 'Generated: ' + new Date().toLocaleString('en-IN') + ' | ' + seg + ' | ' + tw + ' | mode: ' + mode + '\n';
   t += '------------------------------------------------------------\n\n';
+  if (j.executive_summary) {
+    t += 'EXECUTIVE SUMMARY\n' + j.executive_summary + '\n\n------------------------------------------------------------\n\n';
+  }
   (j.themes || []).forEach(function(th, i) {
-    t += 'THEME ' + (i+1) + ': ' + (th.theme || '').toUpperCase() + ' [Urgency: ' + th.urgency + '/5]\n';
+    var vol = parseInt(th.volume_estimate) || 0;
+    t += 'THEME ' + (i+1) + ': ' + (th.theme || '').toUpperCase() + ' [Urgency: ' + th.urgency + '/5]' + (vol > 0 ? ' [~' + vol + ' mentions]' : '') + '\n';
     t += (th.headline || '') + '\n\nWhy now: ' + (th.why_now || '') + '\n';
+    if (th.affected_segment) t += 'Most affected: ' + th.affected_segment + '\n';
     t += 'Emotional driver: ' + (th.emotional_driver || '') + ' | Signal: ' + (th.signal_strength || '') + '\n';
     t += 'Found on: ' + (Array.isArray(th.platforms_found) ? th.platforms_found.join(', ') : '') + '\n\n';
-    t += 'Product signal: ' + (th.product_signal || '') + '\nAction timing: ' + (th.product_action || '') + '\n';
-    if (th.real_example) t += 'Example: ' + th.real_example + '\n';
+    t += 'Product signal: ' + (th.product_signal || '') + '\n';
+    if (th.next_step) t += 'Next step: ' + th.next_step + '\n';
+    t += 'Action timing: ' + (th.product_action || '') + '\n';
+    var examples = Array.isArray(th.examples) && th.examples.length ? th.examples : (th.real_example ? [th.real_example] : []);
+    if (examples.length) {
+      t += '\nExamples:\n';
+      examples.forEach(function(ex, ei) { t += '  ' + (ei+1) + '. ' + ex + '\n'; });
+    }
+    var comps = Array.isArray(th.competitor_mentions) ? th.competitor_mentions.filter(Boolean) : [];
+    if (comps.length) t += '\nCompetitor mentions: ' + comps.join(', ') + '\n';
     t += '\n------------------------------------------------------------\n\n';
   });
   t += 'TOP 10 TOPICS (' + tw + ')\n\n';
@@ -1487,9 +1781,11 @@ function copySlack() {
   if (!lastReport) { alert('Generate a report first.'); return; }
   var j = lastReport.json, seg = lastReport.segment, tw = lastReport.timewin;
   var t = '*Arre Voice Audience Insights* — ' + seg + ' (' + tw + ')\n\n';
+  if (j.executive_summary) t += '_' + j.executive_summary + '_\n\n';
   (j.themes || []).forEach(function(th) {
     t += '*' + (th.theme || '') + ' [U' + (th.urgency || '?') + '/5]*\n';
     t += (th.headline || '') + '\n';
+    if (th.next_step) t += '→ ' + th.next_step + '\n';
     t += 'Signal: ' + (th.product_signal || '') + ' | Action: ' + (th.product_action || '') + '\n\n';
   });
   t += '*Top topics:* ' + (j.top10 || []).slice(0,5).map(function(i) { return i.topic || ''; }).filter(Boolean).join(', ');
@@ -1550,6 +1846,33 @@ function setRunBtn(id, loading) {
   btn.innerHTML = loading
     ? '<div class="spinner"></div> Researching...'
     : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> ' + (labels[id] || 'Run');
+
+  // Show/hide the matching Stop button
+  var stopIds = {'run-btn': 'stop-btn', 'compare-btn': 'compare-stop-btn', 'comp-btn': 'comp-stop-btn'};
+  var stopBtn = document.getElementById(stopIds[id]);
+  if (stopBtn) stopBtn.classList.toggle('visible', loading);
+}
+
+// ══════════════════════════════════════════════
+// STOP RESEARCH
+// ══════════════════════════════════════════════
+function stopResearch(errId) {
+  activeRunId++; // invalidate any in-flight run so late responses are ignored
+  if (activeController) {
+    try { activeController.abort(); } catch(e) {}
+    activeController = null;
+  }
+  // Reset all possible UI states across tabs
+  hideStatusBar('status-bar');
+  hideStatusBar('compare-status');
+  hideStatusBar('comp-status');
+  var pipe = document.getElementById('pipeline');
+  if (pipe) pipe.style.display = 'none';
+  setRunBtn('run-btn', false);
+  setRunBtn('compare-btn', false);
+  setRunBtn('comp-btn', false);
+  if (errId) showErr(errId, 'Research stopped.', '');
+  showToast('Research stopped');
 }
 </script>
 </body>
