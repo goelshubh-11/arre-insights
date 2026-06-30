@@ -1118,7 +1118,7 @@ async function callOpenAISynthesize(rawText, focuses, segLabel, timewin, statusT
       body: JSON.stringify({
         model: 'gpt-4o',
         temperature: 0.3,
-        max_tokens: 6000,
+        max_tokens: 12000,
         response_format: {type: 'json_object'},
         messages: [{role: 'user', content: buildSynthesisPrompt(rawText, focuses, segLabel, timewin)}]
       })
@@ -1150,21 +1150,62 @@ async function callOpenAISynthesize(rawText, focuses, segLabel, timewin, statusT
 // JSON PARSING
 // ══════════════════════════════════════════════
 function parseRawJSON(text, skipThemeCheck) {
+  // Stage 1: normalise smart quotes and strip markdown fences if present
   var cleaned = text
     .replace(/[\u2018\u2019]/g, "'")
     .replace(/[\u201C\u201D]/g, '"')
-    .replace(/,(\s*[}\]])/g, '$1');
+    .replace(/```json/gi, '')
+    .replace(/```/g, '');
+
   var start = cleaned.indexOf('{');
   var end = cleaned.lastIndexOf('}');
   if (start === -1 || end === -1 || end <= start) throw new Error('NO_JSON');
   var jsonStr = cleaned.slice(start, end + 1);
-  var json;
-  try { json = JSON.parse(jsonStr); }
-  catch(e) {
+
+  var lastErr = null;
+
+  // Attempt 1: parse as-is
+  try { return finalizeJSON(JSON.parse(jsonStr), skipThemeCheck); }
+  catch(e) { lastErr = e; }
+
+  // Attempt 2: remove trailing commas before } or ]
+  try {
     var c2 = jsonStr.replace(/,(\s*[}\]])/g, '$1');
-    try { json = JSON.parse(c2); }
-    catch(e2) { throw new Error('JSON_PARSE: ' + e.message); }
-  }
+    return finalizeJSON(JSON.parse(c2), skipThemeCheck);
+  } catch(e) { lastErr = e; }
+
+  // Attempt 3: strip raw control characters (unescaped newlines/tabs inside strings break JSON.parse)
+  try {
+    var c3 = jsonStr
+      .replace(/,(\s*[}\]])/g, '$1')
+      .replace(/[\x00-\x09\x0B\x0C\x0E-\x1F]/g, ' ');
+    return finalizeJSON(JSON.parse(c3), skipThemeCheck);
+  } catch(e) { lastErr = e; }
+
+  // Attempt 4: try to recover by truncating to the last complete top-level object
+  // This handles cases where the model's output was cut off mid-string.
+  try {
+    var c4 = jsonStr.replace(/,(\s*[}\]])/g, '$1').replace(/[\x00-\x09\x0B\x0C\x0E-\x1F]/g, ' ');
+    var lastGoodBrace = c4.lastIndexOf('}');
+    // Walk backwards through candidate closing positions until one parses
+    while (lastGoodBrace > 0) {
+      var candidate = c4.slice(0, lastGoodBrace + 1);
+      // Balance any unclosed brackets by counting
+      var openBraces = (candidate.match(/{/g) || []).length;
+      var closeBraces = (candidate.match(/}/g) || []).length;
+      var openBrackets = (candidate.match(/\[/g) || []).length;
+      var closeBrackets = (candidate.match(/\]/g) || []).length;
+      var padded = candidate + ']'.repeat(Math.max(0, openBrackets - closeBrackets)) + '}'.repeat(Math.max(0, openBraces - closeBraces));
+      try { return finalizeJSON(JSON.parse(padded), skipThemeCheck); }
+      catch(e3) { /* keep walking backwards */ }
+      lastGoodBrace = c4.lastIndexOf('}', lastGoodBrace - 1);
+    }
+  } catch(e) { lastErr = e; }
+
+  throw new Error('JSON_PARSE: ' + (lastErr ? lastErr.message : 'unknown parse failure'));
+}
+
+function finalizeJSON(json, skipThemeCheck) {
   if (!skipThemeCheck && (!json.themes || !Array.isArray(json.themes) || json.themes.length === 0)) throw new Error('NO_THEMES');
   if (!json.top10 || !Array.isArray(json.top10)) json.top10 = [];
   return json;
